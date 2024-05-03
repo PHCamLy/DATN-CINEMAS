@@ -157,3 +157,8 @@
         </div>
     </div>
 </div>
+@section('scripts')
+<script src="{{ asset('js/funtion.js') }}"></script>
+<script src="{{ asset('js/constant.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
+@stop

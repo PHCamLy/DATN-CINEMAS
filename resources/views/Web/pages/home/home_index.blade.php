@@ -1,24 +1,15 @@
 @extends('Web.layouts.layout')
 
 @section('title', 'App - Top Page')
-<!-- @section('style-libraries')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css">
-@stop -->
+
 
 @section('styles')
-{{--custom css item suggest search--}}
 <style>
 .autocomplete-group {
     padding: 2px 5px;
 }
 </style>
 @stop
-
-<!-- 
-@section('breadcrumb')
-@include('Web.element.breadcrumb')
-@stop -->
 
 @section('content')
 <div class="margin-none">
@@ -46,37 +37,41 @@
                 <div class="carousel-inner">
 
                     <div class="item">
-                        <a href="https://betacinemas.vn/khuyen-mai-moi/he-ruc-chay-sale-cham-day.htm"><img
-                                src="../files.betacorp.vn/media/images/2024/04/21/he-ruc-chay-sale-cham-day-1702-x-621-193310-210424-33.png"
-                                alt="" style="width:100%;"></a>
+                        <a href="#">
+                            <img src="https://files.betacorp.vn/media/images/2024/04/11/huong-dan-dang-nhap-1702-x-621-2-163005-110424-74.png"
+                                alt="" style="width:100%;">
+                        </a>
                     </div>
 
                     <div class="item">
-                        <a href="https://betacinemas.vn/khuyen-mai-moi/99k-tau-ngay-ve-va-combo-bap-nuoc.htm"><img
-                                src="../files.betacorp.vn/media/images/2024/04/22/combo-hoc-sinh-sinh-vien-1702-x-621-163247-220424-10.png"
-                                alt="" style="width:100%;"></a>
+                        <a href="#">
+                            <img src="https://files.betacorp.vn/media/images/2024/04/11/huong-dan-dang-nhap-1702-x-621-2-163005-110424-74.png"
+                                alt="" style="width:100%;">
+                        </a>
                     </div>
 
                     <div class="item active">
-                        <a href="https://betacinemas.vn/khuyen-mai-moi/deal-nong-bong-hong-he-sang.htm"><img
-                                src="../files.betacorp.vn/media/images/2024/04/21/deal-nong-bong-don-he-sang-1702-x-621-193117-210424-53.png"
-                                alt="" style="width:100%;"></a>
+                        <a href="#">
+                            <img src="https://files.betacorp.vn/media/images/2024/04/11/huong-dan-dang-nhap-1702-x-621-2-163005-110424-74.png"
+                                alt="" style="width:100%;">
+                        </a>
                     </div>
 
                     <div class="item">
-                        <a href="tin-ben-le/huong-dan-dang-nhap-tai-khoan-beta-cinemas.html"><img
-                                src="../files.betacorp.vn/media/images/2024/04/11/huong-dan-dang-nhap-1702-x-621-2-163005-110424-74.png"
-                                alt="" style="width:100%;"></a>
+                        <a href="#">
+                            <img src="https://files.betacorp.vn/media/images/2024/04/11/huong-dan-dang-nhap-1702-x-621-2-163005-110424-74.png"
+                                alt="" style="width:100%;">
+                        </a>
                     </div>
 
                     <div class="item">
-                        <a href="https://betacinemas.vn/beta-cinemas-ung-van-khiem-sieu-pham-trong-thoi-gian-toi.htm"><img
-                                src="../files.betacorp.vn/media/images/2024/04/12/sap-khai-truong-uvk-2-1702-x-621-151519-120424-79.png"
-                                alt="" style="width:100%;"></a>
+                        <a href="#">
+                            <img src="https://files.betacorp.vn/media/images/2024/04/11/huong-dan-dang-nhap-1702-x-621-2-163005-110424-74.png"
+                                alt="" style="width:100%;">
+                        </a>
                     </div>
 
                 </div>
-
                 <!-- Left and right controls -->
                 <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left"></span>
@@ -133,7 +128,7 @@
                                             <div class="product-item no-padding">
                                                 <div class="pi-img-wrapper">
                                                     <img class="img-responsive border-radius-20" alt=""
-                                                        src="../files.betacorp.vn/media/images/2024/04/22/400x633-103634-220424-69.png">
+                                                        src="https://files.betacorp.vn/media%2fimages%2f2024%2f04%2f22%2f400x633%2D103634%2D220424%2D69.png">
                                                     <span style="position: absolute; top: 10px; left: 10px;">
                                                         <img src="#" class="img-responsive">
                                                     </span>
@@ -183,7 +178,7 @@
                                             <div class="product-item no-padding">
                                                 <div class="pi-img-wrapper">
                                                     <img class="img-responsive border-radius-20" alt=""
-                                                        src="../files.betacorp.vn/media/images/2024/04/19/400x633-17-114455-190424-54.jpg">
+                                                        src="https://files.betacorp.vn/media%2fimages%2f2024%2f04%2f22%2f400x633%2D103634%2D220424%2D69.png">
                                                     <span style="position: absolute; top: 10px; left: 10px;">
                                                         <img src="Assets/Common/icons/films/c-18.png"
                                                             class="img-responsive">
@@ -234,7 +229,7 @@
                                             <div class="product-item no-padding">
                                                 <div class="pi-img-wrapper">
                                                     <img class="img-responsive border-radius-20" alt=""
-                                                        src="../files.betacorp.vn/media/images/2024/03/31/400x633-8-171904-310324-45.jpg">
+                                                        src="https://files.betacorp.vn/media%2fimages%2f2024%2f04%2f22%2f400x633%2D103634%2D220424%2D69.png">
                                                     <span style="position: absolute; top: 10px; left: 10px;">
                                                         <img src="Assets/Common/icons/films/c-18.png"
                                                             class="img-responsive">
@@ -285,7 +280,7 @@
                                             <div class="product-item no-padding">
                                                 <div class="pi-img-wrapper">
                                                     <img class="img-responsive border-radius-20" alt=""
-                                                        src="../files.betacorp.vn/media/images/2024/04/17/thumb-115623-170424-49.jpg">
+                                                        src="https://files.betacorp.vn/media%2fimages%2f2024%2f04%2f22%2f400x633%2D103634%2D220424%2D69.png">
                                                     <span style="position: absolute; top: 10px; left: 10px;">
                                                         <img src="Assets/Common/icons/films/c-13.png"
                                                             class="img-responsive">
@@ -336,7 +331,7 @@
                                             <div class="product-item no-padding">
                                                 <div class="pi-img-wrapper">
                                                     <img class="img-responsive border-radius-20" alt=""
-                                                        src="../files.betacorp.vn/media/images/2024/04/05/quy-cai-135324-050424-10.jpg">
+                                                        src="https://files.betacorp.vn/media%2fimages%2f2024%2f04%2f22%2f400x633%2D103634%2D220424%2D69.png">
                                                     <span style="position: absolute; top: 10px; left: 10px;">
                                                         <img src="Assets/Common/icons/films/c-18.png"
                                                             class="img-responsive">
@@ -385,7 +380,7 @@
                                             <div class="product-item no-padding">
                                                 <div class="pi-img-wrapper">
                                                     <img class="img-responsive border-radius-20" alt=""
-                                                        src="../files.betacorp.vn/media/images/2024/03/31/4x5-digital-172214-310324-65.png">
+                                                        src="https://files.betacorp.vn/media%2fimages%2f2024%2f04%2f22%2f400x633%2D103634%2D220424%2D69.png">
                                                     <span style="position: absolute; top: 10px; left: 10px;">
                                                         <img src="Assets/Common/icons/films/c-18.png"
                                                             class="img-responsive">
@@ -434,7 +429,7 @@
                                             <div class="product-item no-padding">
                                                 <div class="pi-img-wrapper">
                                                     <img class="img-responsive border-radius-20" alt=""
-                                                        src="../files.betacorp.vn/media/images/2024/03/31/vn-gxk-vert-tsr-2764x4096-intl-165547-310324-43.jpg">
+                                                        src="https://files.betacorp.vn/media%2fimages%2f2024%2f04%2f22%2f400x633%2D103634%2D220424%2D69.png">
                                                     <span style="position: absolute; top: 10px; left: 10px;">
                                                         <img src="#" class="img-responsive">
                                                     </span>
@@ -482,7 +477,7 @@
                                             <div class="product-item no-padding">
                                                 <div class="pi-img-wrapper">
                                                     <img class="img-responsive border-radius-20" alt=""
-                                                        src="../files.betacorp.vn/media/images/2024/04/15/470wx700h-101327-150424-93.jpg">
+                                                        src="https://files.betacorp.vn/media%2fimages%2f2024%2f04%2f22%2f400x633%2D103634%2D220424%2D69.png">
                                                     <span style="position: absolute; top: 10px; left: 10px;">
                                                         <img src="Assets/Common/icons/films/c-16.png"
                                                             class="img-responsive">
@@ -531,7 +526,7 @@
                                             <div class="product-item no-padding">
                                                 <div class="pi-img-wrapper">
                                                     <img class="img-responsive border-radius-20" alt=""
-                                                        src="../files.betacorp.vn/media/images/2024/04/18/400wx633h-200926-180424-62.jpg">
+                                                        src="https://files.betacorp.vn/media%2fimages%2f2024%2f04%2f22%2f400x633%2D103634%2D220424%2D69.png">
                                                     <span style="position: absolute; top: 10px; left: 10px;">
                                                         <img src="Assets/Common/icons/films/c-18.png"
                                                             class="img-responsive">
@@ -580,7 +575,7 @@
                                             <div class="product-item no-padding">
                                                 <div class="pi-img-wrapper">
                                                     <img class="img-responsive border-radius-20" alt=""
-                                                        src="../files.betacorp.vn/media/images/2024/03/31/400x633-7-171143-310324-77.jpg">
+                                                        src="https://files.betacorp.vn/media%2fimages%2f2024%2f04%2f22%2f400x633%2D103634%2D220424%2D69.png">
                                                     <span style="position: absolute; top: 10px; left: 10px;">
                                                         <img src="Assets/Common/icons/films/c-13.png"
                                                             class="img-responsive">
@@ -629,7 +624,7 @@
                                             <div class="product-item no-padding">
                                                 <div class="pi-img-wrapper">
                                                     <img class="img-responsive border-radius-20" alt=""
-                                                        src="../files.betacorp.vn/media/images/2024/04/15/400x633-15-131927-150424-42.jpg">
+                                                        src="https://files.betacorp.vn/media%2fimages%2f2024%2f04%2f22%2f400x633%2D103634%2D220424%2D69.png">
                                                     <span style="position: absolute; top: 10px; left: 10px;">
                                                         <img src="Assets/Common/icons/films/c-13.png"
                                                             class="img-responsive">
@@ -678,7 +673,7 @@
                                             <div class="product-item no-padding">
                                                 <div class="pi-img-wrapper">
                                                     <img class="img-responsive border-radius-20" alt=""
-                                                        src="../files.betacorp.vn/media/images/2024/03/31/400x633-5-164849-310324-56.jpg">
+                                                        src="https://files.betacorp.vn/media%2fimages%2f2024%2f04%2f22%2f400x633%2D103634%2D220424%2D69.png">
                                                     <span style="position: absolute; top: 10px; left: 10px;">
                                                         <img src="Assets/Common/icons/films/c-16.png"
                                                             class="img-responsive">
@@ -727,7 +722,7 @@
                                             <div class="product-item no-padding">
                                                 <div class="pi-img-wrapper">
                                                     <img class="img-responsive border-radius-20" alt=""
-                                                        src="../files.betacorp.vn/media/images/2024/04/10/wb-400x633-155807-100424-39.jpg">
+                                                        src="https://files.betacorp.vn/media%2fimages%2f2024%2f04%2f22%2f400x633%2D103634%2D220424%2D69.png">
                                                     <span style="position: absolute; top: 10px; left: 10px;">
                                                         <img src="Assets/Common/icons/films/c-18.png"
                                                             class="img-responsive">
@@ -776,7 +771,7 @@
                                             <div class="product-item no-padding">
                                                 <div class="pi-img-wrapper">
                                                     <img class="img-responsive border-radius-20" alt=""
-                                                        src="../files.betacorp.vn/media/images/2024/04/15/400x633-13-095952-150424-49.jpg">
+                                                        src="https://files.betacorp.vn/media%2fimages%2f2024%2f04%2f22%2f400x633%2D103634%2D220424%2D69.png">
                                                     <span style="position: absolute; top: 10px; left: 10px;">
                                                         <img src="Assets/Common/icons/films/p.png"
                                                             class="img-responsive">
@@ -825,7 +820,7 @@
                                             <div class="product-item no-padding">
                                                 <div class="pi-img-wrapper">
                                                     <img class="img-responsive border-radius-20" alt=""
-                                                        src="../files.betacorp.vn/media/images/2024/04/08/470wx700h-civilwar-224506-080424-17.jpg">
+                                                        src="https://files.betacorp.vn/media%2fimages%2f2024%2f04%2f22%2f400x633%2D103634%2D220424%2D69.png">
                                                     <span style="position: absolute; top: 10px; left: 10px;">
                                                         <img src="Assets/Common/icons/films/c-18.png"
                                                             class="img-responsive">
@@ -874,7 +869,7 @@
                                             <div class="product-item no-padding">
                                                 <div class="pi-img-wrapper">
                                                     <img class="img-responsive border-radius-20" alt=""
-                                                        src="../files.betacorp.vn/media/images/2024/04/08/400x633-11-223056-080424-39.jpg">
+                                                        src="https://files.betacorp.vn/media%2fimages%2f2024%2f04%2f22%2f400x633%2D103634%2D220424%2D69.png">
                                                     <span style="position: absolute; top: 10px; left: 10px;">
                                                         <img src="Assets/Common/icons/films/c-13.png"
                                                             class="img-responsive">
@@ -1002,18 +997,3 @@
     </div>
 </div>
 @stop
-
-
-
-<!-- @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
-{{--jquery.autocomplete.js--}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.10/jquery.autocomplete.min.js">
-</script>
-{{--quick defined--}}
-<script>
-$(function() {
-    // your custom javascript
-});
-</script>
-@stop -->
