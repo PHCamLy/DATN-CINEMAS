@@ -127,10 +127,6 @@ class BannerController extends AdminAppController
     public function banner_delete($id = null)
     {   
 
-
-
-
-
     }
 
 
