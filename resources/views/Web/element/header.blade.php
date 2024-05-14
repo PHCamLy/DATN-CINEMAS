@@ -6,20 +6,24 @@
             <div class="row">
                 <!-- BEGIN TOP BAR MENU -->
                 <div class="col-md-16 col-sm-16 additional-nav">
-                    <div class="pull-right padding-left-10">
+                    <?php	 if(Session::get('user') != null ){ 	 ?>
+                        <div class="pull-right padding-left-10">
+                            <a href="#">Hi, <?php echo Session::get('user')['fullname']?></a>                            
+                        </div>
+                   
+                    <?php	 } else {	 ?>
+                        <div class="pull-right padding-left-10">
 
-                        <a id="BodyContent_ctl00_ctl04_hlEn" onclick="changelang('eng');"><img
-                                src="../Assets/Common/icons/united-kingdom.png" class="img-responsive"></a>
-                    </div>
-                    <ul class="list-unstyled list-inline pull-right" style="margin-bottom: 4px;margin-top: 4px;">
-                        <li id="BodyContent_ctl00_ctl04_liLogin"><a href="../login">Đăng nhập</a></li>
-                        <li id="BodyContent_ctl00_ctl04_liRegister"
-                            style="border-left: 1px solid; padding-left: 10px !important;"><a
-                                href="../login">Đăng ký</a></li>
-                    </ul>
-                    <!-- BEGIN TOP NAVIGATION MENU -->
-
-                    <!-- END TOP NAVIGATION MENU -->
+                            <a id="BodyContent_ctl00_ctl04_hlEn" onclick="changelang('eng');"><img
+                                    src="../Assets/Common/icons/united-kingdom.png" class="img-responsive"></a>
+                        </div>
+                        <ul class="list-unstyled list-inline pull-right" style="margin-bottom: 4px;margin-top: 4px;">
+                            <li id="BodyContent_ctl00_ctl04_liLogin"><a href="../login">Đăng nhập</a></li>
+                            <li id="BodyContent_ctl00_ctl04_liRegister"
+                                style="border-left: 1px solid; padding-left: 10px !important;"><a href="../login">Đăng
+                                    ký</a></li>
+                        </ul>
+                    <?php	 } 	 ?>
                 </div>
                 <!-- END TOP BAR MENU -->
             </div>

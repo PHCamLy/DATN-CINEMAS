@@ -10,13 +10,14 @@ use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\UserController;
 use App\Http\Middleware\CheckLoginAdmin;
 use App\Http\Middleware\ValidLoginAdmin;
+use App\Http\Middleware\WebCheckLogin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // router web
 Route::get('/', [HomeController::class, 'home_index']);
 Route::post('/', [HomeController::class, 'home_index']);
-Route::get('/login', [UserController::class, 'login']);
+Route::get('/login', [UserController::class, 'login'])->middleware(WebCheckLogin::class);
 
 Route::post('/uploads', [UploadController::class, 'fileUpload']);
 Route::get('/uploads', [UploadController::class, 'fileUpload']);
