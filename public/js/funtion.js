@@ -8,7 +8,18 @@ function endSending() {
     $('body').css('cursor', 'auto');
 }
 
-function validateEmail(email) {
-    const emailRegex = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-    return emailRegex.test(email);
+function init_notify() {
+    var d = $('#flash').val();
+    console.log(d);
+    if (d != '' && d != undefined) {
+        d = JSON.parse(d);
+        if (d.msg != '') {
+            if (d.res == 'done') {
+                Swal.fire(d.msg, '', "success");
+            } else {
+                Swal.fire(d.msg, '', "warning");
+            }
+        }
+    }
 }
+init_notify()

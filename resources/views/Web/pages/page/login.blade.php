@@ -30,14 +30,15 @@
         <div class="tab-content font-family-san font-16" style="background-color: #fff;">
             
             <div class="tab-pane fade in active" id="login">
-                <form onsubmit="return false;" id="form-login">
+                <form action="<?php echo $DOMAIN; ?>" method="POST">
+                    @csrf
                     <div class="clearfix"></div>
                     <div class="form-group">
                         <div class="col-md-16 margin-bottom-10">
                             <label class="control-label font-16">Email</label>
                             <div class="input-icon">
                                 <i class="fa fa-user"></i>
-                                <input type="text" id="txtLoginName" class="form-control" placeholder="Email">
+                                <input type="text" id="txtLoginName" name="email" class="form-control" placeholder="Email">
                             </div>
                         </div>
                     </div>
@@ -47,7 +48,7 @@
                             <label class="control-label font-16">Mật khẩu</label>
                             <div class="input-icon">
                                 <i class="fa fa-lock"></i>
-                                <input type="password" id="txtLoginPassword" class="form-control" placeholder="Mật khẩu">
+                                <input type="password" name="pass" id="txtLoginPassword" class="form-control" placeholder="Mật khẩu">
                             </div>
                         </div>
                     </div>
@@ -58,6 +59,7 @@
                         </div>
                     </div>
                     <div class="clearfix"></div>
+                    <input type="hidden" name="req_type" value="login">
                     @php
                     /*
                     <div class="form-group">
@@ -76,6 +78,7 @@
                     <div class="form-group">
                         <div class="col-md-16 text-center">
                             <div class="form-group">
+                                <button type="submit">submit</button>
                                 <button type="button" style="min-width: 220px;" id="btnLogin" onclick="login();"
                                     class="btn btn-3 btn-mua-ve">
                                     Đăng nhập</button>

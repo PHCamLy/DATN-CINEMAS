@@ -1,3 +1,4 @@
+<input type="hidden" id="flash" value='<?php echo  Session::get('msg') != null ? Session::get('msg'): ''; ?>'>
 <div class="pre-footer">
     <div class="container">
         <div class="row">

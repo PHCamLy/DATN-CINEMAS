@@ -6,22 +6,16 @@
             <div class="row">
                 <!-- BEGIN TOP BAR MENU -->
                 <div class="col-md-16 col-sm-16 additional-nav">
-                    @php  /*
                     <div class="pull-right padding-left-10">
 
                         <a id="BodyContent_ctl00_ctl04_hlEn" onclick="changelang('eng');"><img
                                 src="../Assets/Common/icons/united-kingdom.png" class="img-responsive"></a>
                     </div>
-                    */
-                    @endphp
-                    <ul class="user-uri list-unstyled list-inline pull-right" style="margin-bottom: 4px;margin-top: 4px;">
-                        <li id="BodyContent_ctl00_ctl04_liLogin"><a href="../login#login">Đăng nhập</a></li>
+                    <ul class="list-unstyled list-inline pull-right" style="margin-bottom: 4px;margin-top: 4px;">
+                        <li id="BodyContent_ctl00_ctl04_liLogin"><a href="../login.html#login">Đăng nhập</a></li>
                         <li id="BodyContent_ctl00_ctl04_liRegister"
                             style="border-left: 1px solid; padding-left: 10px !important;"><a
-                                href="../login#register">Đăng ký</a></li>
-                    </ul>
-                    <ul class="user-hello list-unstyled list-inline pull-right hide" style="margin-bottom: 4px;margin-top: 4px;">
-                        <li><a class="user-fullname" href="javascript:;">Hi, DoraShang</a></li>
+                                href="../login.html#register">Đăng ký</a></li>
                     </ul>
                     <!-- BEGIN TOP NAVIGATION MENU -->
 

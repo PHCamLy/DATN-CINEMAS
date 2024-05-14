@@ -20,5 +20,18 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+        app('view')->composer('Admin.layouts.layout', function ($view) {
+            $action = app('request')->route()->getAction();
+    
+            $controller = class_basename($action['controller']);
+    
+            list($controller, $action) = explode('@', $controller);
+    
+            $view->with(compact('controller', 'action'));
+        });
+
+        
+
+
     }
 }

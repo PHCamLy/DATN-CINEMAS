@@ -1,4 +1,4 @@
 
 
 
-const LOGIN_URL = DOMAIN + 'login';
+const LOGIN_URL = DOMAIN;
