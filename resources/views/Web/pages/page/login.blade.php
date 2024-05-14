@@ -78,8 +78,7 @@
                     <div class="form-group">
                         <div class="col-md-16 text-center">
                             <div class="form-group">
-                                <button type="submit">submit</button>
-                                <button type="button" style="min-width: 220px;" id="btnLogin" onclick="login();"
+                                <button type="submit" style="min-width: 220px;" id="btnLogin" onclick="login();"
                                     class="btn btn-3 btn-mua-ve">
                                     Đăng nhập</button>
                             </div>

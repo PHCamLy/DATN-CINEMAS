@@ -15,7 +15,7 @@ class UserController extends AppController
 
     function login()
     {
-        $this->pr(session()->all());
+        // $this->pr(session()->all());
         
         return view($this->view_path . 'page.login');
     }

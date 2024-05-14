@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 // router web
 Route::get('/', [HomeController::class, 'home_index']);
 Route::post('/', [HomeController::class, 'home_index']);
+Route::get('/login', [UserController::class, 'login']);
+
 Route::post('/uploads', [UploadController::class, 'fileUpload']);
 Route::get('/uploads', [UploadController::class, 'fileUpload']);
 
