@@ -1,4 +1,18 @@
-.header {
-    font-size: 30px;
-    font-weight: 600;
+.film-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.page-banner {
+    margin-bottom: 30px;
+}
+
+h1.film-title {
+    font-size: 26px;
+}
+
+.iframe-youtobe iframe{
+    width: 100% !important;
+    height: 60vh;
 }

@@ -30,13 +30,25 @@ class AdminAppController extends Controller
             ),
             'Film' => array(
                 'icon' => 'bx bxl-product-hunt',
-                'link' => 'film/films_list',
+                'link' => 'film/film_list',
                 'child' => array(
                     'Danh sách' => array(
-                        'link' => 'film/films_list'
+                        'link' => 'film/film_list'
                     ),
                     'Thêm mới' => array(
-                        'link' => 'film/films_add'
+                        'link' => 'film/film_add'
+                    ),
+                ),
+            ),
+            'Tin tức' => array(
+                'icon' => 'bx bxl-product-hunt',
+                'link' => 'new/new_list',
+                'child' => array(
+                    'Danh sách' => array(
+                        'link' => 'new/new_list'
+                    ),
+                    'Thêm mới' => array(
+                        'link' => 'new/new_add'
                     ),
                 ),
             ),
@@ -194,16 +206,20 @@ class AdminAppController extends Controller
     }
 
     public function removeXss($string)
-    {
-        //Fix & but allow unicode
-        $string = preg_replace('#&(?!\#[0-9]+;)#si', '&amp;', $string);
-        $string = str_replace("<", "&lt;", $string);
-        $string = str_replace(">", "&gt;", $string);
-        $string = str_replace("\"", "&quot;", $string);
-        $string = str_replace("\'", "&quot;", $string);
-        static $preg_find    = array('#javascript#i', '#vbscript#i');
-        static $preg_replace = array('java script',   'vb script');
-        return preg_replace($preg_find, $preg_replace, $string);
+    {   
+        if($string != null)
+        {
+            //Fix & but allow unicode
+            $string = preg_replace('#&(?!\#[0-9]+;)#si', '&amp;', $string);
+            $string = str_replace("<", "&lt;", $string);
+            $string = str_replace(">", "&gt;", $string);
+            $string = str_replace("\"", "&quot;", $string);
+            $string = str_replace("\'", "&quot;", $string);
+            static $preg_find    = array('#javascript#i', '#vbscript#i');
+            static $preg_replace = array('java script',   'vb script');
+            return preg_replace($preg_find, $preg_replace, $string);
+        }
+        return '';
     }
 
 

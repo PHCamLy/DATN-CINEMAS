@@ -9,5 +9,7 @@ use Illuminate\Notifications\Notifiable;
 class Admin extends Model
 {
     use HasFactory, Notifiable;
+    public $timestamps = false;
+
     
 }

@@ -1,4 +1,12 @@
 
+$('.banner.owl-carousel').owlCarousel({
+    loop: true,
+    responsiveClass: true,
+    items: 1,
+
+})
+
+
 
 function login() {
     startSending()
@@ -37,3 +45,11 @@ function login() {
         },
     })
 }
+
+
+
+
+
+
+
+

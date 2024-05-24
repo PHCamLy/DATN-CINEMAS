@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 14, 2024 at 07:24 AM
+-- Generation Time: May 24, 2024 at 07:13 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -72,23 +72,31 @@ CREATE TABLE `banners` (
 --
 
 INSERT INTO `banners` (`id`, `title`, `link`, `description`, `images`, `type`, `pos`, `status`, `modified`, `created`) VALUES
-(1, 'Banner trang chu 123', 'xxxx 23423', 'aaaaa', 'http://127.0.0.1:8000/fileuploads/1715624896.jpg', 'slider', 0, 1, 1715627520, 1715625241);
+(1, 'Banner trang chu 123', 'xxxx 23423', 'aaaaa', 'http://127.0.0.1:8000/fileuploads/1716501075.jpg', 'slider', 0, 1, 1716501077, 1715625241);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `branchs`
+-- Table structure for table `branches`
 --
 
-CREATE TABLE `branchs` (
+CREATE TABLE `branches` (
   `id` int(11) NOT NULL,
   `title` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `content` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   `modified` int(11) DEFAULT NULL,
   `created` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `branches`
+--
+
+INSERT INTO `branches` (`id`, `title`, `image`, `description`, `status`, `modified`, `created`) VALUES
+(1, 'beta Hai Ba Trung', 'http://127.0.0.1:8000/fileuploads/1715791778.jpg', 'xxx', NULL, 1715791779, 1715791629),
+(2, 'beta Hai Ha Dong', 'http://127.0.0.1:8000/fileuploads/1715791844.png', 'xxxxx', NULL, 1715791845, 1715791845);
 
 -- --------------------------------------------------------
 
@@ -124,6 +132,7 @@ CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `node_id` int(11) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
+  `link` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `images` text DEFAULT NULL,
   `description` text DEFAULT NULL,
@@ -138,6 +147,19 @@ CREATE TABLE `categories` (
   `created` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `node_id`, `title`, `link`, `image`, `images`, `description`, `content`, `menu`, `home_menu`, `footer_1`, `footer_2`, `footer_3`, `type`, `modified`, `created`) VALUES
+(2, 5, 'Danh sách sản phẩm', NULL, 'http://127.0.0.1:8000/fileuploads/1716160490.jpg', NULL, 'test', 'test ahihi', NULL, NULL, NULL, NULL, NULL, 'film', 1716160491, 1716160491),
+(3, 6, 'Tin tức', NULL, 'http://127.0.0.1:8000/fileuploads/1716160579.jpg', NULL, 'Danh sách tin tức', 'Danh sách tin tức', 1, NULL, 1, NULL, NULL, 'new', 1716499819, 1716160581),
+(4, 7, 'Khuyến mãi', NULL, '', NULL, '', '', 1, NULL, 1, NULL, NULL, 'new', 1716499837, 1716225272),
+(6, 11, 'Phim đang chiếu', NULL, NULL, NULL, '', '', 1, 1, NULL, 1, NULL, 'film', 1716499337, 1716499337),
+(7, 12, 'Phim sắp chiếu', NULL, NULL, NULL, '', '', 1, 1, NULL, 1, NULL, 'film', 1716499348, 1716499348),
+(8, 13, 'Suất chiếu đặc biệt', NULL, NULL, NULL, '', '', 1, 1, NULL, 1, NULL, 'film', 1716499358, 1716499358),
+(9, 14, 'Giới thiệu', NULL, 'http://127.0.0.1:8000/fileuploads/1716499558.jpg', NULL, '', 'Công ty Cổ phần Beta Media với tiền thân là Công ty TNHH Beta Media thành lập ngày 08 tháng 09 năm 2014, trụ sở chính đặt tại Tầng 3, số 595, đường Giải Phóng, Phường Giáp Bát, Quận Hoàng Mai, Thành phố Hà Nội.\r\n\r\n \r\n\r\nBeta Media được thành lập với mục tiêu đem tới khách hàng các sản phẩm và dịch vụ chất lượng tốt nhất, giá cả hợp lý nhất; với hai mảng kinh doanh chính là Tổ hợp dịch vụ ăn uống giải trí và cung cấp dịch vụ truyền thông. Chúng tôi đặt ra mục tiêu đem lại những trải nghiệm văn hoá và giải trí tuyệt vời nhất cho người dân Việt Nam, đặc biệt là giới trẻ. Những hoạt động của Beta Media bao gồm:\r\n\r\nHoạt động chiếu phim\r\nHoạt động sản xuất phim điện ảnh, phim video và chương trình truyền hình\r\nHoạt động phát hành phim điện ảnh, phim video và chương trình truyền hình\r\nNhà hàng và các dịch vụ ăn uống phục vụ lưu động\r\nQuảng cáo\r\n \r\n\r\nVới sứ mệnh mong muốn mang tới giá trị văn hóa hiện đại và chất lượng, Beta luôn lắng nghe, nghiên cứu nhằm thấu hiểu và thoả mãn nhu cầu của khách hàng, sáng tạo trong từng sản phẩm, tận tâm đem đến chất lượng dịch vụ hàng đầu.\r\n\r\n \r\n\r\nCÔNG TY CỔ PHẦN BETA MEDIA\r\n\r\nGiấy CNĐKKD số: 0106633482 - Đăng ký lần đầu ngày 08/09/2014 tại Sở Kế hoạch và Đầu tư Thành phố Hà Nội\r\n\r\nĐịa chỉ trụ sở: Tầng 3, số 595 Giải Phóng, P. Giáp Bát, Q. Hoàng Mai, TP. Hà Nội\r\n\r\nHotline: 0934 632 682\r\n\r\nEmail: cskh@betacorp.vn', 1, NULL, NULL, NULL, NULL, 'page', 1716499559, 1716499559);
+
 -- --------------------------------------------------------
 
 --
@@ -149,6 +171,22 @@ CREATE TABLE `category_linkeds` (
   `node_id` int(11) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `category_linkeds`
+--
+
+INSERT INTO `category_linkeds` (`id`, `node_id`, `category_id`) VALUES
+(5, 9, 3),
+(6, 9, 4),
+(29, 15, 6),
+(30, 16, 6),
+(31, 17, 6),
+(35, 10, 6),
+(36, 10, 7),
+(37, 10, 8),
+(38, 18, 6),
+(39, 18, 7);
 
 -- --------------------------------------------------------
 
@@ -202,10 +240,17 @@ CREATE TABLE `coupons` (
   `percent` int(11) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
-  `content` int(11) DEFAULT NULL,
+  `content` text DEFAULT NULL,
   `modified` int(11) DEFAULT NULL,
   `created` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `coupons`
+--
+
+INSERT INTO `coupons` (`id`, `title`, `image`, `code`, `time`, `percent`, `price`, `status`, `content`, `modified`, `created`) VALUES
+(1, 'Test1', 'http://127.0.0.1:8000/fileuploads/1715796280.png', NULL, 1716512640, 10, 0, 1, 'aaaaa', 1715796689, 1715796315);
 
 -- --------------------------------------------------------
 
@@ -237,16 +282,29 @@ CREATE TABLE `films` (
   `content` text DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `images` text DEFAULT NULL,
-  `trailer` varchar(255) DEFAULT NULL,
+  `trailer` text DEFAULT NULL,
   `genres` varchar(255) DEFAULT NULL,
   `characters` varchar(255) DEFAULT NULL,
   `director` varchar(255) DEFAULT NULL,
   `time` varchar(255) DEFAULT NULL,
   `language` varchar(255) DEFAULT NULL,
+  `release_date` varchar(255) DEFAULT NULL,
   `type` int(11) DEFAULT NULL,
+  `featured` int(11) DEFAULT 0,
   `modified` int(11) DEFAULT NULL,
   `created` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `films`
+--
+
+INSERT INTO `films` (`id`, `node_id`, `title`, `description`, `content`, `image`, `images`, `trailer`, `genres`, `characters`, `director`, `time`, `language`, `release_date`, `type`, `featured`, `modified`, `created`) VALUES
+(1, 10, 'PHIM ĐIỆN ẢNH DORAEMON: NOBITA VÀ BẢN GIAO HƯỞNG ĐỊA CẦU', 'Đôrêmon và những người bạn thực hiện chuyến phiêu lưu để gặp gỡ những người bạn mới, kết nối mọi người bằng âm nhạc và cứu thế giới khỏi khủng hoảng. Liệu những người bạn nhỏ có thể cứu được &quot;tương lai âm nhạc&quot; và cả địa cầu này?', 'ahihih', 'http://127.0.0.1:8000/fileuploads/1716527180.png', NULL, '&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/Yug8gbDd5EQ?si=bsiNXrc3U_cK-Ucc&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen&gt;&lt;/iframe&gt;', 'Hoạt Hình', 'Wasabi Mizuta, Megumi Ôhara, Yumi Kakazu', 'Kazuaki Imai', '115 phút', 'Tiếng Nhật - Phụ đề Tiếng Việt; Lồng tiếng', '24/05/2024', NULL, 0, 1716527181, 1716498438),
+(2, 15, 'Ngôi Đền Kỳ Quái 4', 'Min Joon bj de dọa bởi một linh hồn Pee Nak bi ẩn và phài thực hiện lời hứa trong quá khứ của mình. Nếu không hoàn thành lời hứa ấy, những tội lỗi mà anh từng gây nên sẽ quay trở lại nguyên rủa và trừng phạt cuộc đời anh.', '', 'http://127.0.0.1:8000/fileuploads/1716526212.jpg', NULL, '&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/JToYSVWY4N8?si=n2jjy1hPH4YvlCKR&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen&gt;&lt;/iframe&gt;', 'Hài hước, Kinh dị', 'Witthawat Rattanaboonbaramee, Bhuripat Vejvongsatechawat, Phiravich Attachitsataporn', 'Phontharis Chotkijsadarsopon', '111 phút', 'Tiếng Thái', '31/05/2024', NULL, 0, 1716526213, 1716526213),
+(3, 16, 'Furiosa: Câu Chuyện Từ Max Điên', 'Fury Road, câu chuyện kể về thời trẻ của nữ chiến binh Furiosa khi cô bị tách ra khỏi nơi ẩn náu ở Green Place of Many Mothers và lần đầu tiên buộc phải đối mặt với sự điên rồ của thế giới bên ngoài. Nhưng cô ấy luôn nuôi trong mình một khát vọng “trở về đất mẹ” mãnh liệt.', '', 'http://127.0.0.1:8000/fileuploads/1716526281.jpg', NULL, '&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/vPwSfR_O9Jo?si=g6qUoMvncniidXVk&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen&gt;&lt;/iframe&gt;', 'Hành động, Phiêu lưu', 'Anya Taylor-Joy, Chris Hemsworth, Alyla Brown, Tom Burke', 'George Miller', '148 phút', 'Tiếng Anh', '24/05/2024', NULL, 0, 1716526301, 1716526301),
+(4, 17, 'Lật Mặt 7', 'Qua những lát cắt đan xen, ẩn chứa nhiều nụ cười và cả nước mắt, &quot;Lật Mặt 7: Một Điều Ước&quot; là câu chuyện cảm động về đại gia đình bà Hai 73 tuổi - người mẹ đơn thân tự mình nuôi 5 người con khôn lớn. Khi trưởng thành, mỗi người đều có cuộc sống và gia đình riêng. Bất chợt, biến cố ập đến, những góc khuất dần được hé lộ, những nỗi niềm, lo lắng, trĩu nặng ẩn sâu trong trái tim người mẹ. Trách nhiệm thuộc về ai?', '', 'http://127.0.0.1:8000/fileuploads/1716526387.jpg', NULL, '&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/QdtPQ0wV53M?si=46jVG94-cBVR3O_x&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen&gt;&lt;/iframe&gt;', 'Tâm lý, Gia đình', 'Thanh Hiền, Trương Minh Cường, Đinh Y Nhung, Quách Ngọc Tuyên, Trâm Anh, Trần Kim Hải,..', 'Lý Hải', '138 phút', 'Tiếng Việt', '26/04/2024', NULL, 0, 1716526393, 1716526393),
+(5, 18, 'Án Mạng Lầu 4', 'Một cặp vợ chồng hạnh phúc đang bị mắc kẹt trong những tình huống và thử thách kinh hoàng. Một vụ án mạng nhưng hiện trường lại không có vết máu, tội ác lại càng không. Vậy chuyện gì đã thực sự diễn ra ở lầu 4?', '', 'http://127.0.0.1:8000/fileuploads/1716527272.jpg', NULL, '&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/fSOxL_swa18?si=dBUE0KX9OSSc0XX1&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen&gt;&lt;/iframe&gt;', 'Tâm lý, Hồi Hộp', 'Trương Thế Vinh, Lương Bích Hữu', 'Nguyễn Hữu Tuấn', '106 phút', 'Tiếng Việt', '17/05/2024', NULL, 0, 1716527273, 1716527273);
 
 -- --------------------------------------------------------
 
@@ -318,9 +376,17 @@ CREATE TABLE `news` (
   `images` text DEFAULT NULL,
   `content` text DEFAULT NULL,
   `description` text DEFAULT NULL,
+  `featured` int(11) DEFAULT 0,
   `modified` int(11) DEFAULT NULL,
   `created` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `news`
+--
+
+INSERT INTO `news` (`id`, `node_id`, `title`, `image`, `images`, `content`, `description`, `featured`, `modified`, `created`) VALUES
+(1, 9, 'Ưu đãi khủng khi xem phim', 'http://127.0.0.1:8000/fileuploads/1716338399.jpg', NULL, 'ahihi ahihi', 'ahihi', 0, 1716338400, 1716226572);
 
 -- --------------------------------------------------------
 
@@ -339,6 +405,25 @@ CREATE TABLE `nodes` (
   `created` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `nodes`
+--
+
+INSERT INTO `nodes` (`id`, `title`, `slug`, `type`, `status`, `pos`, `modified`, `created`) VALUES
+(5, 'Danh sách sản phẩm', 'danh-sach-san-pham', 'category', 1, 0, 1716160491, 1716160491),
+(6, 'Tin tức', 'tin-tuc', 'category', 1, 0, 1716499819, 1716160581),
+(7, 'Khuyến mãi', 'khuyen-mai', 'category', 1, 0, 1716499837, 1716225272),
+(9, 'Ưu đãi khủng khi xem phim', 'uu-dai-khung-khi-xem-phim', 'new', 1, 0, 1716338400, 1716226572),
+(10, 'PHIM ĐIỆN ẢNH DORAEMON: NOBITA VÀ BẢN GIAO HƯỞNG ĐỊA CẦU', 'phim-dien-anh-doraemon-nobita-va-ban-giao-huong-dia-cau', 'film', 1, 0, 1716527181, 1716498438),
+(11, 'Phim đang chiếu', 'phim-dang-chieu', 'category', 1, 0, 1716499337, 1716499337),
+(12, 'Phim sắp chiếu', 'phim-sap-chieu', 'category', 1, 0, 1716499348, 1716499348),
+(13, 'Suất chiếu đặc biệt', 'suat-chieu-dac-biet', 'category', 1, 0, 1716499358, 1716499358),
+(14, 'Giới thiệu', 'gioi-thieu', 'category', 1, 0, 1716499559, 1716499559),
+(15, 'Ngôi Đền Kỳ Quái 4', 'ngoi-den-ky-quai-4', 'film', 1, 0, 1716526213, 1716526213),
+(16, 'Furiosa: Câu Chuyện Từ Max Điên', 'furiosa-cau-chuyen-tu-max-dien', 'film', 1, 0, 1716526301, 1716526301),
+(17, 'Lật Mặt 7', 'lat-mat-7', 'film', 1, 0, 1716526393, 1716526393),
+(18, 'Án Mạng Lầu 4', 'an-mang-lau-4', 'film', 1, 0, 1716527273, 1716527273);
+
 -- --------------------------------------------------------
 
 --
@@ -355,6 +440,13 @@ CREATE TABLE `options` (
   `modified` int(11) DEFAULT NULL,
   `created` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `options`
+--
+
+INSERT INTO `options` (`id`, `title`, `image`, `content`, `price`, `status`, `modified`, `created`) VALUES
+(1, 'Bỏng ngô 1 người', 'http://127.0.0.1:8000/fileuploads/1716157255.jpg', 'ahihi ahihi', 70000, 1, 1716157283, 1716157257);
 
 -- --------------------------------------------------------
 
@@ -403,6 +495,13 @@ CREATE TABLE `rooms` (
   `created` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `rooms`
+--
+
+INSERT INTO `rooms` (`id`, `title`, `image`, `content`, `total_chair`, `status`, `modified`, `created`) VALUES
+(1, 'phòng A1', 'http://127.0.0.1:8000/fileuploads/1715794114.jpg', 'Phòng bình thường ahihi', 50, NULL, 1715794263, 1715794116);
+
 -- --------------------------------------------------------
 
 --
@@ -423,7 +522,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('e1QoEk1PXFDHvOOCszojkykNcX1QxcRqMJfXv2Wg', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiV2xnd0s2WVdOZ29qRGYwdGhjeExoYVp6cU40d2ZWRUxzNWxGemkxRyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjU6ImFkbWluIjthOjExOntzOjI6ImlkIjtpOjE7czo4OiJmdWxsbmFtZSI7czo1OiJBZG1pbiI7czo1OiJwaG9uZSI7czoxMDoiMDgxMjM0NTY3OCI7czo1OiJlbWFpbCI7TjtzOjU6ImltYWdlIjtOO3M6ODoidXNlcm5hbWUiO3M6NToiYWRtaW4iO3M6ODoicGFzc3dvcmQiO3M6MzI6IjIxMjMyZjI5N2E1N2E1YTc0Mzg5NGEwZTRhODAxZmMzIjtzOjQ6InR5cGUiO2k6MDtzOjU6InJvbGVzIjtOO3M6ODoibW9kaWZpZWQiO047czo3OiJjcmVhdGVkIjtOO319', 1715661224);
+('WMr9Yo6oaDQu8xSVzZqgPq0KYHUD1N0ZaYPxHe2z', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMmJ1MmdVckdVS01zSTdpeVlKdVpNZW5EU0MzcGJLalJMam5QQ1RmRiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NToiYWRtaW4iO2E6MTE6e3M6MjoiaWQiO2k6MTtzOjg6ImZ1bGxuYW1lIjtzOjU6IkFkbWluIjtzOjU6InBob25lIjtzOjEwOiIwODEyMzQ1Njc4IjtzOjU6ImVtYWlsIjtOO3M6NToiaW1hZ2UiO047czo4OiJ1c2VybmFtZSI7czo1OiJhZG1pbiI7czo4OiJwYXNzd29yZCI7czozMjoiMjEyMzJmMjk3YTU3YTVhNzQzODk0YTBlNGE4MDFmYzMiO3M6NDoidHlwZSI7aTowO3M6NToicm9sZXMiO047czo4OiJtb2RpZmllZCI7TjtzOjc6ImNyZWF0ZWQiO047fXM6NDoidXNlciI7YTo5OntzOjI6ImlkIjtpOjE7czo4OiJmdWxsbmFtZSI7czoxMzoiRG9yYVNoYW5nIDEyMyI7czo1OiJwaG9uZSI7czoxMDoiMDgxMjM0NTY3OCI7czo1OiJlbWFpbCI7czoxOToiZG9yYXNoYW5nQGdtYWlsLmNvbSI7czo1OiJpbWFnZSI7czo0ODoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2ZpbGV1cGxvYWRzLzE3MTYxNDIzNjIuanBnIjtzOjg6InVzZXJuYW1lIjtzOjk6IkRvcmFTaGFuZyI7czo0OiJ0eXBlIjtOO3M6NzoiY3JlYXRlZCI7TjtzOjg6Im1vZGlmaWVkIjtpOjE3MTYxNDIzNjM7fX0=', 1716527323);
 
 -- --------------------------------------------------------
 
@@ -449,7 +548,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `fullname`, `phone`, `email`, `image`, `username`, `password`, `type`, `created`, `modified`) VALUES
-(1, 'DoraShang', '0812345678', 'dorashang@gmail.com', NULL, 'DoraShang', '202cb962ac59075b964b07152d234b70', NULL, NULL, NULL);
+(1, 'DoraShang 123', '0812345678', 'dorashang@gmail.com', 'http://127.0.0.1:8000/fileuploads/1716142362.jpg', 'DoraShang', '202cb962ac59075b964b07152d234b70', NULL, NULL, 1716142363);
 
 --
 -- Indexes for dumped tables
@@ -468,9 +567,9 @@ ALTER TABLE `banners`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `branchs`
+-- Indexes for table `branches`
 --
-ALTER TABLE `branchs`
+ALTER TABLE `branches`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -605,25 +704,25 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `banners`
 --
 ALTER TABLE `banners`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `branchs`
+-- AUTO_INCREMENT for table `branches`
 --
-ALTER TABLE `branchs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `branches`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `category_linkeds`
 --
 ALTER TABLE `category_linkeds`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `comments`
@@ -641,7 +740,7 @@ ALTER TABLE `contacts`
 -- AUTO_INCREMENT for table `coupons`
 --
 ALTER TABLE `coupons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -653,7 +752,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `films`
 --
 ALTER TABLE `films`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -671,19 +770,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `news`
 --
 ALTER TABLE `news`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `nodes`
 --
 ALTER TABLE `nodes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `options`
 --
 ALTER TABLE `options`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -695,7 +794,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`

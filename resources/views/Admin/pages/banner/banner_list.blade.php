@@ -109,7 +109,7 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <a class="btn  btn-sm" href="javascript:;"
-                                                        onclick="remove_item('tr-53', 'K3RJSWw0RUZYSXI4UkVVQmJvbkFhdDJUL3FBMDI5Q0pSaHNpdkhWa3gydz0=');">
+                                                        onclick="remove_item('<?php echo $DOMAIN . 'admin/banner/banner_delete/' . $v['id'];?>');">
                                                         <span class="icon-status node-delete-53">
                                                             <i class="fas fa-trash"></i>
                                                         </span>

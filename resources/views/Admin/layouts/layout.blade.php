@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/libs/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/libs/dropzone/min/dropzone.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/libs/admin-resources/rwd-table/rwd-table.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/custom/jquery.datetimepicker.css') }}">
     <link rel="stylesheet"
         href="{{ asset('admin/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/css/app.min.css') }}">
@@ -96,6 +97,8 @@
     <script src="{{ asset('admin/assets/libs/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('admin/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('admin/assets/libs/admin-resources/rwd-table/rwd-table.min.js') }}"></script>
+    <script src="{{ asset('admin/custom/jquery.datetimepicker.min.js') }}"></script>
+    <script src="{{ asset('admin/custom/jquery.number.js') }}"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.min.js"
         integrity="sha512-FbWDiO6LEOsPMMxeEvwrJPNzc0cinzzC0cB/+I2NFlfBPFlZJ3JHSYJBtdK7PhMn0VQlCY1qxflEG+rplMwGUg=="

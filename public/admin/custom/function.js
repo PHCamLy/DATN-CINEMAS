@@ -215,27 +215,27 @@ function calculateDoneTaskDetail(task) {
 
 
 
-function call_ajax(url, data, success_callback, fail_callback) {
-    console.log(data);
-    $.ajax({
-        headers: {
-            'X-CSRF-Token': csrfToken
-        },
-        url: url,
-        type: 'post',
-        data: { data },
-        dataType: 'json',
-        success: function (res) {
-            console.log(res);
-            if (res.res == 'done') success_callback(res)
-            else fail_callback(res);
-        },
-        error: function (err) {
-            console.log(err);
-            fail_callback(res);
-        }
-    });
-}
+// function call_ajax(url, data, success_callback, fail_callback) {
+//     console.log(data);
+//     $.ajax({
+//         headers: {
+//             'X-CSRF-Token': csrfToken
+//         },
+//         url: url,
+//         type: 'post',
+//         data: { data },
+//         dataType: 'json',
+//         success: function (res) {
+//             console.log(res);
+//             if (res.res == 'done') success_callback(res)
+//             else fail_callback(res);
+//         },
+//         error: function (err) {
+//             console.log(err);
+//             fail_callback(res);
+//         }
+//     });
+// }
 
 function buildDataSendFromForm(form, has_image = false) {
     let serialize = form.serializeArray();
@@ -254,34 +254,68 @@ function buildDataSendFromForm(form, has_image = false) {
     return data_send;
 }
 
-function slm_remove_item(cls, str, MODULE) {
-    Swal.fire({
-        title: 'Thông báo',
-        text: 'Bạn có chắc muốn xóa không?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: "#34c38f",
-        cancelButtonColor: "#f46a6a",
-    }).then(confirmed => {
-        if (confirmed.isConfirmed) {
-            let url = DOMAIN + 'accounting/' + MODULE + '/' + MODULE + '_ajax';
-
-            let data = {
-                token: str,
+function remove_item(link = undefined) {
+    if (link != undefined) {
+        Swal.fire({
+            title: "Bạn có chắc chắn muốn xóa không?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#34c38f",
+            cancelButtonColor: "#f46a6a",
+            confirmButtonText: "Xóa",
+            cancelButtonText: 'Hủy'
+        }).then(function (result) {
+            if (result.value) {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-Token': csrfToken
+                    },
+                    url: link,
+                    type: 'post',
+                    dataType: 'html',
+                    success: function (d) {
+                        console.log(d);
+                        d = JSON.parse(d);
+                        if (d.res == 'done') {
+                            Swal.fire(d.msg, '', "success").then(function () {
+                                window.location.reload();
+                            });
+                        } else {
+                            Swal.fire(d.msg, '', "warning");
+                        }
+                    },
+                    error: function (err) {
+                        Swal.fire("Đã xảy ra lỗi!", '', "error");
+                    },
+                })
             }
+        })
+    }
+}
 
-            data = JSON.stringify(data);
-
-            let successCallback = (res) => {
-                Swal.fire('Đã xóa thành công', 'success');
-                $(`.${cls}`).remove();
-            }
-
-            let failCallback = (res) => {
-                Swal.fire('Thông báo', res.msg ? res.msg : 'Xóa thất bại', 'error');
-            }
-
-            call_ajax(url, data, successCallback, failCallback);
-        }
-    })
+function update_field(link = undefined) {
+    if (link != undefined) {
+        $.ajax({
+            headers: {
+                'X-CSRF-Token': csrfToken
+            },
+            url: link,
+            type: 'post',
+            dataType: 'html',
+            success: function (d) {
+                console.log(d);
+                d = JSON.parse(d);
+                if (d.res == 'done') {
+                    Swal.fire(d.msg, '', "success").then(function () {
+                        window.location.reload();
+                    });
+                } else {
+                    Swal.fire(d.msg, '', "warning");
+                }
+            },
+            error: function (err) {
+                Swal.fire("Đã xảy ra lỗi!", '', "error");
+            },
+        })
+    }
 }

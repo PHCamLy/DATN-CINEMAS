@@ -1,4 +1,16 @@
 $('.select2').select2();
+$('.number').number(true, 0);
+$('.dated').datetimepicker({
+    format: 'd-m-Y',
+    timepicker: false,
+    scrollMonth: false
+});
+$('.datedtime').datetimepicker({
+    format: 'd-m-Y H:i',
+    timepicker: true,
+    scrollMonth: false
+});
+
 $('.table-responsive').responsiveTable({
     // addDisplayAllBtn: 'btn btn-secondary',
     addDisplayAllBtn: false,

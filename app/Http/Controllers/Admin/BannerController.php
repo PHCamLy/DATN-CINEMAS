@@ -36,6 +36,7 @@ class BannerController extends AdminAppController
 
     public function banner_list()
     {
+        session()->flash('msg', '');
         $d = Banner::paginate(15);
 
         return view($this->view_path . $this->folder.'.banner_list',['data' => $d]);
@@ -75,6 +76,7 @@ class BannerController extends AdminAppController
                 $this->res['msg'] = 'Đã có lỗi xảy ra, vui lòng thử lại';
             }
             session()->flash('msg', json_encode($this->res));
+            return redirect('/admin/banner/banner_add');
         }
 
         return view($this->view_path . $this->folder.'.banner_add',['data' => $d]);
@@ -125,11 +127,13 @@ class BannerController extends AdminAppController
     }
 
     public function banner_delete($id = null)
-    {   
-
+    {       
+        $d = Banner::find($id);
+        $d->delete(); 
+        $this->res['res'] = 'done';
+        $this->res['msg'] = 'Đã xóa thành công';
+        $this->res['data'] = [];
+        echo json_encode($this->res);
+        die();
     }
-
-
-
-
 }

@@ -10,6 +10,7 @@ class AdminController extends AdminAppController
 {
     //
     // public $layout = 'Admin.layouts.login';
+
     private $res = [
         'res' => 'err',
         'msg' => '',
@@ -50,4 +51,9 @@ class AdminController extends AdminAppController
         return view($this->view_path . 'login',['is_login' => 1]);
 
     }
+
+
+    
+
+
 }
