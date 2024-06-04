@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Branch;
+use App\Models\Node;
 use App\Models\Order;
+use App\Models\Room;
+use App\Models\Showtime;
 use Illuminate\Http\Request;
 
 class OrderController extends AdminAppController
@@ -31,6 +35,22 @@ class OrderController extends AdminAppController
         view()->share('link_delete', $this->link_delete);
         view()->share('link_update', $this->link_update);
 
+
+        $b = Branch::get();
+        $branch_list = [];
+        foreach($b as $v)
+        {
+            $branch_list[$v['id']] = $v['title'];
+        }
+        view()->share('branch_list', $branch_list);
+
+        $r = Room::get();
+        $room_list = [];
+        foreach($r as $v)
+        {
+            $room_list[$v['id']] = $v['title'];
+        }
+        view()->share('room_list', $room_list);
     }
 
     public function order_list()
@@ -38,7 +58,16 @@ class OrderController extends AdminAppController
         $d = [];
         session()->flash('msg', '');
         $d = Order::paginate(15);
-        return view($this->view_path . $this->folder.'.order_list',['data' => $d]);
+        $data= [];
+        foreach($d as $v)
+        {
+            $st = Showtime::find($v['showtime_id']);
+            $node = Node::find($st['node_id']);
+            $v['showtime'] = $st;
+            $v['node'] = $node;
+            $data[] = $v;
+        }
+        return view($this->view_path . $this->folder.'.order_list',['data' => $data]);
     }
 
     public function order_add(Request $req)

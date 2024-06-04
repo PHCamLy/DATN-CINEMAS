@@ -108,7 +108,7 @@
                                             </div>
                                             <div class="text-center padding-bottom-30" style="min-height: 85px;">
                                                 <a style="display: block;" href="#showtimes-pop-up"
-                                                    onclick="viewsShowtimes('dfd9306f-fbc8-4807-a8c6-5e6c3f7ad71c', '3a58f403-579b-4398-8c00-b8c650aab7fe', 'Lật Mặt 7', 'Beta Thái Nguyên');"
+                                                    onclick="show_modal_order(<?php echo $c['node_id'];?>)" 
                                                     class="btn btn-2 btn-mua-ve2 fancybox-fast-view"><span><i
                                                             class="fa fa-ticket mr3"></i></span>
                                                     MUA VÉ</a>

@@ -44,7 +44,15 @@
                                             </div> */ ?>
                                         </div>
                                     </div>
-
+                                    <div class="col-sm-6 tools">
+                                        <div class="text-end">
+                                            <a href="<?php echo $DOMAIN . $link_add; ?>"
+                                                class="me-3 btn btn-success waves-effect waves-light w-xs">
+                                                <i class="bx bx-add-to-queue"></i>
+                                                Thêm
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                             <div class="table-rep-plugin">
@@ -53,17 +61,27 @@
                                         <thead class="table-light">
                                             <tr>
                                                 <th width="50">Stt</th>
-                                                <th class="text-center" width="300">
-                                                    Khách hàng
+                                                <th class="text-center" width="200">
+                                                    Rạp chiếu
                                                 </th>
-                                                <th>Bộ film</th>
-                                                <th width="150">Thông tin</th>
-                                                <th width="150">Thời gian</th>
-                                                <th class="text-center" width="150">
-                                                    Ngày đặt
+                                                <th class="text-center" width="200">
+                                                    Phòng chiếu
+                                                </th>
+                                                <th class="text-center">
+                                                    Bộ Film
                                                 </th>
                                                 <th class="text-center" width="150">
-                                                    Trạng thái
+                                                    Thời gian chiếu
+                                                </th>
+                                                <th class="text-center" width="100">
+                                                    Giá tiền
+                                                </th>
+                                                <th class="text-center" width="150">
+                                                    Ghế
+                                                </th>
+                                                <th class="text-center" width="150">Trạng thái</th>
+                                                <th class="text-center" width="100">
+                                                    Sửa
                                                 </th>
                                                 <th class="text-center" width="100">
                                                     Xóa
@@ -80,48 +98,34 @@
                                                     <?php	 echo $stt; 	 ?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <?php	 echo $v['fullname']; 	 ?><br>
-                                                    <?php	 echo $v['phone']; 	 ?><br>
-                                                    <?php	 echo $v['email']; 	 ?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $v['node']['title']?>
-                                                </td>
-                                                <td>
-                                                    <p>Rạp chiếu :
-                                                        <b>
-                                                            <?php echo $branch_list[$v['branch_id']]?>
-                                                        </b>
-                                                    </p>
-                                                    <p>Phòng chiếu : 
-                                                        <b>
-                                                            <?php echo $room_list[$v['showtime']['room_id']]?>
-                                                        </b>
-                                                    </p>
-                                                    <p>Số vé: <b><?php echo $v['quantity']; ?>
-                                                        </b>
-                                                    </p>
-                                                    <p>Giá tiền:
-                                                         <b>
-                                                            <?php echo $v['cart_sum']; ?>
-                                                        </b>
-                                                    </p>
-                                                </td>
-                                                <td><?php echo date('d-m-Y H:i',$v['datetime']); ?></td>
-                                                <td class="text-center">
-                                                    <?php	 echo date('d-m-Y H:i',$v['created']);;	 ?>
+                                                    <?php	 echo isset($branch_list[$v['branch_id']]) ? $branch_list[$v['branch_id']]: ''; 	 ?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <a class="btn  btn-sm" href="javascript:;"
-                                                        onclick="update_field('<?php echo $DOMAIN . $link_update . $v['id']. '/status';?>');">
-                                                        <span class="icon-status newest-11">
-                                                            <?php	 if($v['status'] == 1) { 	 ?>
-                                                            <i class="fas fa-play"></i>
-                                                            <?php	 }else {	 ?>
-                                                            <i class="fas fa-pause"></i>
-                                                            <?php	 } 	 ?>
-                                                        </span>
+                                                    <?php	 echo $v['room_title']; 	 ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php	 echo $v['film_tile']; 	 ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php	 echo date('d-m-Y H:i',$v['hour']); 	 ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php	 echo number_format($v['price']); 	 ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php	 echo ($v['empty']); 	 ?> ghế trống
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php	 echo ($v['status']) == 1 ? 'Kích hoạt' : 'Chưa kích hoạt' ;	 ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php	 if($v['status'] == 0) {	 ?>
+                                                    <a class="btn btn-outline-secondary btn-sm"
+                                                        href="<?php echo $DOMAIN . $link_edit . ($v['id']); ?>">
+                                                        <i class="fas fa-pencil-alt">
+                                                        </i>
                                                     </a>
+                                                    <?php	 } 	 ?>
                                                 </td>
                                                 <td class="text-center">
                                                     <a class="btn  btn-sm" href="javascript:;"

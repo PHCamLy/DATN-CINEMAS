@@ -40,6 +40,18 @@ class AdminAppController extends Controller
                     ),
                 ),
             ),
+            'Xuất chiếu' => array(
+                'icon' => 'bx bxl-product-hunt',
+                'link' => 'showtime/showtime_list',
+                'child' => array(
+                    'Danh sách' => array(
+                        'link' => 'showtime/showtime_list'
+                    ),
+                    'Thêm mới' => array(
+                        'link' => 'showtime/showtime_add'
+                    ),
+                ),
+            ),
             'Tin tức' => array(
                 'icon' => 'bx bxl-product-hunt',
                 'link' => 'new/new_list',

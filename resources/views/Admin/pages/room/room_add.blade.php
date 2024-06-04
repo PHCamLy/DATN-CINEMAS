@@ -36,11 +36,25 @@
                                     </div>
                                 </div>
                                 <div class="row mb-4">
+                                    <label class="col-form-label col-lg-2">Rạp chiếu</label>
+                                    <div class="col-lg-10">
+                                        <select class="form-select" name="data[<?php echo $alias; ?>][branch_id]" id="">
+                                            <option value="0">---- Chọn rạp chiếu ---- </option>
+                                            <?php	 if(isset($branch_list)) { 	 ?>
+                                            <?php	 foreach($branch_list as $k => $v) { 	 ?>
+                                            <option value="<?php echo $k; ?>">
+                                                <?php echo $v;?>
+                                            </option>
+                                            <?php	 } 	 ?>
+                                            <?php	 } 	 ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
                                     <label class="col-form-label col-lg-2">Số lượng ghế</label>
                                     <div class="col-lg-10">
                                         <input name="data[<?php echo $alias; ?>][total_chair]" type="number" min="0"
-                                            class="form-control" value="" required
-                                            placeholder="Số lượng ghế ...">
+                                            class="form-control" value="" required placeholder="Số lượng ghế ...">
                                     </div>
                                 </div>
                                 <div class="row mb-4">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Branch;
 use App\Models\Room;
 use Exception;
 use Illuminate\Http\Request;
@@ -31,6 +32,14 @@ class RoomController extends AdminAppController
         view()->share('link_edit', $this->link_edit);
         view()->share('link_delete', $this->link_delete);
         
+
+        $b = Branch::get();
+        $branch_list = [];
+        foreach($b as $v)
+        {
+            $branch_list[$v['id']] = $v['title'];
+        }
+        view()->share('branch_list', $branch_list);
     }
 
     public function room_list()
@@ -80,6 +89,7 @@ class RoomController extends AdminAppController
 
         return view($this->view_path . $this->folder.'.room_add',['data' => $d]);
     }
+    
     public function room_edit(Request $req, $id = null)
     {
         $d = [];

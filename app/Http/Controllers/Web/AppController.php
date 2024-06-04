@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Models\Branch;
 use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -49,7 +50,6 @@ class AppController
         // khởi tạo các data toàn cục   
 
         // lấy menu
-
         $categories = DB::table('categories')
         ->join('nodes', 'categories.node_id', '=', 'nodes.id')
         ->where('nodes.status',1)
@@ -71,6 +71,7 @@ class AppController
         }
         view()->share('categories', $this->category_type);
 
+        // get banenr
         $banners = DB::table('banners')
         ->where('status',1)
         ->get();
@@ -89,7 +90,15 @@ class AppController
             }
         }
         view()->share('banners', $this->banners);
-        
+
+        // get chi nhanh
+        $b = Branch::get();
+        $branch_list = [];
+        foreach($b as $v)
+        {
+            $branch_list[$v['id']] = $v['title'];
+        }
+        view()->share('branch_list', $branch_list);
     }
 
     public function get_product_category()

@@ -36,6 +36,25 @@
                                     </div>
                                 </div>
                                 <div class="row mb-4">
+                                    <label class="col-form-label col-lg-2">Rạp chiếu</label>
+                                    <div class="col-lg-10">
+                                        <select class="form-select" name="data[<?php echo $alias; ?>][branch_id]" id="">
+                                            <option value="0">---- Chọn rạp chiếu ----</option>
+                                            <?php	 if(isset($branch_list)) { 	 ?>
+                                            <?php	 foreach($branch_list as $k => $v) {
+                                                        $select = $data['branch_id'] == $k ? 'selected' : '';
+
+                                            ?>
+                                            <option value="<?php echo $k; ?>" <?php echo $select; ?>>
+                                                <?php echo $v;?>
+                                            </option>
+                                            <?php	 } 	 ?>
+                                            <?php	 } 	 ?>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
                                     <label class="col-form-label col-lg-2">Số lượng ghế</label>
                                     <div class="col-lg-10">
                                         <input name="data[<?php echo $alias; ?>][total_chair]" type="number" min="0"
@@ -91,8 +110,7 @@
                                                                 <i class="fas fa-trash"></i>
                                                             </a>
                                                         </div>
-                                                        <div class="dz-filename"><a
-                                                                href="<?php echo $data['image']; ?>"
+                                                        <div class="dz-filename"><a href="<?php echo $data['image']; ?>"
                                                                 target="_blank"></a>
                                                             <?php echo $data['image']; ?>
                                                             </a>

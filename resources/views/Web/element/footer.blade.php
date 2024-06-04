@@ -1,3 +1,4 @@
+@include('Web.element.modal_datve')
 <input type="hidden" id="flash" value='<?php echo  Session::get(' msg') !=null ? Session::get('msg'): '' ; ?>'>
 <div class="pre-footer">
         <div class="container">
@@ -8,7 +9,7 @@
                                                 <li class="col-lg-16 col-md-16 col-xs-16 margin-xs-bottom-10">
                                                         <a class="site-logo" href="<?php	 echo $DOMAIN; 	 ?>">
                                                                 <img style="width: 120px;" alt=""
-                                                                        src="../Assets/Common/logo/logo.png">
+                                                                        src="<?php echo $DOMAIN ?>img/logo.png">
                                                         </a>
                                                 </li>
                                                 <?php	 if(isset($categories['footer_1'])){ 
@@ -62,7 +63,7 @@
                                                         </li>
                                                 </ul>
                                                 <img style="width: 180px;" alt=""
-                                                        src="../Assets/Common/logo/dathongbao.png">
+                                                        src="<?php echo $DOMAIN ?>Assets/Common/logo/dathongbao.png">
                                         </div>
                                         <div class="col-md-4 col-sm-16 pre-footer-col">
                                                 <h2>LIÊN HỆ</h2>
@@ -78,7 +79,7 @@
                                                                 phố Hà Nội</h6>
                                                         <p>
                                                         </p>
-                                                        <h6>Hotline: 1900 636807 / 0934632682‬</h6>
+                                                        <h6>Hotline: 1900 636807 / 0934632682</h6>
                                                         <h6>Email: mkt@betacinemas.vn</h6>
                                                         <p></p>
                                                         <p>
@@ -93,11 +94,16 @@
                 </div>
         </div>
 </div>
-@section('scripts')
+
+<script src="{{ asset('js/jquery_number.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
         integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+        const is_login = <?php echo Session::get('user') != null ? 'true' : 'false'; ?>;
+</script>
+@section('scripts')
+@stop
 <script src="{{ asset('js/funtion.js') }}"></script>
 <script src="{{ asset('js/constant.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
-@stop

@@ -12,7 +12,9 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FilmController;
 use App\Http\Controllers\Admin\NewController;
 use App\Http\Controllers\Admin\OptionController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\RoomController;
+use App\Http\Controllers\Admin\ShowtimeController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\Web\AppController;
@@ -32,9 +34,14 @@ Route::get('/login', [UserController::class, 'login'])->middleware(WebCheckLogin
 Route::post('/uploads', [UploadController::class, 'fileUpload']);
 Route::get('/uploads', [UploadController::class, 'fileUpload']);
 
+// ajax
+Route::get('/ajax/{action}', [HomeController::class, 'ajax']);
+Route::post('/ajax/{action}', [HomeController::class, 'ajax']);
+
+// order
+Route::get('/order/add/{id}', [HomeController::class, 'order_add']);
 
 Route::get('/{slug}', [HomeController::class, 'handle_slug']);
-
 
 // admin
 Route::prefix('admin')->group(function () {
@@ -156,8 +163,28 @@ Route::prefix('admin')->group(function () {
             Route::post('/film_update/{id}/{key}/{val}',[FilmController::class, 'upadte_field']);
         });
 
+        // showtime    
+        Route::prefix('showtime')->group(function () {
+            Route::get('/showtime_list',[ShowtimeController::class, 'showtime_list']);
+            Route::get('/showtime_add',[ShowtimeController::class, 'showtime_add']);
+            Route::post('/showtime_add',[ShowtimeController::class, 'showtime_add']);
+            Route::get('/showtime_edit/{id}',[ShowtimeController::class, 'showtime_edit']);
+            Route::post('/showtime_edit/{id}',[ShowtimeController::class, 'showtime_edit']);
+            Route::post('/showtime_delete/{id}',[ShowtimeController::class, 'showtime_delete']);
+            Route::post('/showtime_update/{id}/{key}/{val}',[ShowtimeController::class, 'upadte_field']);
+            Route::post('/get_room/{branch_id}',[ShowtimeController::class, 'get_room']);
+        });
 
-        
+         // order    
+         Route::prefix('order')->group(function () {
+            Route::get('/order_list',[OrderController::class, 'order_list']);
+            Route::get('/order_add',[OrderController::class, 'order_add']);
+            Route::post('/order_add',[OrderController::class, 'order_add']);
+            Route::get('/order_edit/{id}',[OrderController::class, 'order_edit']);
+            Route::post('/order_edit/{id}',[OrderController::class, 'order_edit']);
+            Route::post('/order_delete/{id}',[OrderController::class, 'order_delete']);
+            Route::post('/order_update/{id}/{key}/{val}',[OrderController::class, 'upadte_field']);
+        });
     });
 
 });

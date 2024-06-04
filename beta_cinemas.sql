@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2024 at 07:13 AM
+-- Generation Time: Jun 04, 2024 at 02:50 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -456,6 +456,7 @@ INSERT INTO `options` (`id`, `title`, `image`, `content`, `price`, `status`, `mo
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
+  `showtime_id` int(11) DEFAULT 0,
   `code` int(11) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `option_ids` varchar(255) DEFAULT NULL,
@@ -465,6 +466,7 @@ CREATE TABLE `orders` (
   `phone` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `cart_sum` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT 0,
   `coupon_code` varchar(255) DEFAULT NULL,
   `coupon_discount` int(255) DEFAULT NULL,
   `node_id` int(11) DEFAULT NULL,
@@ -478,6 +480,14 @@ CREATE TABLE `orders` (
   `created` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `showtime_id`, `code`, `image`, `option_ids`, `user_id`, `branch_id`, `fullname`, `phone`, `email`, `cart_sum`, `quantity`, `coupon_code`, `coupon_discount`, `node_id`, `extra`, `content`, `payment_type`, `status`, `is_used`, `datetime`, `modified`, `created`) VALUES
+(1, 2, NULL, NULL, NULL, 1, 1, 'DoraShang 123', '0812345678', 'dorashang@gmail.com', 300000, 2, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 1717502400, NULL, 1717504486),
+(2, 2, NULL, NULL, NULL, 1, 1, 'DoraShang 123', '0812345678', 'dorashang@gmail.com', 450000, 3, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 1717502400, NULL, 1717504560);
+
 -- --------------------------------------------------------
 
 --
@@ -486,6 +496,7 @@ CREATE TABLE `orders` (
 
 CREATE TABLE `rooms` (
   `id` int(11) NOT NULL,
+  `branch_id` int(11) DEFAULT 0,
   `title` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `content` text DEFAULT NULL,
@@ -499,8 +510,8 @@ CREATE TABLE `rooms` (
 -- Dumping data for table `rooms`
 --
 
-INSERT INTO `rooms` (`id`, `title`, `image`, `content`, `total_chair`, `status`, `modified`, `created`) VALUES
-(1, 'phòng A1', 'http://127.0.0.1:8000/fileuploads/1715794114.jpg', 'Phòng bình thường ahihi', 50, NULL, 1715794263, 1715794116);
+INSERT INTO `rooms` (`id`, `branch_id`, `title`, `image`, `content`, `total_chair`, `status`, `modified`, `created`) VALUES
+(1, 1, 'phòng A1', 'http://127.0.0.1:8000/fileuploads/1715794114.jpg', 'Phòng bình thường ahihi', 50, NULL, 1717123906, 1715794116);
 
 -- --------------------------------------------------------
 
@@ -522,7 +533,36 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('WMr9Yo6oaDQu8xSVzZqgPq0KYHUD1N0ZaYPxHe2z', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMmJ1MmdVckdVS01zSTdpeVlKdVpNZW5EU0MzcGJLalJMam5QQ1RmRiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NToiYWRtaW4iO2E6MTE6e3M6MjoiaWQiO2k6MTtzOjg6ImZ1bGxuYW1lIjtzOjU6IkFkbWluIjtzOjU6InBob25lIjtzOjEwOiIwODEyMzQ1Njc4IjtzOjU6ImVtYWlsIjtOO3M6NToiaW1hZ2UiO047czo4OiJ1c2VybmFtZSI7czo1OiJhZG1pbiI7czo4OiJwYXNzd29yZCI7czozMjoiMjEyMzJmMjk3YTU3YTVhNzQzODk0YTBlNGE4MDFmYzMiO3M6NDoidHlwZSI7aTowO3M6NToicm9sZXMiO047czo4OiJtb2RpZmllZCI7TjtzOjc6ImNyZWF0ZWQiO047fXM6NDoidXNlciI7YTo5OntzOjI6ImlkIjtpOjE7czo4OiJmdWxsbmFtZSI7czoxMzoiRG9yYVNoYW5nIDEyMyI7czo1OiJwaG9uZSI7czoxMDoiMDgxMjM0NTY3OCI7czo1OiJlbWFpbCI7czoxOToiZG9yYXNoYW5nQGdtYWlsLmNvbSI7czo1OiJpbWFnZSI7czo0ODoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2ZpbGV1cGxvYWRzLzE3MTYxNDIzNjIuanBnIjtzOjg6InVzZXJuYW1lIjtzOjk6IkRvcmFTaGFuZyI7czo0OiJ0eXBlIjtOO3M6NzoiY3JlYXRlZCI7TjtzOjg6Im1vZGlmaWVkIjtpOjE3MTYxNDIzNjM7fX0=', 1716527323);
+('5Uvqz78EWs6qtyJkjLjm9arpCpqf86rEMO9ldTu5', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoic1FqbzZrMHk0eVVpRWRWNmI5bzYyNGRxY1ZHUVVFV2c1UWdzOWNIcCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9maWxtL2ZpbG1fbGlzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjE6e2k6MDtzOjM6Im1zZyI7fXM6MzoibmV3IjthOjA6e319czo0OiJ1c2VyIjthOjk6e3M6MjoiaWQiO2k6MTtzOjg6ImZ1bGxuYW1lIjtzOjEzOiJEb3JhU2hhbmcgMTIzIjtzOjU6InBob25lIjtzOjEwOiIwODEyMzQ1Njc4IjtzOjU6ImVtYWlsIjtzOjE5OiJkb3Jhc2hhbmdAZ21haWwuY29tIjtzOjU6ImltYWdlIjtzOjQ4OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvZmlsZXVwbG9hZHMvMTcxNjE0MjM2Mi5qcGciO3M6ODoidXNlcm5hbWUiO3M6OToiRG9yYVNoYW5nIjtzOjQ6InR5cGUiO047czo3OiJjcmVhdGVkIjtOO3M6ODoibW9kaWZpZWQiO2k6MTcxNjE0MjM2Mzt9czo1OiJhZG1pbiI7YToxMTp7czoyOiJpZCI7aToxO3M6ODoiZnVsbG5hbWUiO3M6NToiQWRtaW4iO3M6NToicGhvbmUiO3M6MTA6IjA4MTIzNDU2NzgiO3M6NToiZW1haWwiO047czo1OiJpbWFnZSI7TjtzOjg6InVzZXJuYW1lIjtzOjU6ImFkbWluIjtzOjg6InBhc3N3b3JkIjtzOjMyOiIyMTIzMmYyOTdhNTdhNWE3NDM4OTRhMGU0YTgwMWZjMyI7czo0OiJ0eXBlIjtpOjA7czo1OiJyb2xlcyI7TjtzOjg6Im1vZGlmaWVkIjtOO3M6NzoiY3JlYXRlZCI7Tjt9czozOiJtc2ciO3M6MDoiIjt9', 1717505407);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `showtimes`
+--
+
+CREATE TABLE `showtimes` (
+  `id` int(11) NOT NULL,
+  `branch_id` int(11) DEFAULT 0,
+  `room_id` int(11) DEFAULT 0,
+  `node_id` int(11) DEFAULT 0,
+  `day` int(11) DEFAULT NULL,
+  `hour` int(11) DEFAULT NULL,
+  `end_hour` int(11) DEFAULT NULL COMMENT 'Giờ kết thúc',
+  `price` int(11) DEFAULT 0,
+  `empty` int(11) DEFAULT 0,
+  `map` text DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT 0,
+  `created` int(11) DEFAULT NULL,
+  `modified` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `showtimes`
+--
+
+INSERT INTO `showtimes` (`id`, `branch_id`, `room_id`, `node_id`, `day`, `hour`, `end_hour`, `price`, `empty`, `map`, `status`, `created`, `modified`) VALUES
+(2, 1, 1, 10, 1717459200, 1717502400, 1717509300, 150000, 45, '{\"g1\":\"1\",\"g2\":\"1\",\"g3\":\"1\",\"g4\":\"1\",\"g5\":\"1\",\"g6\":\"1\",\"g7\":0,\"g8\":0,\"g9\":\"1\",\"g10\":\"1\",\"g11\":\"1\",\"g12\":\"1\",\"g13\":\"1\",\"g14\":\"1\",\"g15\":\"1\",\"g16\":0,\"g17\":0,\"g18\":\"1\",\"g19\":\"1\",\"g20\":\"1\",\"g21\":\"1\",\"g22\":\"1\",\"g23\":\"1\",\"g24\":\"1\",\"g25\":\"1\",\"g26\":\"1\",\"g27\":0,\"g28\":\"1\",\"g29\":\"1\",\"g30\":\"1\",\"g31\":\"1\",\"g32\":\"1\",\"g33\":\"1\",\"g34\":\"1\",\"g35\":\"1\",\"g36\":\"1\",\"g37\":\"1\",\"g38\":\"1\",\"g39\":\"1\",\"g40\":\"1\",\"g41\":\"1\",\"g42\":\"1\",\"g43\":\"1\",\"g44\":\"1\",\"g45\":\"1\",\"g46\":\"1\",\"g47\":\"1\",\"g48\":\"1\",\"g49\":\"1\",\"g50\":\"1\"}', 0, 1717495195, 1717495195);
 
 -- --------------------------------------------------------
 
@@ -685,6 +725,12 @@ ALTER TABLE `sessions`
   ADD KEY `sessions_last_activity_index` (`last_activity`);
 
 --
+-- Indexes for table `showtimes`
+--
+ALTER TABLE `showtimes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -788,13 +834,19 @@ ALTER TABLE `options`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `showtimes`
+--
+ALTER TABLE `showtimes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
