@@ -58,6 +58,9 @@ class OptionController extends AdminAppController
                 $time = time();
                 $data['created'] =  $time;
                 $data['modified'] =  $time;
+               
+                $data['extra'] =  implode(',',$data['extra']);
+             
 
                 $s = new Option();
                 foreach($data as $k => $val)
@@ -109,6 +112,7 @@ class OptionController extends AdminAppController
                 $time = time();
                 // $data['created'] =  $time;
                 $data['modified'] =  $time;
+                $data['extra'] =  implode(',',$data['extra']);
 
                 // $s = new Banner();
                 foreach($data as $k => $val)

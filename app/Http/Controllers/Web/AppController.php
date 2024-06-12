@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\Controller;
 use App\Models\Branch;
 use App\Models\Category;
+use App\Models\Option;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 // use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
-class AppController
+class AppController extends Controller
 {
     //
     public $view_path = 'Web.pages.';
@@ -38,10 +40,10 @@ class AppController
             $this->DOMAIN = $_SERVER['SERVER_NAME'];
         }
         view()->share('DOMAIN', $this->DOMAIN);
+        view()->share('option_nuoc', $this->option_nuoc);
+        view()->share('option_bong', $this->option_bong);
         
         $this->init_data();
-       
-
     }
 
     public function init_data()
@@ -99,6 +101,20 @@ class AppController
             $branch_list[$v['id']] = $v['title'];
         }
         view()->share('branch_list', $branch_list);
+
+
+
+        // lấy danh sách bỏng nước
+    }
+    
+    public function get_option()
+    {
+
+        $o = Option::where('status',1)->get();
+        if($o != null)
+        {
+          view()->share('options', $o);
+        }
     }
 
     public function get_product_category()

@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\NewController;
 use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\RoomController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ShowtimeController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\UploadController;
@@ -175,8 +176,8 @@ Route::prefix('admin')->group(function () {
             Route::post('/get_room/{branch_id}',[ShowtimeController::class, 'get_room']);
         });
 
-         // order    
-         Route::prefix('order')->group(function () {
+        // order    
+        Route::prefix('order')->group(function () {
             Route::get('/order_list',[OrderController::class, 'order_list']);
             Route::get('/order_add',[OrderController::class, 'order_add']);
             Route::post('/order_add',[OrderController::class, 'order_add']);
@@ -184,6 +185,13 @@ Route::prefix('admin')->group(function () {
             Route::post('/order_edit/{id}',[OrderController::class, 'order_edit']);
             Route::post('/order_delete/{id}',[OrderController::class, 'order_delete']);
             Route::post('/order_update/{id}/{key}/{val}',[OrderController::class, 'upadte_field']);
+        });
+
+        // setting    
+        Route::prefix('setting')->group(function () {
+            Route::get('/setting_edit',[SettingController::class, 'setting_edit']);
+            Route::post('/setting_edit',[SettingController::class, 'setting_edit']);
+            
         });
     });
 

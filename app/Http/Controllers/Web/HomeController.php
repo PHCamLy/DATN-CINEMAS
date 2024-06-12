@@ -237,6 +237,8 @@ class HomeController extends AppController
         $total_price = isset($data['total_price']) && is_numeric($data['total_price']) ? $data['total_price'] : 0;
         $quantity = isset($data['quantity']) && is_numeric($data['quantity']) ? $data['quantity'] : 0;
         $key_ghe = isset($data['key_ghe']) && is_array($data['key_ghe']) ? $data['key_ghe'] : [];
+        $options = isset($data['options']) && is_array($data['options']) ? $data['options'] : [];
+        $content = isset($data['content']) ? $this->removeXss($data['content']) : '' ;
 
         $st = Showtime::find($showtime_id);
         if($st == null)
@@ -245,6 +247,18 @@ class HomeController extends AppController
             echo json_encode($res);
             die();
         }
+        $option_ids = [];
+        if(count($options) > 0)
+        {
+            foreach($options as $v)
+            {
+                $option_ids[]  = $v['id'];
+            }
+            $option_ids = implode(',',$option_ids);
+        }else{
+            $option_ids = '';
+        }
+        $extra  = json_encode($options);
         $st['map'] = json_decode(str_replace('&quot;','"',$st['map']));
         $new_map = [];
         $new_sl = (int)$st['empty'] - $quantity;
@@ -266,6 +280,8 @@ class HomeController extends AppController
 
         $o = new Order();
         $o['created'] = time();
+        $o['extra'] = $extra;
+        $o['option_ids'] = $option_ids;
         $o['showtime_id'] = $showtime_id;
         $o['user_id'] = $user['id'];
         $o['branch_id'] = $st['branch_id'];
@@ -275,12 +291,14 @@ class HomeController extends AppController
         $o['cart_sum'] = $total_price;
         $o['quantity'] = $quantity;
         $o['datetime'] = $st['hour'];
+        $o['content'] = $content;
 
         $o->save();
 
         $res['res'] = 'done';
         echo json_encode($res);
         die();
+        
     }
 
 
@@ -288,6 +306,8 @@ class HomeController extends AppController
     // order
     public function order_add($id)
     {
+        $this->get_option();
+        
         if(is_numeric($id))
         {
             $showtime = Showtime::find($id);

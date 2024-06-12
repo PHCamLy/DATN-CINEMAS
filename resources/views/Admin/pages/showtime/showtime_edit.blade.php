@@ -69,6 +69,7 @@
                                         </select>
                                     </div>
                                 </div>
+                                <?php	 /* 	 ?>
                                 <div class="row mb-4">
                                     <label class="col-form-label col-lg-2">Giá vé</label>
                                     <div class="col-lg-10">
@@ -76,6 +77,7 @@
                                             value="<?php echo $data['price']; ?>" required placeholder="Giá vé ...">
                                     </div>
                                 </div>
+                                <?php	 */ 	 ?>
                                 <div class="row mb-4">
                                     <label class="col-form-label col-lg-2">Ngày chiếu & giờ chiếu</label>
                                     <div class="col-lg-10">

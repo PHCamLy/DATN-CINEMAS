@@ -67,13 +67,14 @@
                                         </select>
                                     </div>
                                 </div>
+                                <?php	 /* 	 ?>
                                 <div class="row mb-4">
                                     <label class="col-form-label col-lg-2">Giá vé</label>
                                     <div class="col-lg-10">
                                         <input name="data[<?php echo $alias; ?>][price]" class="form-control number"
                                             value="" required placeholder="Giá vé ...">
                                     </div>
-                                </div>
+                                </div> */ ?>
                                 <div class="row mb-4">
                                     <label class="col-form-label col-lg-2">Ngày chiếu & giờ chiếu</label>
                                     <div class="col-lg-10">

@@ -44,7 +44,15 @@
                                             </div> */ ?>
                                         </div>
                                     </div>
-
+                                    <div class="col-sm-6 tools">
+                                        <div class="text-end">
+                                            <a href="<?php echo $DOMAIN . $link_add; ?>"
+                                                class="me-3 btn btn-success waves-effect waves-light w-xs">
+                                                <i class="bx bx-add-to-queue"></i>
+                                                Thêm
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                             <div class="table-rep-plugin">
@@ -53,18 +61,24 @@
                                         <thead class="table-light">
                                             <tr>
                                                 <th width="50">Stt</th>
-                                                <th class="text-center" width="300">
-                                                    Khách hàng
+                                                <th class="text-center" width="200">
+                                                    Hình ảnh
                                                 </th>
-                                                <th>Bộ film</th>
-                                                <th width="150">Thông tin</th>
-                                                <th>Đính kèm</th>
-                                                <th width="150">Thời gian</th>
-                                                <th class="text-center" width="150">
-                                                    Ngày đặt
+                                                <th class="text-center">
+                                                    Tên
+                                                    <?php echo $label; ?>
                                                 </th>
                                                 <th class="text-center" width="150">
+                                                    Ngày kết thúc
+                                                </th>
+                                                <th class="text-center" width="100">
+                                                    Giá trị
+                                                </th>
+                                                <th class="text-center">
                                                     Trạng thái
+                                                </th>
+                                                <th class="text-center" width="100">
+                                                    Sửa
                                                 </th>
                                                 <th class="text-center" width="100">
                                                     Xóa
@@ -81,63 +95,27 @@
                                                     <?php	 echo $stt; 	 ?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <?php	 echo $v['fullname']; 	 ?><br>
-                                                    <?php	 echo $v['phone']; 	 ?><br>
-                                                    <?php	 echo $v['email']; 	 ?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $v['node']['title']?>
-                                                </td>
-                                                <td>
-                                                    <p>Rạp chiếu :
-                                                        <b>
-                                                            <?php echo $branch_list[$v['branch_id']]?>
-                                                        </b>
-                                                    </p>
-                                                    <p>Phòng chiếu :
-                                                        <b>
-                                                            <?php echo $room_list[$v['showtime']['room_id']]?>
-                                                        </b>
-                                                    </p>
-                                                    <p>Số vé: <b>
-                                                            <?php echo $v['quantity']; ?>
-                                                        </b>
-                                                    </p>
-                                                    <p>Giá tiền:
-                                                        <b>
-                                                            <?php echo number_format($v['cart_sum']); ?>
-                                                        </b>
-                                                    </p>
-                                                </td>
-                                                <td>
-                                                    <?php	
-                                                        if($v['extra'] != '') {
-                                                            
-                                                            $extra = json_decode($v['extra'],true);
-                                                           
-                                                            foreach($extra  as $e) {
-                                                                echo $v['options'][$e['id']] .' <b> X '. $e['quantity'] .'</b><br>';
-                                                            }
+                                                    <img src="<?php	 echo $v['image']; 	 ?>" alt="" width="80">
 
-                                                        } 
-                                                    ?>
-                                                </td>
-                                                <td>
-                                                    <?php echo date('d-m-Y H:i',$v['datetime']); ?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <?php	 echo date('d-m-Y H:i',$v['created']);;	 ?>
+                                                    <?php	 echo $v['title']; 	 ?>
+                                                </td>
+
+                                                <td class="text-center">
+                                                    <?php	 echo date('d-m-Y H:i',$v['time']);;	 ?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <a class="btn  btn-sm" href="javascript:;"
-                                                        onclick="update_field('<?php echo $DOMAIN . $link_update . $v['id']. '/status';?>');">
-                                                        <span class="icon-status newest-11">
-                                                            <?php	 if($v['status'] == 1) { 	 ?>
-                                                            <i class="fas fa-play"></i>
-                                                            <?php	 }else {	 ?>
-                                                            <i class="fas fa-pause"></i>
-                                                            <?php	 } 	 ?>
-                                                        </span>
+                                                    <?php	 echo is_numeric($v['price']) && ($v['price']) > 0 ? number_format($v['price']) . ' VND' : $v['percent'] . '%'; 	 ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php	 echo $v['status'] == 0 ? 'Không kích hoạt' : 'Kích hoạt'; 	 ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <a class="btn btn-outline-secondary btn-sm"
+                                                        href="<?php echo $DOMAIN . $link_edit . ($v['id']); ?>">
+                                                        <i class="fas fa-pencil-alt">
+                                                        </i>
                                                     </a>
                                                 </td>
                                                 <td class="text-center">

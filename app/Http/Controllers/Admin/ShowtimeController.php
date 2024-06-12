@@ -7,6 +7,7 @@ use App\Models\Branch;
 use App\Models\Film;
 use App\Models\Node;
 use App\Models\Room;
+use App\Models\Setting;
 use App\Models\Showtime;
 use Exception;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -76,6 +77,9 @@ class ShowtimeController extends AdminAppController
 
     public function showtime_add(Request $req)
     {
+        $setting = Setting::where('ckey','showtime')->first();
+        $setting = json_decode($setting['value'],true);
+
         $d = [];
         $data_all = $req->post('data');
         if($data_all != null)
@@ -89,13 +93,38 @@ class ShowtimeController extends AdminAppController
                     $data['day'] = strtotime($t['0']);
                     $data['hour'] = strtotime($data['time']);
 
+                    // giờ bắt đầu buổi tối
+                    $end_day = strtotime($t['0'] . ' 18:00');
+                    
+                    // check time thuoc ngay nao de tinh gia hop le
+                    $date = getdate($data['day']);
+                    // $setting[$date['wday']]
+                    
+                    // giá trị tăng giá theo ngày
+                    $percent = $setting[$date['wday']]['ngay'];
+                    if($data['hour'] >= $end_day )
+                    {
+                        $percent = $setting[$date['wday']]['dem'];
+                    }
+                    $percent = (int) $percent;
                     $f = Film::where(['node_id' => $data['node_id']])->first();
+              
                     if($f != null)
                     {
+                        // tính giờ kết thúc bộ film
                         $phut = preg_replace('/[^0-9]/', '', $f['time']);
 
                         $end_time = strtotime ( '+'. $phut .' minute' ,  $data['hour']) ;
                         $data['end_hour'] =  $end_time;
+
+                        // tính giá
+                        $price  =  $f['price'];
+                        if($percent > 0)
+                        {
+                            $price = $price + (($percent/100) * $price);
+                            $price = (int)$price;
+                        }
+                        $data['price'] = $price;
                     }
                 }
                 // check trong khung giờ đấy, phòng đấy xem có xuất chiếu nào chưa
@@ -175,6 +204,9 @@ class ShowtimeController extends AdminAppController
     
     public function showtime_edit(Request $req, $id = null)
     {
+        $setting = Setting::where('ckey','showtime')->first();
+        $setting = json_decode($setting['value'],true);
+
         $d = [];
         $d = Showtime::find($id);
         if($d['status'] == 1)
@@ -198,15 +230,41 @@ class ShowtimeController extends AdminAppController
                     $data['day'] = strtotime($t['0']);
                     $data['hour'] = strtotime($data['time']);
 
+                    // giờ bắt đầu buổi tối
+                    $end_day = strtotime($t['0'] . ' 18:00');
+                    
+                    // check time thuoc ngay nao de tinh gia hop le
+                    $date = getdate($data['day']);
+                    // $setting[$date['wday']]
+                    
+                    // giá trị tăng giá theo ngày
+                    $percent = $setting[$date['wday']]['ngay'];
+                    if($data['hour'] >= $end_day )
+                    {
+                        $percent = $setting[$date['wday']]['dem'];
+                    }
+                    $percent = (int) $percent;
                     $f = Film::where(['node_id' => $data['node_id']])->first();
+              
                     if($f != null)
                     {
+                        // tính giờ kết thúc bộ film
                         $phut = preg_replace('/[^0-9]/', '', $f['time']);
 
                         $end_time = strtotime ( '+'. $phut .' minute' ,  $data['hour']) ;
                         $data['end_hour'] =  $end_time;
+
+                        // tính giá
+                        $price  =  $f['price'];
+                        if($percent > 0)
+                        {
+                            $price = $price + (($percent/100) * $price);
+                            $price = (int)$price;
+                        }
+                        $data['price'] = $price;
                     }
                 }
+                
                 // check trong khung giờ đấy, phòng đấy xem có xuất chiếu nào chưa
                 $check = Showtime::whereNotIn(
                     'id', [$id]

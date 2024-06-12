@@ -52,6 +52,14 @@
                                     </div>
                                 </div>
                                 <div class="row mb-4">
+                                    <label class="col-form-label col-lg-2">Giá tiền</label>
+                                    <div class="col-lg-10">
+                                        <input name="data[<?php echo $alias; ?>][price]" type="text"
+                                            class="form-control number" required placeholder="Giá tiền mặc định của film"
+                                            value="">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
                                     <label class="col-form-label col-lg-2">Trạng thái</label>
                                     <div class="col-lg-10">
                                         <select id="price-option" name="data[<?php echo $alias; ?>][status]"
@@ -61,8 +69,6 @@
                                         </select>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>

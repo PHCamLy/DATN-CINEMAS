@@ -195,6 +195,12 @@ class AdminAppController extends Controller
                 ),
             ),
         ),
+        'Hệ thống' => array(
+            'Cài đặt' => array(
+                'icon' => 'bx bxl-product-hunt',
+                'link' => 'setting/setting_edit',
+            ),
+        ),
     );
 
     function __construct()

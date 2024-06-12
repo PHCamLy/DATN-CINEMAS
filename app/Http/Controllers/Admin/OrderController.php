@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Branch;
 use App\Models\Node;
+use App\Models\Option;
 use App\Models\Order;
 use App\Models\Room;
 use App\Models\Showtime;
@@ -61,10 +62,31 @@ class OrderController extends AdminAppController
         $data= [];
         foreach($d as $v)
         {
+            $option_ids = [];
+            if($v['option_ids'] != '')
+            {
+                $option_ids = explode(',',$v['option_ids']);
+            }
+            $op = [];
+            if(count($option_ids) > 0)
+            {
+                $op = Option::whereIn('id',$option_ids)->get();
+                $o = [];
+                if($op != null)
+                {
+                    foreach($op as $c)
+                    {
+                        $o[$c['id']] = $c['title'];
+                    }
+                }
+                $op =  $o ;
+            }
             $st = Showtime::find($v['showtime_id']);
+            $node = Node::find($st['node_id']);
             $node = Node::find($st['node_id']);
             $v['showtime'] = $st;
             $v['node'] = $node;
+            $v['options'] = $op;
             $data[] = $v;
         }
         return view($this->view_path . $this->folder.'.order_list',['data' => $data]);

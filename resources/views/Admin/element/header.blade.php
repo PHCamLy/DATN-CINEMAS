@@ -223,7 +223,7 @@
              $lst[$tabName][$moduleName] = array(
                  'icon' => $icon,
                 //  'lang' => $moduleData['lang'],
-                 'link' => $DOMAIN . 'accounting/' . $link
+                 'link' => $DOMAIN . 'admin/' . $link
              );
              // }
          }

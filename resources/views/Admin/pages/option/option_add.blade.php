@@ -46,9 +46,20 @@
                                 <div class="row mb-4">
                                     <label class="col-form-label col-lg-2">Trạng thái</label>
                                     <div class="col-lg-10">
-                                        <select id="price-option" name="data[<?php echo $alias; ?>][status]" class="form-select">
+                                        <select id="price-option" name="data[<?php echo $alias; ?>][status]"
+                                            class="form-select">
                                             <option value="1" selected>Kích hoạt</option>
                                             <option value="0">không kích hoạt</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label class="col-form-label col-lg-2">Bao gồm</label>
+                                    <div class="col-lg-10">
+                                        <select multiple name="data[<?php echo $alias; ?>][extra][]"
+                                            class="form-select select2">
+                                            <option value="nuoc">Nước</option>
+                                            <option value="bong">Bỏng ngô</option>
                                         </select>
                                     </div>
                                 </div>

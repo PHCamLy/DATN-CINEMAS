@@ -133,4 +133,85 @@ h1.film-title {
 .order-box {
     padding: 20px 20px;
     border: 1px solid #d8d8d8;
+    max-width: 300px;
+}
+
+.order-option-item {
+    margin-bottom: 20px;
+}
+
+.order-option-item .img {
+    width: 100px;
+    height: 100px;
+    float: left;
+    margin-right: 20px;
+}
+
+.order-option-item .img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.order-option-item .content {
+    width: calc(100% - 120px);
+    float: left;
+}
+
+.order-option-item .content h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.order-option-item .content .des {
+    margin-bottom: 5px;
+}
+
+.order-option-item .content .price {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.option-list .item {
+    margin-bottom: 10px;
+}
+
+.option-list img {
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+    float: left;
+}
+
+.option-list .content {
+    float: left;
+}
+
+.option-list .content h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+
+.option-list .content .price {
+    margin-bottom: 5px;
+}
+
+.option-list .content input {
+    max-width: 80px;
+    display: inline-block;
+    margin-right: 10px;
+    outline: none;
+}
+
+.option-list .content .delete {
+    font-weight: 600;
+    color: red;
+    cursor: pointer;
+}
+
+.order-note {
+    padding: 5px;
+    width: 100%;
+    outline: none;
 }
