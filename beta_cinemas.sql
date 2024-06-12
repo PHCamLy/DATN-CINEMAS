@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2024 at 02:50 PM
+-- Generation Time: Jun 12, 2024 at 01:28 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -179,14 +179,14 @@ CREATE TABLE `category_linkeds` (
 INSERT INTO `category_linkeds` (`id`, `node_id`, `category_id`) VALUES
 (5, 9, 3),
 (6, 9, 4),
-(29, 15, 6),
-(30, 16, 6),
-(31, 17, 6),
-(35, 10, 6),
-(36, 10, 7),
-(37, 10, 8),
-(38, 18, 6),
-(39, 18, 7);
+(40, 10, 6),
+(41, 10, 7),
+(42, 10, 8),
+(43, 15, 6),
+(44, 16, 6),
+(45, 17, 6),
+(46, 18, 6),
+(47, 18, 7);
 
 -- --------------------------------------------------------
 
@@ -278,6 +278,7 @@ CREATE TABLE `films` (
   `id` int(11) NOT NULL,
   `node_id` int(11) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
+  `price` int(11) DEFAULT 0,
   `description` text DEFAULT NULL,
   `content` text DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
@@ -299,12 +300,12 @@ CREATE TABLE `films` (
 -- Dumping data for table `films`
 --
 
-INSERT INTO `films` (`id`, `node_id`, `title`, `description`, `content`, `image`, `images`, `trailer`, `genres`, `characters`, `director`, `time`, `language`, `release_date`, `type`, `featured`, `modified`, `created`) VALUES
-(1, 10, 'PHIM ĐIỆN ẢNH DORAEMON: NOBITA VÀ BẢN GIAO HƯỞNG ĐỊA CẦU', 'Đôrêmon và những người bạn thực hiện chuyến phiêu lưu để gặp gỡ những người bạn mới, kết nối mọi người bằng âm nhạc và cứu thế giới khỏi khủng hoảng. Liệu những người bạn nhỏ có thể cứu được &quot;tương lai âm nhạc&quot; và cả địa cầu này?', 'ahihih', 'http://127.0.0.1:8000/fileuploads/1716527180.png', NULL, '&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/Yug8gbDd5EQ?si=bsiNXrc3U_cK-Ucc&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen&gt;&lt;/iframe&gt;', 'Hoạt Hình', 'Wasabi Mizuta, Megumi Ôhara, Yumi Kakazu', 'Kazuaki Imai', '115 phút', 'Tiếng Nhật - Phụ đề Tiếng Việt; Lồng tiếng', '24/05/2024', NULL, 0, 1716527181, 1716498438),
-(2, 15, 'Ngôi Đền Kỳ Quái 4', 'Min Joon bj de dọa bởi một linh hồn Pee Nak bi ẩn và phài thực hiện lời hứa trong quá khứ của mình. Nếu không hoàn thành lời hứa ấy, những tội lỗi mà anh từng gây nên sẽ quay trở lại nguyên rủa và trừng phạt cuộc đời anh.', '', 'http://127.0.0.1:8000/fileuploads/1716526212.jpg', NULL, '&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/JToYSVWY4N8?si=n2jjy1hPH4YvlCKR&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen&gt;&lt;/iframe&gt;', 'Hài hước, Kinh dị', 'Witthawat Rattanaboonbaramee, Bhuripat Vejvongsatechawat, Phiravich Attachitsataporn', 'Phontharis Chotkijsadarsopon', '111 phút', 'Tiếng Thái', '31/05/2024', NULL, 0, 1716526213, 1716526213),
-(3, 16, 'Furiosa: Câu Chuyện Từ Max Điên', 'Fury Road, câu chuyện kể về thời trẻ của nữ chiến binh Furiosa khi cô bị tách ra khỏi nơi ẩn náu ở Green Place of Many Mothers và lần đầu tiên buộc phải đối mặt với sự điên rồ của thế giới bên ngoài. Nhưng cô ấy luôn nuôi trong mình một khát vọng “trở về đất mẹ” mãnh liệt.', '', 'http://127.0.0.1:8000/fileuploads/1716526281.jpg', NULL, '&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/vPwSfR_O9Jo?si=g6qUoMvncniidXVk&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen&gt;&lt;/iframe&gt;', 'Hành động, Phiêu lưu', 'Anya Taylor-Joy, Chris Hemsworth, Alyla Brown, Tom Burke', 'George Miller', '148 phút', 'Tiếng Anh', '24/05/2024', NULL, 0, 1716526301, 1716526301),
-(4, 17, 'Lật Mặt 7', 'Qua những lát cắt đan xen, ẩn chứa nhiều nụ cười và cả nước mắt, &quot;Lật Mặt 7: Một Điều Ước&quot; là câu chuyện cảm động về đại gia đình bà Hai 73 tuổi - người mẹ đơn thân tự mình nuôi 5 người con khôn lớn. Khi trưởng thành, mỗi người đều có cuộc sống và gia đình riêng. Bất chợt, biến cố ập đến, những góc khuất dần được hé lộ, những nỗi niềm, lo lắng, trĩu nặng ẩn sâu trong trái tim người mẹ. Trách nhiệm thuộc về ai?', '', 'http://127.0.0.1:8000/fileuploads/1716526387.jpg', NULL, '&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/QdtPQ0wV53M?si=46jVG94-cBVR3O_x&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen&gt;&lt;/iframe&gt;', 'Tâm lý, Gia đình', 'Thanh Hiền, Trương Minh Cường, Đinh Y Nhung, Quách Ngọc Tuyên, Trâm Anh, Trần Kim Hải,..', 'Lý Hải', '138 phút', 'Tiếng Việt', '26/04/2024', NULL, 0, 1716526393, 1716526393),
-(5, 18, 'Án Mạng Lầu 4', 'Một cặp vợ chồng hạnh phúc đang bị mắc kẹt trong những tình huống và thử thách kinh hoàng. Một vụ án mạng nhưng hiện trường lại không có vết máu, tội ác lại càng không. Vậy chuyện gì đã thực sự diễn ra ở lầu 4?', '', 'http://127.0.0.1:8000/fileuploads/1716527272.jpg', NULL, '&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/fSOxL_swa18?si=dBUE0KX9OSSc0XX1&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen&gt;&lt;/iframe&gt;', 'Tâm lý, Hồi Hộp', 'Trương Thế Vinh, Lương Bích Hữu', 'Nguyễn Hữu Tuấn', '106 phút', 'Tiếng Việt', '17/05/2024', NULL, 0, 1716527273, 1716527273);
+INSERT INTO `films` (`id`, `node_id`, `title`, `price`, `description`, `content`, `image`, `images`, `trailer`, `genres`, `characters`, `director`, `time`, `language`, `release_date`, `type`, `featured`, `modified`, `created`) VALUES
+(1, 10, 'PHIM ĐIỆN ẢNH DORAEMON: NOBITA VÀ BẢN GIAO HƯỞNG ĐỊA CẦU', 150000, 'Đôrêmon và những người bạn thực hiện chuyến phiêu lưu để gặp gỡ những người bạn mới, kết nối mọi người bằng âm nhạc và cứu thế giới khỏi khủng hoảng. Liệu những người bạn nhỏ có thể cứu được &quot;tương lai âm nhạc&quot; và cả địa cầu này?', 'ahihih', 'http://127.0.0.1:8000/fileuploads/1716527180.png', NULL, '&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/Yug8gbDd5EQ?si=bsiNXrc3U_cK-Ucc&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen&gt;&lt;/iframe&gt;', 'Hoạt Hình', 'Wasabi Mizuta, Megumi Ôhara, Yumi Kakazu', 'Kazuaki Imai', '115 phút', 'Tiếng Nhật - Phụ đề Tiếng Việt; Lồng tiếng', '24/05/2024', NULL, 0, 1718074368, 1716498438),
+(2, 15, 'Ngôi Đền Kỳ Quái 4', 100000, 'Min Joon bj de dọa bởi một linh hồn Pee Nak bi ẩn và phài thực hiện lời hứa trong quá khứ của mình. Nếu không hoàn thành lời hứa ấy, những tội lỗi mà anh từng gây nên sẽ quay trở lại nguyên rủa và trừng phạt cuộc đời anh.', '', 'http://127.0.0.1:8000/fileuploads/1716526212.jpg', NULL, '&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/JToYSVWY4N8?si=n2jjy1hPH4YvlCKR&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen&gt;&lt;/iframe&gt;', 'Hài hước, Kinh dị', 'Witthawat Rattanaboonbaramee, Bhuripat Vejvongsatechawat, Phiravich Attachitsataporn', 'Phontharis Chotkijsadarsopon', '111 phút', 'Tiếng Thái', '31/05/2024', NULL, 0, 1718074381, 1716526213),
+(3, 16, 'Furiosa: Câu Chuyện Từ Max Điên', 100000, 'Fury Road, câu chuyện kể về thời trẻ của nữ chiến binh Furiosa khi cô bị tách ra khỏi nơi ẩn náu ở Green Place of Many Mothers và lần đầu tiên buộc phải đối mặt với sự điên rồ của thế giới bên ngoài. Nhưng cô ấy luôn nuôi trong mình một khát vọng “trở về đất mẹ” mãnh liệt.', '', 'http://127.0.0.1:8000/fileuploads/1716526281.jpg', NULL, '&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/vPwSfR_O9Jo?si=g6qUoMvncniidXVk&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen&gt;&lt;/iframe&gt;', 'Hành động, Phiêu lưu', 'Anya Taylor-Joy, Chris Hemsworth, Alyla Brown, Tom Burke', 'George Miller', '148 phút', 'Tiếng Anh', '24/05/2024', NULL, 0, 1718074392, 1716526301),
+(4, 17, 'Lật Mặt 7', 100000, 'Qua những lát cắt đan xen, ẩn chứa nhiều nụ cười và cả nước mắt, &quot;Lật Mặt 7: Một Điều Ước&quot; là câu chuyện cảm động về đại gia đình bà Hai 73 tuổi - người mẹ đơn thân tự mình nuôi 5 người con khôn lớn. Khi trưởng thành, mỗi người đều có cuộc sống và gia đình riêng. Bất chợt, biến cố ập đến, những góc khuất dần được hé lộ, những nỗi niềm, lo lắng, trĩu nặng ẩn sâu trong trái tim người mẹ. Trách nhiệm thuộc về ai?', '', 'http://127.0.0.1:8000/fileuploads/1716526387.jpg', NULL, '&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/QdtPQ0wV53M?si=46jVG94-cBVR3O_x&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen&gt;&lt;/iframe&gt;', 'Tâm lý, Gia đình', 'Thanh Hiền, Trương Minh Cường, Đinh Y Nhung, Quách Ngọc Tuyên, Trâm Anh, Trần Kim Hải,..', 'Lý Hải', '138 phút', 'Tiếng Việt', '26/04/2024', NULL, 0, 1718074412, 1716526393),
+(5, 18, 'Án Mạng Lầu 4', 120000, 'Một cặp vợ chồng hạnh phúc đang bị mắc kẹt trong những tình huống và thử thách kinh hoàng. Một vụ án mạng nhưng hiện trường lại không có vết máu, tội ác lại càng không. Vậy chuyện gì đã thực sự diễn ra ở lầu 4?', '', 'http://127.0.0.1:8000/fileuploads/1716527272.jpg', NULL, '&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/fSOxL_swa18?si=dBUE0KX9OSSc0XX1&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen&gt;&lt;/iframe&gt;', 'Tâm lý, Hồi Hộp', 'Trương Thế Vinh, Lương Bích Hữu', 'Nguyễn Hữu Tuấn', '106 phút', 'Tiếng Việt', '17/05/2024', NULL, 0, 1718074426, 1716527273);
 
 -- --------------------------------------------------------
 
@@ -414,15 +415,15 @@ INSERT INTO `nodes` (`id`, `title`, `slug`, `type`, `status`, `pos`, `modified`,
 (6, 'Tin tức', 'tin-tuc', 'category', 1, 0, 1716499819, 1716160581),
 (7, 'Khuyến mãi', 'khuyen-mai', 'category', 1, 0, 1716499837, 1716225272),
 (9, 'Ưu đãi khủng khi xem phim', 'uu-dai-khung-khi-xem-phim', 'new', 1, 0, 1716338400, 1716226572),
-(10, 'PHIM ĐIỆN ẢNH DORAEMON: NOBITA VÀ BẢN GIAO HƯỞNG ĐỊA CẦU', 'phim-dien-anh-doraemon-nobita-va-ban-giao-huong-dia-cau', 'film', 1, 0, 1716527181, 1716498438),
+(10, 'PHIM ĐIỆN ẢNH DORAEMON: NOBITA VÀ BẢN GIAO HƯỞNG ĐỊA CẦU', 'phim-dien-anh-doraemon-nobita-va-ban-giao-huong-dia-cau', 'film', 1, 0, 1718074368, 1716498438),
 (11, 'Phim đang chiếu', 'phim-dang-chieu', 'category', 1, 0, 1716499337, 1716499337),
 (12, 'Phim sắp chiếu', 'phim-sap-chieu', 'category', 1, 0, 1716499348, 1716499348),
 (13, 'Suất chiếu đặc biệt', 'suat-chieu-dac-biet', 'category', 1, 0, 1716499358, 1716499358),
 (14, 'Giới thiệu', 'gioi-thieu', 'category', 1, 0, 1716499559, 1716499559),
-(15, 'Ngôi Đền Kỳ Quái 4', 'ngoi-den-ky-quai-4', 'film', 1, 0, 1716526213, 1716526213),
-(16, 'Furiosa: Câu Chuyện Từ Max Điên', 'furiosa-cau-chuyen-tu-max-dien', 'film', 1, 0, 1716526301, 1716526301),
-(17, 'Lật Mặt 7', 'lat-mat-7', 'film', 1, 0, 1716526393, 1716526393),
-(18, 'Án Mạng Lầu 4', 'an-mang-lau-4', 'film', 1, 0, 1716527273, 1716527273);
+(15, 'Ngôi Đền Kỳ Quái 4', 'ngoi-den-ky-quai-4', 'film', 1, 0, 1718074381, 1716526213),
+(16, 'Furiosa: Câu Chuyện Từ Max Điên', 'furiosa-cau-chuyen-tu-max-dien', 'film', 1, 0, 1718074392, 1716526301),
+(17, 'Lật Mặt 7', 'lat-mat-7', 'film', 1, 0, 1718074412, 1716526393),
+(18, 'Án Mạng Lầu 4', 'an-mang-lau-4', 'film', 1, 0, 1718074426, 1716527273);
 
 -- --------------------------------------------------------
 
@@ -435,6 +436,7 @@ CREATE TABLE `options` (
   `title` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `content` text DEFAULT NULL,
+  `extra` varchar(255) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   `modified` int(11) DEFAULT NULL,
@@ -445,8 +447,11 @@ CREATE TABLE `options` (
 -- Dumping data for table `options`
 --
 
-INSERT INTO `options` (`id`, `title`, `image`, `content`, `price`, `status`, `modified`, `created`) VALUES
-(1, 'Bỏng ngô 1 người', 'http://127.0.0.1:8000/fileuploads/1716157255.jpg', 'ahihi ahihi', 70000, 1, 1716157283, 1716157257);
+INSERT INTO `options` (`id`, `title`, `image`, `content`, `extra`, `price`, `status`, `modified`, `created`) VALUES
+(1, '1 bỏng ngô', 'http://127.0.0.1:8000/fileuploads/1718162515.jpg', 'Dành cho người cô đơn', 'bong', 70000, 1, 1718163738, 1716157257),
+(2, 'Combo 2 nước 1 bỏng', 'http://127.0.0.1:8000/fileuploads/1718162614.jpg', 'Com bo tốt dành cho các cặp đôi', 'nuoc,bong', 150000, 1, 1718163750, 1718162615),
+(3, 'Combo 1 nước 1 bỏng', 'http://127.0.0.1:8000/fileuploads/1718162624.jpg', 'Đang có chương trình khuyến mãi siu ưu đãi', 'nuoc,bong', 100000, 1, 1718163760, 1718162674),
+(4, '1 nước', 'http://127.0.0.1:8000/fileuploads/1718164469.jpg', 'Đang trong thời gian khuyến mãi', 'nuoc', 50000, 1, 1718164471, 1718164471);
 
 -- --------------------------------------------------------
 
@@ -486,7 +491,8 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`id`, `showtime_id`, `code`, `image`, `option_ids`, `user_id`, `branch_id`, `fullname`, `phone`, `email`, `cart_sum`, `quantity`, `coupon_code`, `coupon_discount`, `node_id`, `extra`, `content`, `payment_type`, `status`, `is_used`, `datetime`, `modified`, `created`) VALUES
 (1, 2, NULL, NULL, NULL, 1, 1, 'DoraShang 123', '0812345678', 'dorashang@gmail.com', 300000, 2, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 1717502400, NULL, 1717504486),
-(2, 2, NULL, NULL, NULL, 1, 1, 'DoraShang 123', '0812345678', 'dorashang@gmail.com', 450000, 3, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 1717502400, NULL, 1717504560);
+(2, 2, NULL, NULL, NULL, 1, 1, 'DoraShang 123', '0812345678', 'dorashang@gmail.com', 450000, 3, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 1717502400, NULL, 1717504560),
+(3, 4, NULL, NULL, '3,2', 1, 1, 'DoraShang 123', '0812345678', 'dorashang@gmail.com', 806000, 2, NULL, NULL, NULL, '[{\"id\":\"3\",\"quantity\":\"2\"},{\"id\":\"2\",\"quantity\":\"2\"}]', 'abcdef', 0, NULL, NULL, 1718277660, NULL, 1718189362);
 
 -- --------------------------------------------------------
 
@@ -533,7 +539,28 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('5Uvqz78EWs6qtyJkjLjm9arpCpqf86rEMO9ldTu5', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoic1FqbzZrMHk0eVVpRWRWNmI5bzYyNGRxY1ZHUVVFV2c1UWdzOWNIcCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9maWxtL2ZpbG1fbGlzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjE6e2k6MDtzOjM6Im1zZyI7fXM6MzoibmV3IjthOjA6e319czo0OiJ1c2VyIjthOjk6e3M6MjoiaWQiO2k6MTtzOjg6ImZ1bGxuYW1lIjtzOjEzOiJEb3JhU2hhbmcgMTIzIjtzOjU6InBob25lIjtzOjEwOiIwODEyMzQ1Njc4IjtzOjU6ImVtYWlsIjtzOjE5OiJkb3Jhc2hhbmdAZ21haWwuY29tIjtzOjU6ImltYWdlIjtzOjQ4OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvZmlsZXVwbG9hZHMvMTcxNjE0MjM2Mi5qcGciO3M6ODoidXNlcm5hbWUiO3M6OToiRG9yYVNoYW5nIjtzOjQ6InR5cGUiO047czo3OiJjcmVhdGVkIjtOO3M6ODoibW9kaWZpZWQiO2k6MTcxNjE0MjM2Mzt9czo1OiJhZG1pbiI7YToxMTp7czoyOiJpZCI7aToxO3M6ODoiZnVsbG5hbWUiO3M6NToiQWRtaW4iO3M6NToicGhvbmUiO3M6MTA6IjA4MTIzNDU2NzgiO3M6NToiZW1haWwiO047czo1OiJpbWFnZSI7TjtzOjg6InVzZXJuYW1lIjtzOjU6ImFkbWluIjtzOjg6InBhc3N3b3JkIjtzOjMyOiIyMTIzMmYyOTdhNTdhNWE3NDM4OTRhMGU0YTgwMWZjMyI7czo0OiJ0eXBlIjtpOjA7czo1OiJyb2xlcyI7TjtzOjg6Im1vZGlmaWVkIjtOO3M6NzoiY3JlYXRlZCI7Tjt9czozOiJtc2ciO3M6MDoiIjt9', 1717505407);
+('NZxvaLaSQCCPX4FQDd2Wow8UJLTJ3N6XIYJdhuoK', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiQ3NrVFZMNTJ0RWpDaTFxZXhOOTdXSDliTlBOZVZ5WEtDejBnRXRpbCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDQ6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9vcmRlci9vcmRlcl9saXN0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MTp7aTowO3M6MzoibXNnIjt9czozOiJuZXciO2E6MDp7fX1zOjQ6InVzZXIiO2E6OTp7czoyOiJpZCI7aToxO3M6ODoiZnVsbG5hbWUiO3M6MTM6IkRvcmFTaGFuZyAxMjMiO3M6NToicGhvbmUiO3M6MTA6IjA4MTIzNDU2NzgiO3M6NToiZW1haWwiO3M6MTk6ImRvcmFzaGFuZ0BnbWFpbC5jb20iO3M6NToiaW1hZ2UiO3M6NDg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9maWxldXBsb2Fkcy8xNzE2MTQyMzYyLmpwZyI7czo4OiJ1c2VybmFtZSI7czo5OiJEb3JhU2hhbmciO3M6NDoidHlwZSI7TjtzOjc6ImNyZWF0ZWQiO047czo4OiJtb2RpZmllZCI7aToxNzE2MTQyMzYzO31zOjU6ImFkbWluIjthOjExOntzOjI6ImlkIjtpOjE7czo4OiJmdWxsbmFtZSI7czo1OiJBZG1pbiI7czo1OiJwaG9uZSI7czoxMDoiMDgxMjM0NTY3OCI7czo1OiJlbWFpbCI7TjtzOjU6ImltYWdlIjtOO3M6ODoidXNlcm5hbWUiO3M6NToiYWRtaW4iO3M6ODoicGFzc3dvcmQiO3M6MzI6IjIxMjMyZjI5N2E1N2E1YTc0Mzg5NGEwZTRhODAxZmMzIjtzOjQ6InR5cGUiO2k6MDtzOjU6InJvbGVzIjtOO3M6ODoibW9kaWZpZWQiO047czo3OiJjcmVhdGVkIjtOO31zOjM6Im1zZyI7czowOiIiO30=', 1718190291);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `settings`
+--
+
+CREATE TABLE `settings` (
+  `id` int(11) NOT NULL,
+  `ckey` varchar(255) DEFAULT NULL,
+  `value` text DEFAULT NULL,
+  `status` int(11) DEFAULT 1,
+  `type` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `settings`
+--
+
+INSERT INTO `settings` (`id`, `ckey`, `value`, `status`, `type`) VALUES
+(1, 'showtime', '[{\"ngay\":\"2\",\"dem\":\"4\"},{\"ngay\":\"0\",\"dem\":\"0\"},{\"ngay\":\"2\",\"dem\":\"3\"},{\"ngay\":\"1\",\"dem\":\"2\"},{\"ngay\":\"2\",\"dem\":\"3\"},{\"ngay\":\"3\",\"dem\":\"4\"},{\"ngay\":\"10\",\"dem\":\"15\"}]', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -562,7 +589,9 @@ CREATE TABLE `showtimes` (
 --
 
 INSERT INTO `showtimes` (`id`, `branch_id`, `room_id`, `node_id`, `day`, `hour`, `end_hour`, `price`, `empty`, `map`, `status`, `created`, `modified`) VALUES
-(2, 1, 1, 10, 1717459200, 1717502400, 1717509300, 150000, 45, '{\"g1\":\"1\",\"g2\":\"1\",\"g3\":\"1\",\"g4\":\"1\",\"g5\":\"1\",\"g6\":\"1\",\"g7\":0,\"g8\":0,\"g9\":\"1\",\"g10\":\"1\",\"g11\":\"1\",\"g12\":\"1\",\"g13\":\"1\",\"g14\":\"1\",\"g15\":\"1\",\"g16\":0,\"g17\":0,\"g18\":\"1\",\"g19\":\"1\",\"g20\":\"1\",\"g21\":\"1\",\"g22\":\"1\",\"g23\":\"1\",\"g24\":\"1\",\"g25\":\"1\",\"g26\":\"1\",\"g27\":0,\"g28\":\"1\",\"g29\":\"1\",\"g30\":\"1\",\"g31\":\"1\",\"g32\":\"1\",\"g33\":\"1\",\"g34\":\"1\",\"g35\":\"1\",\"g36\":\"1\",\"g37\":\"1\",\"g38\":\"1\",\"g39\":\"1\",\"g40\":\"1\",\"g41\":\"1\",\"g42\":\"1\",\"g43\":\"1\",\"g44\":\"1\",\"g45\":\"1\",\"g46\":\"1\",\"g47\":\"1\",\"g48\":\"1\",\"g49\":\"1\",\"g50\":\"1\"}', 0, 1717495195, 1717495195);
+(2, 1, 1, 10, 1717459200, 1717502400, 1717509300, 150000, 45, '{\"g1\":\"1\",\"g2\":\"1\",\"g3\":\"1\",\"g4\":\"1\",\"g5\":\"1\",\"g6\":\"1\",\"g7\":0,\"g8\":0,\"g9\":\"1\",\"g10\":\"1\",\"g11\":\"1\",\"g12\":\"1\",\"g13\":\"1\",\"g14\":\"1\",\"g15\":\"1\",\"g16\":0,\"g17\":0,\"g18\":\"1\",\"g19\":\"1\",\"g20\":\"1\",\"g21\":\"1\",\"g22\":\"1\",\"g23\":\"1\",\"g24\":\"1\",\"g25\":\"1\",\"g26\":\"1\",\"g27\":0,\"g28\":\"1\",\"g29\":\"1\",\"g30\":\"1\",\"g31\":\"1\",\"g32\":\"1\",\"g33\":\"1\",\"g34\":\"1\",\"g35\":\"1\",\"g36\":\"1\",\"g37\":\"1\",\"g38\":\"1\",\"g39\":\"1\",\"g40\":\"1\",\"g41\":\"1\",\"g42\":\"1\",\"g43\":\"1\",\"g44\":\"1\",\"g45\":\"1\",\"g46\":\"1\",\"g47\":\"1\",\"g48\":\"1\",\"g49\":\"1\",\"g50\":\"1\"}', 0, 1717495195, 1717495195),
+(3, 1, 1, 15, 1718496000, 1718564400, 1718571060, 104000, 50, '{&quot;g1&quot;:&quot;1&quot;,&quot;g2&quot;:&quot;1&quot;,&quot;g3&quot;:&quot;1&quot;,&quot;g4&quot;:&quot;1&quot;,&quot;g5&quot;:&quot;1&quot;,&quot;g6&quot;:&quot;1&quot;,&quot;g7&quot;:&quot;1&quot;,&quot;g8&quot;:&quot;1&quot;,&quot;g9&quot;:&quot;1&quot;,&quot;g10&quot;:&quot;1&quot;,&quot;g11&quot;:&quot;1&quot;,&quot;g12&quot;:&quot;1&quot;,&quot;g13&quot;:&quot;1&quot;,&quot;g14&quot;:&quot;1&quot;,&quot;g15&quot;:&quot;1&quot;,&quot;g16&quot;:&quot;1&quot;,&quot;g17&quot;:&quot;1&quot;,&quot;g18&quot;:&quot;1&quot;,&quot;g19&quot;:&quot;1&quot;,&quot;g20&quot;:&quot;1&quot;,&quot;g21&quot;:&quot;1&quot;,&quot;g22&quot;:&quot;1&quot;,&quot;g23&quot;:&quot;1&quot;,&quot;g24&quot;:&quot;1&quot;,&quot;g25&quot;:&quot;1&quot;,&quot;g26&quot;:&quot;1&quot;,&quot;g27&quot;:&quot;1&quot;,&quot;g28&quot;:&quot;1&quot;,&quot;g29&quot;:&quot;1&quot;,&quot;g30&quot;:&quot;1&quot;,&quot;g31&quot;:&quot;1&quot;,&quot;g32&quot;:&quot;1&quot;,&quot;g33&quot;:&quot;1&quot;,&quot;g34&quot;:&quot;1&quot;,&quot;g35&quot;:&quot;1&quot;,&quot;g36&quot;:&quot;1&quot;,&quot;g37&quot;:&quot;1&quot;,&quot;g38&quot;:&quot;1&quot;,&quot;g39&quot;:&quot;1&quot;,&quot;g40&quot;:&quot;1&quot;,&quot;g41&quot;:&quot;1&quot;,&quot;g42&quot;:&quot;1&quot;,&quot;g43&quot;:&quot;1&quot;,&quot;g44&quot;:&quot;1&quot;,&quot;g45&quot;:&quot;1&quot;,&quot;g46&quot;:&quot;1&quot;,&quot;g47&quot;:&quot;1&quot;,&quot;g48&quot;:&quot;1&quot;,&quot;g49&quot;:&quot;1&quot;,&quot;g50&quot;:&quot;1&quot;}', 0, 1718162063, 1718162063),
+(4, 1, 1, 10, 1718236800, 1718277660, 1718284560, 153000, 48, '{\"g1\":\"1\",\"g2\":\"1\",\"g3\":\"1\",\"g4\":\"1\",\"g5\":\"1\",\"g6\":\"1\",\"g7\":\"1\",\"g8\":\"1\",\"g9\":\"1\",\"g10\":\"1\",\"g11\":\"1\",\"g12\":\"1\",\"g13\":\"1\",\"g14\":\"1\",\"g15\":\"1\",\"g16\":\"1\",\"g17\":\"1\",\"g18\":\"1\",\"g19\":\"1\",\"g20\":\"1\",\"g21\":\"1\",\"g22\":\"1\",\"g23\":\"1\",\"g24\":\"1\",\"g25\":\"1\",\"g26\":\"1\",\"g27\":\"1\",\"g28\":\"1\",\"g29\":\"1\",\"g30\":\"1\",\"g31\":\"1\",\"g32\":\"1\",\"g33\":\"1\",\"g34\":\"1\",\"g35\":\"1\",\"g36\":\"1\",\"g37\":\"1\",\"g38\":\"1\",\"g39\":\"1\",\"g40\":\"1\",\"g41\":\"1\",\"g42\":\"1\",\"g43\":\"1\",\"g44\":\"1\",\"g45\":0,\"g46\":0,\"g47\":\"1\",\"g48\":\"1\",\"g49\":\"1\",\"g50\":\"1\"}', 0, 1718166402, 1718166402);
 
 -- --------------------------------------------------------
 
@@ -725,6 +754,12 @@ ALTER TABLE `sessions`
   ADD KEY `sessions_last_activity_index` (`last_activity`);
 
 --
+-- Indexes for table `settings`
+--
+ALTER TABLE `settings`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `showtimes`
 --
 ALTER TABLE `showtimes`
@@ -768,7 +803,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `category_linkeds`
 --
 ALTER TABLE `category_linkeds`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `comments`
@@ -828,13 +863,13 @@ ALTER TABLE `nodes`
 -- AUTO_INCREMENT for table `options`
 --
 ALTER TABLE `options`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `rooms`
@@ -843,10 +878,16 @@ ALTER TABLE `rooms`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `settings`
+--
+ALTER TABLE `settings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `showtimes`
 --
 ALTER TABLE `showtimes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
