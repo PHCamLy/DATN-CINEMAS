@@ -53,6 +53,9 @@
                                         <thead class="table-light">
                                             <tr>
                                                 <th width="50">Stt</th>
+                                                <th class="text-center" width="80">
+                                                    Mã vé
+                                                </th>
                                                 <th class="text-center" width="300">
                                                     Khách hàng
                                                 </th>
@@ -79,6 +82,9 @@
                                             <tr>
                                                 <td class="text-center">
                                                     <?php	 echo $stt; 	 ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php	 echo $v['code'];	 ?>
                                                 </td>
                                                 <td class="text-center">
                                                     <?php	 echo $v['fullname']; 	 ?><br>
@@ -129,8 +135,9 @@
                                                     <?php	 echo date('d-m-Y H:i',$v['created']);;	 ?>
                                                 </td>
                                                 <td class="text-center">
+                                                    <?php	 if($v['status'] == 0){ 	 ?>
                                                     <a class="btn  btn-sm" href="javascript:;"
-                                                        onclick="update_field('<?php echo $DOMAIN . $link_update . $v['id']. '/status';?>');">
+                                                        onclick="update_field('<?php echo $DOMAIN . $link_update . $v['id']. '/status/' . 1;?>');">
                                                         <span class="icon-status newest-11">
                                                             <?php	 if($v['status'] == 1) { 	 ?>
                                                             <i class="fas fa-play"></i>
@@ -139,6 +146,11 @@
                                                             <?php	 } 	 ?>
                                                         </span>
                                                     </a>
+                                                    <?php	 } else {	 ?>
+                                                    <a class="text-success" href="javascript:;">
+                                                        <i class="fas fa-play"></i>
+                                                    </a>
+                                                    <?php	 } 	 ?>
                                                 </td>
                                                 <td class="text-center">
                                                     <a class="btn  btn-sm" href="javascript:;"

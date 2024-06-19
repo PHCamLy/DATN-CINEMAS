@@ -177,9 +177,9 @@ class AdminAppController extends Controller
                     'Danh sách' => array(
                         'link' => 'user/user_list'
                     ),
-                    'Thêm mới' => array(
-                        'link' => 'user/user_add'
-                    ),
+                    // 'Thêm mới' => array(
+                    //     'link' => 'user/user_add'
+                    // ),
                 ),
             ),
             'Tài khoản nhân viên' => array(

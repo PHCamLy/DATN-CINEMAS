@@ -10,6 +10,8 @@ use App\Models\Order;
 use App\Models\Room;
 use App\Models\Showtime;
 use Illuminate\Http\Request;
+use App\Mail\SentEmail;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends AdminAppController
 {
@@ -56,9 +58,11 @@ class OrderController extends AdminAppController
 
     public function order_list()
     {
+        // Mail::to('dorashang882@gmail.com')->send(new SentEmail());
+        
         $d = [];
         session()->flash('msg', '');
-        $d = Order::paginate(15);
+        $d = Order::orderBy('id', 'DESC')->paginate(15);
         $data= [];
         foreach($d as $v)
         {
@@ -127,6 +131,17 @@ class OrderController extends AdminAppController
         if($val != null)
         {
             $d[$key] = $val;
+        }
+
+        $email = $d['email'];
+
+        if($key == 'status')
+        {
+            $mess = [
+                'msg' => 'Chúc mừng bạn đã đặt vé thành công!',
+                'link' => '#',
+            ];
+            Mail::to($email)->send(new SentEmail($mess));
         }
 
         $d->save();

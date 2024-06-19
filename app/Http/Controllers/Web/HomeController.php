@@ -36,11 +36,52 @@ class HomeController extends AppController
                 {
                     return $this->ajax_logout($data);
                 }
+                if($data['req_type'] == 'register')
+                {
+                    return $this->ajax_register($data);
+                }
             }
         }
         $this->get_product_category();
         
         return view($this->view_path . 'home.home_index');
+    }
+
+    public function ajax_register($data = null)
+    {
+        if($data != null)
+        {
+            $email = isset($data['email']) ? $data['email'] : '';
+            $pass = isset($data['pass']) ? $data['pass'] : '';
+            $fullname = isset($data['fullname']) ? $data['fullname'] : '';
+            $phone = isset($data['phone']) ? $data['phone'] : '';
+            $password = md5($pass);
+
+            // check email
+            $check = User::where([['email',$email]])->first();
+            if($check != null)
+            {
+                
+                $this->res['res'] = 'err';
+                $this->res['msg'] = 'Email Đã được đăng ký';
+                
+            }else{
+
+                $d = new User();
+                $d['email'] = $email;
+                $d['password'] = $password;
+                $d['fullname'] = $fullname;
+                $d['phone'] = $phone;
+                $d['created'] = time();
+
+                $d->save();
+
+                $this->res['res'] = 'done';
+                $this->res['msg'] = 'Đăng ký thành công';
+            }
+        }
+        session()->flash('msg', json_encode($this->res));
+        return redirect('/login');
     }
 
     private function ajax_login($data = null)
@@ -72,8 +113,10 @@ class HomeController extends AppController
                 $this->res['msg'] = 'Email hoặc mật khẩu không đúng';
             }
         }
+
         session()->flash('msg', json_encode($this->res));
         return redirect('/login');
+        
         // echo json_encode($this->res);
         // die();
     }
@@ -81,6 +124,12 @@ class HomeController extends AppController
     private function ajax_logout($data)
     {   
         
+    }
+    public function logout(){
+        
+        session(['user' => null]);
+        // dd(session()->get('user'));
+        return redirect('/');
     }
     
     public function handle_slug(Request $request,$slug = null)
@@ -239,6 +288,7 @@ class HomeController extends AppController
         $key_ghe = isset($data['key_ghe']) && is_array($data['key_ghe']) ? $data['key_ghe'] : [];
         $options = isset($data['options']) && is_array($data['options']) ? $data['options'] : [];
         $content = isset($data['content']) ? $this->removeXss($data['content']) : '' ;
+        $code = isset($data['code']) ? $this->removeXss($data['code']) : '' ;
 
         $st = Showtime::find($showtime_id);
         if($st == null)
@@ -247,6 +297,13 @@ class HomeController extends AppController
             echo json_encode($res);
             die();
         }
+        if($code == '')
+        {
+            $res['msg'] = 'Mã không hợp lệ';
+            echo json_encode($res);
+            die();
+        }
+        $node_id = $st['node_id'];
         $option_ids = [];
         if(count($options) > 0)
         {
@@ -279,8 +336,10 @@ class HomeController extends AppController
         $st->save();
 
         $o = new Order();
+        
         $o['created'] = time();
         $o['extra'] = $extra;
+        $o['node_id'] = $node_id;
         $o['option_ids'] = $option_ids;
         $o['showtime_id'] = $showtime_id;
         $o['user_id'] = $user['id'];
@@ -292,6 +351,8 @@ class HomeController extends AppController
         $o['quantity'] = $quantity;
         $o['datetime'] = $st['hour'];
         $o['content'] = $content;
+        $o['code'] = $code;
+        $o['status'] = 0;
 
         $o->save();
 
@@ -300,8 +361,6 @@ class HomeController extends AppController
         die();
         
     }
-
-
 
     // order
     public function order_add($id)

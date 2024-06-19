@@ -30,6 +30,8 @@ use Illuminate\Support\Facades\Route;
 // router web
 Route::get('/', [HomeController::class, 'home_index']);
 Route::post('/', [HomeController::class, 'home_index']);
+Route::get('/logout', [HomeController::class, 'logout']);
+
 Route::get('/login', [UserController::class, 'login'])->middleware(WebCheckLogin::class);
 
 Route::post('/uploads', [UploadController::class, 'fileUpload']);

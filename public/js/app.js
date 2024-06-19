@@ -6,12 +6,68 @@ $('.banner.owl-carousel').owlCarousel({
     items: 1,
 
 })
+$('#register form').submit(function () {
+    var fullname = $('#txtName').val();
+    var email = $('#txtEmail').val();
+    var pass = $('#txtMatKhau').val();
+    var c_pass = $('#txtXacNhanMatKhau').val();
+    var phone = $('#txtDienThoai').val();
+    var sex = $('#cboSex').val();
+    if (fullname == '' || fullname == undefined) {
+        Swal.fire("Vui lòng nhập họ tên", '', "warning");
+        return false;
+    }
+
+    if (email == '' || email == undefined) {
+        Swal.fire("Vui lòng nhập email", '', "warning");
+        return false;
+    }
+    if (pass == '' || pass == undefined) {
+        Swal.fire("Vui lòng nhập mật khẩu", '', "warning");
+        return false;
+    }
+    if (c_pass == '' || c_pass !== pass) {
+        Swal.fire("Mật khẩu không khớp, vui lòng nhập lại", '', "warning");
+        return false;
+    }
+
+    if (phone == '' || phone == undefined) {
+        Swal.fire("Vui lòng nhập số điện thoại", '', "warning");
+        return false;
+    }
+
+});
+
+
+$('#login form').submit(function () {
+    var email = $('#txtLoginName').val();
+    var pass = $('#txtLoginPassword').val();
+    if (email == '' || email == undefined) {
+        Swal.fire("Vui lòng nhập email", '', "warning");
+        return false;
+    }
+    if (pass == '' || pass == undefined) {
+        Swal.fire("Vui lòng nhập mật khẩu", '', "warning");
+        return false;
+    }
+
+});
 
 function login() {
     startSending()
+    var email = '';
+    var pass = '';
+    if (email == '' || email == undefined) {
+        Swal.fire("Vui lòng nhập email", '', "warning");
+        return false;
+    }
+    if (pass == '' || pass == undefined) {
+        Swal.fire("Vui lòng nhập mật khẩu", '', "warning");
+        return false;
+    }
     var data = {
-        email: 'dorashang@gmail.com',
-        pass: '123',
+        email: email,
+        pass: pass,
         req_type: 'login',
     };
     // data = JSON.stringify(data);
@@ -138,6 +194,7 @@ function datve_submit() {
     var total_price = $('#total_price').val();
     var content = $('.order-note').val();
     var total_option = $('#total_option').val();
+    var order_code = $('#order_code').val();
 
     var quantity = $('.danhsachghe .item.active').length;
     var options = [];
@@ -172,6 +229,7 @@ function datve_submit() {
         quantity: quantity,
         showtime_id: showtime_id,
         options: options,
+        code: order_code,
     };
     // data = JSON.stringify(data);
     console.log(data);

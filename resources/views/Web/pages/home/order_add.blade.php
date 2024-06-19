@@ -3,6 +3,9 @@
 @section('title', 'Đặt vé')
 
 @section('content')
+<?php	 
+    $code = 'CAM-' . time();
+?>
 <div class="page-order">
     <div class="container">
         <h2 class="title">Thông tin vé</h2>
@@ -113,6 +116,25 @@
                             <textarea class="order-note" name="" id="" placeholder="Lời nhắn"></textarea>
                         </div>
                         <hr>
+                        <div class="qr-code">
+                            <div class="d-flex">
+                                <p>
+                                    nội dung chuyển khoản:
+                                </p>
+                                <h3 class="">
+                                    <?php echo $code; ?>
+                                </h3>
+                            </div>
+                            <div class="img">
+                                <img src="https://th.bing.com/th/id/OIP.7xGQKpUtezOy0cDWXQExxQHaHa?rs=1&pid=ImgDetMain"
+                                    alt="">
+                            </div>
+                            <p>
+                                Lưu ý, sau khi chuyển khoản, bạn sẽ nhận được mail thông báo!
+                            </p>
+
+                        </div>
+                        <br>
                         <div class="btn-datve">
                             <a style="display: block;" href="javascript:;"
                                 class="btn btn-2 btn-mua-ve2 fancybox-fast-view" onclick="datve_submit()" ;="">
@@ -121,6 +143,11 @@
                                 </span>
                                 MUA VÉ
                             </a>
+                        </div>
+                        <div>
+                            <p>&nbsp;</p>
+                            <p class="text-danger">Liên hệ hotline: 0812 345 678 khi xảy ra lỗi để được hỗ
+                                trợ!</p>
                         </div>
                     </div>
                     <div class="chuthich">
@@ -167,10 +194,13 @@
         </div>
     </div>
 </div>
+
 <input type="hidden" id="total_price" value="0">
 <input type="hidden" id="total_option" value="0">
 <input type="hidden" id="price" value="<?php echo $showtime['price'] ?>">
 <input type="hidden" id="showtime_id" value="<?php echo $showtime['id'] ?>">
+<input type="hidden" id="order_code" value="<?php echo $code; ?>">
+
 @stop
 
 

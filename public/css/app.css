@@ -215,3 +215,18 @@ h1.film-title {
     width: 100%;
     outline: none;
 }
+
+.qr-code img {
+    width: 100%;
+}
+
+.qr-code h3 {
+    font-size: 18px;
+    margin: 0;
+    padding-left: 15px;
+    padding-bottom: 15px;
+}
+
+.d-flex {
+    display: flex;
+}
