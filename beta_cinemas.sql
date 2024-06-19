@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2024 at 01:28 PM
+-- Generation Time: Jun 19, 2024 at 01:36 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -462,7 +462,7 @@ INSERT INTO `options` (`id`, `title`, `image`, `content`, `extra`, `price`, `sta
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `showtime_id` int(11) DEFAULT 0,
-  `code` int(11) DEFAULT NULL,
+  `code` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `option_ids` varchar(255) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
@@ -490,9 +490,10 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `showtime_id`, `code`, `image`, `option_ids`, `user_id`, `branch_id`, `fullname`, `phone`, `email`, `cart_sum`, `quantity`, `coupon_code`, `coupon_discount`, `node_id`, `extra`, `content`, `payment_type`, `status`, `is_used`, `datetime`, `modified`, `created`) VALUES
-(1, 2, NULL, NULL, NULL, 1, 1, 'DoraShang 123', '0812345678', 'dorashang@gmail.com', 300000, 2, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 1717502400, NULL, 1717504486),
-(2, 2, NULL, NULL, NULL, 1, 1, 'DoraShang 123', '0812345678', 'dorashang@gmail.com', 450000, 3, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 1717502400, NULL, 1717504560),
-(3, 4, NULL, NULL, '3,2', 1, 1, 'DoraShang 123', '0812345678', 'dorashang@gmail.com', 806000, 2, NULL, NULL, NULL, '[{\"id\":\"3\",\"quantity\":\"2\"},{\"id\":\"2\",\"quantity\":\"2\"}]', 'abcdef', 0, NULL, NULL, 1718277660, NULL, 1718189362);
+(1, 2, NULL, NULL, NULL, 1, 1, 'DoraShang 123', '0812345678', 'dorashang882@gmail.com', 300000, 2, NULL, NULL, 10, NULL, NULL, 0, 1, NULL, 1717502400, NULL, 1717504486),
+(3, 4, NULL, NULL, '3,2', 1, 1, 'DoraShang 123', '0812345678', 'dorashang@gmail.com', 806000, 2, NULL, NULL, 10, '[{\"id\":\"3\",\"quantity\":\"2\"},{\"id\":\"2\",\"quantity\":\"2\"}]', 'abcdef', 0, 0, NULL, 1718277660, NULL, 1718189362),
+(4, 5, 'CAM-1718791762', NULL, '', 1, 1, 'DoraShang 123', '0812345678', 'dorashang882@gmail.com', 306000, 2, NULL, NULL, 10, '[]', '', 0, 1, NULL, 1718899200, NULL, 1718791809),
+(5, 5, 'CAM-1718796516', NULL, '3', 3, 1, 'Nobita', '0812345678', 'ply.th1002@gmail.com', 406000, 2, NULL, NULL, 10, '[{\"id\":\"3\",\"quantity\":\"1\"}]', 'ahihi', 0, 1, NULL, 1718899200, NULL, 1718796576);
 
 -- --------------------------------------------------------
 
@@ -539,7 +540,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('NZxvaLaSQCCPX4FQDd2Wow8UJLTJ3N6XIYJdhuoK', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiQ3NrVFZMNTJ0RWpDaTFxZXhOOTdXSDliTlBOZVZ5WEtDejBnRXRpbCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDQ6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9vcmRlci9vcmRlcl9saXN0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MTp7aTowO3M6MzoibXNnIjt9czozOiJuZXciO2E6MDp7fX1zOjQ6InVzZXIiO2E6OTp7czoyOiJpZCI7aToxO3M6ODoiZnVsbG5hbWUiO3M6MTM6IkRvcmFTaGFuZyAxMjMiO3M6NToicGhvbmUiO3M6MTA6IjA4MTIzNDU2NzgiO3M6NToiZW1haWwiO3M6MTk6ImRvcmFzaGFuZ0BnbWFpbC5jb20iO3M6NToiaW1hZ2UiO3M6NDg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9maWxldXBsb2Fkcy8xNzE2MTQyMzYyLmpwZyI7czo4OiJ1c2VybmFtZSI7czo5OiJEb3JhU2hhbmciO3M6NDoidHlwZSI7TjtzOjc6ImNyZWF0ZWQiO047czo4OiJtb2RpZmllZCI7aToxNzE2MTQyMzYzO31zOjU6ImFkbWluIjthOjExOntzOjI6ImlkIjtpOjE7czo4OiJmdWxsbmFtZSI7czo1OiJBZG1pbiI7czo1OiJwaG9uZSI7czoxMDoiMDgxMjM0NTY3OCI7czo1OiJlbWFpbCI7TjtzOjU6ImltYWdlIjtOO3M6ODoidXNlcm5hbWUiO3M6NToiYWRtaW4iO3M6ODoicGFzc3dvcmQiO3M6MzI6IjIxMjMyZjI5N2E1N2E1YTc0Mzg5NGEwZTRhODAxZmMzIjtzOjQ6InR5cGUiO2k6MDtzOjU6InJvbGVzIjtOO3M6ODoibW9kaWZpZWQiO047czo3OiJjcmVhdGVkIjtOO31zOjM6Im1zZyI7czowOiIiO30=', 1718190291);
+('t1tGOOSygxilllBJcP5ulO6Fp6eF2NlvnsS7GSd9', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiM1ZMWDV0YVFGUWlOdkkzbVhORDVyemxFNkh2VGdhYnlqMDgzVmlVOCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDQ6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9vcmRlci9vcmRlcl9saXN0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MTp7aTowO3M6MzoibXNnIjt9czozOiJuZXciO2E6MDp7fX1zOjQ6InVzZXIiO2E6OTp7czoyOiJpZCI7aTozO3M6ODoiZnVsbG5hbWUiO3M6NjoiTm9iaXRhIjtzOjU6InBob25lIjtzOjEwOiIwODEyMzQ1Njc4IjtzOjU6ImVtYWlsIjtzOjE4OiJwbHkuMTAwMkBnbWFpbC5jb20iO3M6NToiaW1hZ2UiO047czo4OiJ1c2VybmFtZSI7TjtzOjQ6InR5cGUiO047czo3OiJjcmVhdGVkIjtOO3M6ODoibW9kaWZpZWQiO047fXM6NToiYWRtaW4iO2E6MTE6e3M6MjoiaWQiO2k6MTtzOjg6ImZ1bGxuYW1lIjtzOjU6IkFkbWluIjtzOjU6InBob25lIjtzOjEwOiIwODEyMzQ1Njc4IjtzOjU6ImVtYWlsIjtOO3M6NToiaW1hZ2UiO047czo4OiJ1c2VybmFtZSI7czo1OiJhZG1pbiI7czo4OiJwYXNzd29yZCI7czozMjoiMjEyMzJmMjk3YTU3YTVhNzQzODk0YTBlNGE4MDFmYzMiO3M6NDoidHlwZSI7aTowO3M6NToicm9sZXMiO047czo4OiJtb2RpZmllZCI7TjtzOjc6ImNyZWF0ZWQiO047fXM6MzoibXNnIjtzOjA6IiI7fQ==', 1718796782);
 
 -- --------------------------------------------------------
 
@@ -591,7 +592,8 @@ CREATE TABLE `showtimes` (
 INSERT INTO `showtimes` (`id`, `branch_id`, `room_id`, `node_id`, `day`, `hour`, `end_hour`, `price`, `empty`, `map`, `status`, `created`, `modified`) VALUES
 (2, 1, 1, 10, 1717459200, 1717502400, 1717509300, 150000, 45, '{\"g1\":\"1\",\"g2\":\"1\",\"g3\":\"1\",\"g4\":\"1\",\"g5\":\"1\",\"g6\":\"1\",\"g7\":0,\"g8\":0,\"g9\":\"1\",\"g10\":\"1\",\"g11\":\"1\",\"g12\":\"1\",\"g13\":\"1\",\"g14\":\"1\",\"g15\":\"1\",\"g16\":0,\"g17\":0,\"g18\":\"1\",\"g19\":\"1\",\"g20\":\"1\",\"g21\":\"1\",\"g22\":\"1\",\"g23\":\"1\",\"g24\":\"1\",\"g25\":\"1\",\"g26\":\"1\",\"g27\":0,\"g28\":\"1\",\"g29\":\"1\",\"g30\":\"1\",\"g31\":\"1\",\"g32\":\"1\",\"g33\":\"1\",\"g34\":\"1\",\"g35\":\"1\",\"g36\":\"1\",\"g37\":\"1\",\"g38\":\"1\",\"g39\":\"1\",\"g40\":\"1\",\"g41\":\"1\",\"g42\":\"1\",\"g43\":\"1\",\"g44\":\"1\",\"g45\":\"1\",\"g46\":\"1\",\"g47\":\"1\",\"g48\":\"1\",\"g49\":\"1\",\"g50\":\"1\"}', 0, 1717495195, 1717495195),
 (3, 1, 1, 15, 1718496000, 1718564400, 1718571060, 104000, 50, '{&quot;g1&quot;:&quot;1&quot;,&quot;g2&quot;:&quot;1&quot;,&quot;g3&quot;:&quot;1&quot;,&quot;g4&quot;:&quot;1&quot;,&quot;g5&quot;:&quot;1&quot;,&quot;g6&quot;:&quot;1&quot;,&quot;g7&quot;:&quot;1&quot;,&quot;g8&quot;:&quot;1&quot;,&quot;g9&quot;:&quot;1&quot;,&quot;g10&quot;:&quot;1&quot;,&quot;g11&quot;:&quot;1&quot;,&quot;g12&quot;:&quot;1&quot;,&quot;g13&quot;:&quot;1&quot;,&quot;g14&quot;:&quot;1&quot;,&quot;g15&quot;:&quot;1&quot;,&quot;g16&quot;:&quot;1&quot;,&quot;g17&quot;:&quot;1&quot;,&quot;g18&quot;:&quot;1&quot;,&quot;g19&quot;:&quot;1&quot;,&quot;g20&quot;:&quot;1&quot;,&quot;g21&quot;:&quot;1&quot;,&quot;g22&quot;:&quot;1&quot;,&quot;g23&quot;:&quot;1&quot;,&quot;g24&quot;:&quot;1&quot;,&quot;g25&quot;:&quot;1&quot;,&quot;g26&quot;:&quot;1&quot;,&quot;g27&quot;:&quot;1&quot;,&quot;g28&quot;:&quot;1&quot;,&quot;g29&quot;:&quot;1&quot;,&quot;g30&quot;:&quot;1&quot;,&quot;g31&quot;:&quot;1&quot;,&quot;g32&quot;:&quot;1&quot;,&quot;g33&quot;:&quot;1&quot;,&quot;g34&quot;:&quot;1&quot;,&quot;g35&quot;:&quot;1&quot;,&quot;g36&quot;:&quot;1&quot;,&quot;g37&quot;:&quot;1&quot;,&quot;g38&quot;:&quot;1&quot;,&quot;g39&quot;:&quot;1&quot;,&quot;g40&quot;:&quot;1&quot;,&quot;g41&quot;:&quot;1&quot;,&quot;g42&quot;:&quot;1&quot;,&quot;g43&quot;:&quot;1&quot;,&quot;g44&quot;:&quot;1&quot;,&quot;g45&quot;:&quot;1&quot;,&quot;g46&quot;:&quot;1&quot;,&quot;g47&quot;:&quot;1&quot;,&quot;g48&quot;:&quot;1&quot;,&quot;g49&quot;:&quot;1&quot;,&quot;g50&quot;:&quot;1&quot;}', 0, 1718162063, 1718162063),
-(4, 1, 1, 10, 1718236800, 1718277660, 1718284560, 153000, 48, '{\"g1\":\"1\",\"g2\":\"1\",\"g3\":\"1\",\"g4\":\"1\",\"g5\":\"1\",\"g6\":\"1\",\"g7\":\"1\",\"g8\":\"1\",\"g9\":\"1\",\"g10\":\"1\",\"g11\":\"1\",\"g12\":\"1\",\"g13\":\"1\",\"g14\":\"1\",\"g15\":\"1\",\"g16\":\"1\",\"g17\":\"1\",\"g18\":\"1\",\"g19\":\"1\",\"g20\":\"1\",\"g21\":\"1\",\"g22\":\"1\",\"g23\":\"1\",\"g24\":\"1\",\"g25\":\"1\",\"g26\":\"1\",\"g27\":\"1\",\"g28\":\"1\",\"g29\":\"1\",\"g30\":\"1\",\"g31\":\"1\",\"g32\":\"1\",\"g33\":\"1\",\"g34\":\"1\",\"g35\":\"1\",\"g36\":\"1\",\"g37\":\"1\",\"g38\":\"1\",\"g39\":\"1\",\"g40\":\"1\",\"g41\":\"1\",\"g42\":\"1\",\"g43\":\"1\",\"g44\":\"1\",\"g45\":0,\"g46\":0,\"g47\":\"1\",\"g48\":\"1\",\"g49\":\"1\",\"g50\":\"1\"}', 0, 1718166402, 1718166402);
+(4, 1, 1, 10, 1718236800, 1718277660, 1718284560, 153000, 48, '{\"g1\":\"1\",\"g2\":\"1\",\"g3\":\"1\",\"g4\":\"1\",\"g5\":\"1\",\"g6\":\"1\",\"g7\":\"1\",\"g8\":\"1\",\"g9\":\"1\",\"g10\":\"1\",\"g11\":\"1\",\"g12\":\"1\",\"g13\":\"1\",\"g14\":\"1\",\"g15\":\"1\",\"g16\":\"1\",\"g17\":\"1\",\"g18\":\"1\",\"g19\":\"1\",\"g20\":\"1\",\"g21\":\"1\",\"g22\":\"1\",\"g23\":\"1\",\"g24\":\"1\",\"g25\":\"1\",\"g26\":\"1\",\"g27\":\"1\",\"g28\":\"1\",\"g29\":\"1\",\"g30\":\"1\",\"g31\":\"1\",\"g32\":\"1\",\"g33\":\"1\",\"g34\":\"1\",\"g35\":\"1\",\"g36\":\"1\",\"g37\":\"1\",\"g38\":\"1\",\"g39\":\"1\",\"g40\":\"1\",\"g41\":\"1\",\"g42\":\"1\",\"g43\":\"1\",\"g44\":\"1\",\"g45\":0,\"g46\":0,\"g47\":\"1\",\"g48\":\"1\",\"g49\":\"1\",\"g50\":\"1\"}', 0, 1718166402, 1718166402),
+(5, 1, 1, 10, 1718841600, 1718899200, 1718906100, 153000, 44, '{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\",\"9\":\"1\",\"10\":\"1\",\"11\":\"1\",\"12\":\"1\",\"13\":\"1\",\"14\":\"1\",\"15\":\"1\",\"16\":\"1\",\"17\":\"1\",\"18\":\"1\",\"19\":\"1\",\"20\":\"1\",\"21\":\"1\",\"22\":\"1\",\"23\":\"1\",\"24\":\"1\",\"25\":\"1\",\"26\":\"1\",\"27\":\"1\",\"28\":\"1\",\"29\":\"1\",\"30\":\"1\",\"31\":\"1\",\"32\":\"1\",\"33\":\"1\",\"34\":\"1\",\"35\":\"1\",\"36\":0,\"37\":\"1\",\"38\":\"1\",\"39\":\"1\",\"40\":\"1\",\"41\":\"1\",\"42\":\"1\",\"43\":\"1\",\"44\":0,\"45\":\"1\",\"46\":0,\"47\":0,\"48\":\"1\",\"49\":\"1\",\"50\":\"1\"}', 0, 1718784541, 1718784541);
 
 -- --------------------------------------------------------
 
@@ -617,7 +619,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `fullname`, `phone`, `email`, `image`, `username`, `password`, `type`, `created`, `modified`) VALUES
-(1, 'DoraShang 123', '0812345678', 'dorashang@gmail.com', 'http://127.0.0.1:8000/fileuploads/1716142362.jpg', 'DoraShang', '202cb962ac59075b964b07152d234b70', NULL, NULL, 1716142363);
+(1, 'DoraShang 123', '0812345678', 'dorashang@gmail.com', 'http://127.0.0.1:8000/fileuploads/1716142362.jpg', 'DoraShang', '202cb962ac59075b964b07152d234b70', NULL, NULL, 1716142363),
+(2, 'DorraDorra', '0812345678', 'dorashang882@gmail.com', NULL, NULL, '$2y$12$U2OmYrzznAHIY2N4BiG3fup83YL83bL6YwrQqU0LRSKUJvNncU7ai', NULL, NULL, NULL),
+(3, 'Nobita', '0812345678', 'ply.th1002@gmail.com', NULL, NULL, 'c4ca4238a0b923820dcc509a6f75849b', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -869,7 +873,7 @@ ALTER TABLE `options`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `rooms`
@@ -887,13 +891,13 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `showtimes`
 --
 ALTER TABLE `showtimes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
