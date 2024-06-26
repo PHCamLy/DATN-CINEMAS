@@ -8,7 +8,7 @@
                 <div class="col-md-16 col-sm-16 additional-nav">
                     <?php	 if(Session::get('user') != null ){ 	 ?>
                     <div class="pull-right padding-left-10">
-                        <a href="#">Hi,
+                        <a href="<?php echo $DOMAIN ?>user/dashboad">Hi,
                             <?php echo Session::get('user')['fullname']?>
                         </a>
                     </div>
@@ -17,12 +17,15 @@
                     <div class="pull-right padding-left-10">
 
                         <a id="BodyContent_ctl00_ctl04_hlEn" onclick="changelang('eng');"><img
-                                src="<?php echo $DOMAIN; ?>Assets/Common/icons/united-kingdom.png" class="img-responsive"></a>
+                                src="<?php echo $DOMAIN; ?>Assets/Common/icons/united-kingdom.png"
+                                class="img-responsive"></a>
                     </div>
                     <ul class="list-unstyled list-inline pull-right" style="margin-bottom: 4px;margin-top: 4px;">
-                        <li id="BodyContent_ctl00_ctl04_liLogin"><a href="<?php echo $DOMAIN; ?>login">Đăng nhập</a></li>
+                        <li id="BodyContent_ctl00_ctl04_liLogin"><a href="<?php echo $DOMAIN; ?>login">Đăng nhập</a>
+                        </li>
                         <li id="BodyContent_ctl00_ctl04_liRegister"
-                            style="border-left: 1px solid; padding-left: 10px !important;"><a href="<?php echo $DOMAIN; ?>login">Đăng
+                            style="border-left: 1px solid; padding-left: 10px !important;"><a
+                                href="<?php echo $DOMAIN; ?>login">Đăng
                                 ký</a></li>
                     </ul>
                     <?php	 } 	 ?>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Web\AppController;
 use App\Http\Controllers\Web\UserController;
 use App\Models\Category;
+use App\Models\Node;
+use App\Models\Option;
 use App\Models\Order;
 use App\Models\Room;
 use App\Models\Showtime;
@@ -20,6 +22,7 @@ class HomeController extends AppController
         'msg' => '',
         'data' => []
     ];
+
     function home_index(Request $request)
     {
         $method = $request->method();
@@ -52,11 +55,11 @@ class HomeController extends AppController
         if($data != null)
         {
             $email = isset($data['email']) ? $data['email'] : '';
-            $pass = isset($data['pass']) ? $data['pass'] : '';
+            $pass = isset($data['password']) ? $data['password'] : '';
             $fullname = isset($data['fullname']) ? $data['fullname'] : '';
             $phone = isset($data['phone']) ? $data['phone'] : '';
             $password = md5($pass);
-
+            // dd($password);
             // check email
             $check = User::where([['email',$email]])->first();
             if($check != null)
@@ -93,6 +96,7 @@ class HomeController extends AppController
             $email = isset($data['email']) ? $data['email'] : '';
             $pass = isset($data['pass']) ? $data['pass'] : '';
             $password = md5($pass);
+            
             if($email != '')
             {
                 $d = User::where([['email',$email],['password',$password]])->first();
@@ -398,4 +402,159 @@ class HomeController extends AppController
         return view($this->view_path . 'home.order_add');
 
     }
+
+    // user 
+    public function user_dashboard(Request $reques) {
+        if($this->user == null)
+        {
+            return redirect('/login');
+        }   
+        $data = $reques->post();    
+        if($data != null)
+        {
+            $fullname = isset($data['fullname']) ? $this->removeXss($data['fullname']) : '';
+            $email = isset($data['email']) ? $this->removeXss($data['email']) : '';
+            $phone = isset($data['phone']) ? $this->removeXss($data['phone']) : '';
+
+            $check = User::where('email',$email)->first();
+            if($check != null)
+            {
+                if($check['id'] != $this->user['id'])
+                {
+                    $this->res['res']='err';
+                    $this->res['msg']='Email đã được đăng ký';
+                    session()->flash('msg', json_encode($this->res));
+                }
+                else {
+                    $check['email'] = $email;
+                    $check['fullname'] = $fullname;
+                    $check['phone'] = $phone;
+                    $check->save();
+                    session(['user' => $check->toArray()]);
+                    $this->res['res']='done';
+                    $this->res['msg']='Đã thay đổi thông tin';
+                    session()->flash('msg', json_encode($this->res));
+                }
+            }
+
+            session()->flash('msg', json_encode($this->res));
+        }
+
+        return view($this->view_path . 'home.user_dashboad');
+
+    }
+    public function user_change_pass(Request $reques)
+    {
+        if($this->user == null)
+        {
+            return redirect('/login');
+        }  
+        $data = $reques->post();  
+          
+        if($data != null)
+        {
+            $newpass = isset($data['newpass']) ? $this->removeXss($data['newpass']) : '';
+            $oldpass = isset($data['oldpass']) ? $this->removeXss($data['oldpass']) : '';
+            
+            $newpass = md5($newpass);
+            $oldpass = md5($oldpass);
+
+            $check = User::find($this->user['id']);
+            if($check != null)
+            {
+                
+                $check['password'] = $newpass;
+                $check->save();
+                
+                session(['user' => $check->toArray()]);
+                
+                $this->res['res']='done';
+                $this->res['msg']='Đã thay đổi thông tin thành công';
+            }
+
+        }
+        session()->flash('msg', json_encode($this->res));
+
+        return view($this->view_path . 'home.user_change_pass');
+
+    }
+
+    // lấy chi tiết vé khi đã đặt xong
+    public function user_order_detail(Request $reques,$id)
+    {
+        if(!is_numeric($id))
+        {
+            return redirect('/login');
+        }
+        if($this->user == null)
+        {
+            return redirect('/login');
+        }  
+        $order = Order::find($id);
+        if($order != null)
+        {
+            if($order['user_id'] != $this->user['id'])
+            {
+                return redirect('/login');
+            }
+
+            // lấy thông tin film
+            $alias_tbl = 'films';
+            $d = DB::table($alias_tbl)
+            // ->join('category_linkeds', $alias_tbl.'.node_id', '=', $alias_tbl.'.node_id')
+            ->join('nodes', $alias_tbl.'.node_id', '=', 'nodes.id')
+            ->where([
+                ['nodes.status',1],
+                ['nodes.id',$order['node_id']]
+                ])
+            ->select($alias_tbl.'.*','nodes.status','nodes.id as node_id','nodes.slug')
+            ->first();
+            $d = json_decode(json_encode($d), true);
+            view()->share('film', $d);
+
+            // lấy thông tin show time
+            $showtime = Showtime::find($order['showtime_id']);
+
+            view()->share('showtime', $showtime);
+            // Lấy thông tin option
+            $op = [];
+            if($order['option_ids'] != '')
+            {
+                $op_ids = explode(',',$order['option_ids']);
+                $op = Option::whereIn('id',$op_ids)->get();
+            }
+            view()->share('option', $op);
+            view()->share('order', $order);
+        }
+        else {
+            return redirect('/');
+        }
+
+        return view($this->view_path . 'home.user_order_detail');
+    }
+
+    // lấy lịch sử mua vé
+
+    public function user_history(Request $reques)
+    {
+        if($this->user == null)
+        {
+            return redirect('/login');
+        }  
+        $order = Order::where('user_id', $this->user['id'])->orderBy('id','desc')->get();
+        $data = [];
+        foreach($order as $v)
+        {
+            // lấy phim theo vé
+            $f = Node::find($v['node_id']);
+            if($f)
+            $v['film'] = $f;
+            $data[] = $v;
+        }
+
+        view()->share('data', $data);
+        return view($this->view_path . 'home.user_history');
+
+    }
+
 }

@@ -24,6 +24,7 @@ use App\Http\Controllers\Web\UserController;
 use App\Http\Middleware\CheckLoginAdmin;
 use App\Http\Middleware\ValidLoginAdmin;
 use App\Http\Middleware\WebCheckLogin;
+use App\Http\Middleware\WebCheckUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,17 @@ Route::post('/', [HomeController::class, 'home_index']);
 Route::get('/logout', [HomeController::class, 'logout']);
 
 Route::get('/login', [UserController::class, 'login'])->middleware(WebCheckLogin::class);
+
+Route::prefix('user')->group(function () {
+    Route::get('/dashboard', [HomeController::class, 'user_dashboard'])->middleware(WebCheckUser::class);
+    Route::post('/dashboard', [HomeController::class, 'user_dashboard'])->middleware(WebCheckUser::class);
+    Route::get('/change_pass', [HomeController::class, 'user_change_pass'])->middleware(WebCheckUser::class);
+    Route::post('/change_pass', [HomeController::class, 'user_change_pass'])->middleware(WebCheckUser::class);
+    Route::get('/history', [HomeController::class, 'user_history'])->middleware(WebCheckUser::class);
+    Route::get('/order_detail/{id}', [HomeController::class, 'user_order_detail'])->middleware(WebCheckUser::class);
+
+
+});
 
 Route::post('/uploads', [UploadController::class, 'fileUpload']);
 Route::get('/uploads', [UploadController::class, 'fileUpload']);
@@ -53,7 +65,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/login',[AdminController::class, 'login']);
 
     Route::middleware([CheckLoginAdmin::class])->group(function () {
-        Route::get('/dashboard',[DashboardController::class, 'dashboard']);
+        Route::get('dashboard/dashboard',[DashboardController::class, 'dashboard']);
 
         // media    
         Route::prefix('banner')->group(function () {
@@ -194,6 +206,17 @@ Route::prefix('admin')->group(function () {
             Route::get('/setting_edit',[SettingController::class, 'setting_edit']);
             Route::post('/setting_edit',[SettingController::class, 'setting_edit']);
             
+        });
+
+        // admin    
+        Route::prefix('admin')->group(function () {
+            Route::get('/admin_list',[AdminController::class, 'admin_list']);
+            Route::get('/admin_add',[AdminController::class, 'admin_add']);
+            Route::post('/admin_add',[AdminController::class, 'admin_add']);
+            Route::get('/admin_edit/{id}',[AdminController::class, 'admin_edit']);
+            Route::post('/admin_edit/{id}',[AdminController::class, 'admin_edit']);
+            Route::post('/admin_delete/{id}',[AdminController::class, 'admin_delete']);
+            Route::post('/admin_update/{id}/{key}/{val}',[AdminController::class, 'upadte_field']);
         });
     });
 

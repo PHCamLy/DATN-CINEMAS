@@ -137,14 +137,14 @@ class AdminAppController extends Controller
             ),
         ),
         'Thông kê / Báo cáo' => array(
-            'Doanh thu' => array(
+            'Dashboard' => array(
                 'icon' => 'bx bxl-product-hunt',
-                'link' => 'report/report_list',
-                'child' => array(
-                    'Danh sách' => array(
-                        'link' => 'report/report_list'
-                    ),
-                ),
+                'link' => 'dashboard/dashboard',
+                // 'child' => array(
+                //     'Danh sách' => array(
+                //         'link' => 'admin/dashboard'
+                //     ),
+                // ),
             ),
         ),
         'Liên hệ' => array(

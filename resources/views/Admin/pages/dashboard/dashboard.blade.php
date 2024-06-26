@@ -39,7 +39,9 @@
                                     <div class="d-flex flex-wrap">
                                         <div class="me-3">
                                             <p class="text-muted mb-2">Total Film</p>
-                                            <h5 class="mb-0">120</h5>
+                                            <h5 class="mb-0">
+                                                <?php echo $data['film']; ?>
+                                            </h5>
                                         </div>
                                         <div class="avatar-sm ms-auto">
                                             <div class="avatar-title bg-light rounded-circle text-primary font-size-20">
@@ -58,7 +60,9 @@
                                     <div class="d-flex flex-wrap">
                                         <div class="me-3">
                                             <p class="text-muted mb-2">Tin tức</p>
-                                            <h5 class="mb-0">86</h5>
+                                            <h5 class="mb-0">
+                                                <?php echo $data['news']; ?>
+                                            </h5>
                                         </div>
 
                                         <div class="avatar-sm ms-auto">
@@ -77,7 +81,9 @@
                                     <div class="d-flex flex-wrap">
                                         <div class="me-3">
                                             <p class="text-muted mb-2">Comments</p>
-                                            <h5 class="mb-0">4,235</h5>
+                                            <h5 class="mb-0">
+                                                <?php echo $data['support']; ?>
+                                            </h5>
                                         </div>
                                         <div class="avatar-sm ms-auto">
                                             <div class="avatar-title bg-light rounded-circle text-primary font-size-20">
@@ -95,6 +101,7 @@
                             <div class="d-flex flex-wrap align-items-start">
                                 <h5 class="card-title me-2">Visitors</h5>
                                 <div class="ms-auto">
+                                    <?php	 /* 	 ?>
                                     <div class="toolbar d-flex flex-wrap gap-2 text-end">
                                         <button type="button" class="btn btn-light btn-sm">
                                             ALL
@@ -109,7 +116,7 @@
                                             1Y
                                         </button>
 
-                                    </div>
+                                    </div> */ ?>
                                 </div>
                             </div>
 
@@ -151,28 +158,14 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-wrap align-items-start">
-                                <h5 class="card-title mb-3 me-2">Subscribes</h5>
-
-                                <div class="dropdown ms-auto">
-                                    <a class="text-muted font-size-16" role="button" data-bs-toggle="dropdown"
-                                        aria-haspopup="true">
-                                        <i class="mdi mdi-dots-horizontal"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Separated link</a>
-                                    </div>
-                                </div>
+                                <h5 class="card-title mb-3 me-2">Tài khoản khách hàng</h5>
                             </div>
                             <div class="d-flex flex-wrap">
                                 <div>
-                                    <p class="text-muted mb-1">Total Subscribe</p>
-                                    <h4 class="mb-3">10,512</h4>
-                                    <p class="text-success mb-0"><span>0.6 % <i
-                                                class="mdi mdi-arrow-top-right ms-1"></i></span></p>
+                                    <p class="text-muted mb-1">Tổng số khách hàng đăng ký</p>
+                                    <h4 class="mb-3">
+                                        <?php echo $data['user']; ?>
+                                    </h4>
                                 </div>
                                 <div class="ms-auto align-self-end">
                                     <i class="bx bx-group display-4 text-light"></i>
@@ -182,33 +175,21 @@
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title mb-3 me-2">Order today</h5>
+                            <h5 class="card-title mb-3 me-2">Tổng đơn hàng</h5>
                             <div class="table-responsive">
                                 <table class="table align-middle table-nowrap table-check">
                                     <thead class="table-light">
                                         <tr>
-                                            <th style="width: 20px;" class="align-middle">
-                                                <div class="form-check font-size-16">
-                                                    <input class="form-check-input" type="checkbox" id="checkAll">
-                                                    <label class="form-check-label" for="checkAll"></label>
-                                                </div>
-                                            </th>
                                             <th class="align-middle">Order ID</th>
-                                            <th class="align-middle">Billing Name</th>
-                                            <th class="align-middle">Date</th>
-                                            <th class="align-middle">Total</th>
-                                            <th class="align-middle">Payment Status</th>
+                                            <th class="align-middle">Tên khách hàng</th>
+                                            <th class="align-middle">Ngày đặt</th>
+                                            <th class="align-middle">Tổng tiền</th>
+                                            <th class="align-middle">Trạng thái</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
-                                                <div class="form-check font-size-16">
-                                                    <input class="form-check-input" type="checkbox" id="orderidcheck01">
-                                                    <label class="form-check-label" for="orderidcheck01"></label>
-                                                </div>
-                                            </td>
                                             <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2540</a>
                                             </td>
                                             <td>Neal Matthews</td>
@@ -225,12 +206,6 @@
                                         </tr>
 
                                         <tr>
-                                            <td>
-                                                <div class="form-check font-size-16">
-                                                    <input class="form-check-input" type="checkbox" id="orderidcheck02">
-                                                    <label class="form-check-label" for="orderidcheck02"></label>
-                                                </div>
-                                            </td>
                                             <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2541</a>
                                             </td>
                                             <td>Jamal Burnett</td>
@@ -247,12 +222,6 @@
                                         </tr>
 
                                         <tr>
-                                            <td>
-                                                <div class="form-check font-size-16">
-                                                    <input class="form-check-input" type="checkbox" id="orderidcheck03">
-                                                    <label class="form-check-label" for="orderidcheck03"></label>
-                                                </div>
-                                            </td>
                                             <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2542</a>
                                             </td>
                                             <td>Juan Mitchell</td>
@@ -268,12 +237,6 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>
-                                                <div class="form-check font-size-16">
-                                                    <input class="form-check-input" type="checkbox" id="orderidcheck04">
-                                                    <label class="form-check-label" for="orderidcheck04"></label>
-                                                </div>
-                                            </td>
                                             <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2543</a>
                                             </td>
                                             <td>Barry Dick</td>
@@ -289,12 +252,6 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>
-                                                <div class="form-check font-size-16">
-                                                    <input class="form-check-input" type="checkbox" id="orderidcheck05">
-                                                    <label class="form-check-label" for="orderidcheck05"></label>
-                                                </div>
-                                            </td>
                                             <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2544</a>
                                             </td>
                                             <td>Ronald Taylor</td>
@@ -310,12 +267,6 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>
-                                                <div class="form-check font-size-16">
-                                                    <input class="form-check-input" type="checkbox" id="orderidcheck06">
-                                                    <label class="form-check-label" for="orderidcheck06"></label>
-                                                </div>
-                                            </td>
                                             <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2545</a>
                                             </td>
                                             <td>Jacob Hunter</td>

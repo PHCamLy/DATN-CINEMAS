@@ -180,15 +180,28 @@
 </header>
  <!-- ========== Left Sidebar Start ========== -->
  <?php
- $modules = $admin['roles'];
+ function is_allowed($pluginName, $modules, $admin)
+ {
+    if($admin['id'] == 1)
+    {
+        return true;
+    }
+    if(in_array($pluginName,$modules))
+    {
+        return true;
+    }
+    return false;
+ }
+
+ $modules = $admin['roles'] != '' ? explode(',',$admin['roles']) : [];
  
  // $controller_require_action_2_add_class_active = array('admin_setting');
  
  $lst = array();
  
  foreach ($sidebar as $tabName => $tabData) {
-     $is_allowed = 0;
- 
+     //$is_allowed = 0;
+    
      foreach ($tabData as $moduleName => $moduleData) {
          if (isset($moduleData['child'])) {
              foreach ($moduleData['child'] as $child_menu_name => $child_menu_data) {
@@ -196,9 +209,8 @@
                  $link = $child_menu_data['link'];
  
                  $t = explode('/', $link);
-                 $pluginName = $t[0];
- 
-                 // if ($this->App->is_allowed($pluginName, $modules, $admin)) {
+                 $pluginName = $t[1];
+                 if (is_allowed($pluginName, $modules, $admin)) {
                  $icon = isset($child_menu_data['icon']) ? $child_menu_data['icon'] : '';
  
                  $lst[$tabName][$moduleName]['icon'] = $moduleData['icon'];
@@ -210,22 +222,22 @@
                     //  'lang' => $child_menu_data['lang'],
                      'link' => $DOMAIN . 'admin/' . $link,
                  );
-                 // }
+                }
              }
          } else {
              $icon = isset($moduleData['icon']) ? $moduleData['icon'] : '';
              $link = $moduleData['link'];
  
              $t = explode('/', $link);
-             $pluginName = $t[0];
+             $pluginName = $t[1];
  
-             // if ($this->App->is_allowed($pluginName, $modules, $admin)) {
+             if (is_allowed($pluginName, $modules, $admin)) {
              $lst[$tabName][$moduleName] = array(
                  'icon' => $icon,
                 //  'lang' => $moduleData['lang'],
                  'link' => $DOMAIN . 'admin/' . $link
              );
-             // }
+             }
          }
      }
  }

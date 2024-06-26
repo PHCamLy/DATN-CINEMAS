@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ValidLoginAdmin
+class WebCheckUser
 {
     /**
      * Handle an incoming request.
@@ -15,9 +15,8 @@ class ValidLoginAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-        if(session()->get('admin') != null && is_array(session()->get('admin'))){
-            return redirect('/admin/dashboard/dashboard');
+        if(session()->get('user') == null){
+            return redirect('/login');
         }
 
         return $next($request);

@@ -11,7 +11,7 @@ class UserController extends AdminAppController
 {
     private $folder = 'user';
     private $alias = 'user';
-    private $label = 'Liên hệ';
+    private $label = 'Tài khoản khách hàng';
     private $link_add = 'admin/user/user_add';
     private $link_edit =  'admin/user/user_edit/';
     private $link_delete = 'admin/user/user_delete/';

@@ -42,6 +42,8 @@ class AppController extends Controller
         view()->share('DOMAIN', $this->DOMAIN);
         view()->share('option_nuoc', $this->option_nuoc);
         view()->share('option_bong', $this->option_bong);
+        $this->user = session()->get('user');
+        view()->share('user', $this->user);
         
         $this->init_data();
     }
