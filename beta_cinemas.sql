@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 19, 2024 at 01:36 PM
+-- Generation Time: Jun 26, 2024 at 03:32 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,7 +46,8 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `fullname`, `phone`, `email`, `image`, `username`, `password`, `type`, `roles`, `modified`, `created`) VALUES
-(1, 'Admin', '0812345678', NULL, NULL, 'admin', '21232f297a57a5a743894a0e4a801fc3', 0, NULL, NULL, NULL);
+(1, 'Admin', '0812345678', NULL, NULL, 'admin', '21232f297a57a5a743894a0e4a801fc3', 0, NULL, NULL, NULL),
+(2, 'DoraShang', '0812365487', 'dorashang@gmail.com', 'http://127.0.0.1:8000/fileuploads/1718829223.jpg', 'doradora', 'c4ca4238a0b923820dcc509a6f75849b', 0, 'category_list,category_add,category_edit,category_delete,film_list,film_add,film_edit,film_delete,showtime_list,showtime_add,showtime_edit,showtime_delete,new_list,new_add,new_edit,new_delete,comment_list,comment_add,comment_edit,comment_delete,branch_list,branch_add,branch_edit,branch_delete,room_list,room_add,room_edit,room_delete,option_list,option_add,option_edit,option_delete,coupon_list,coupon_add,coupon_edit,coupon_delete', 1718829279, 1718829279);
 
 -- --------------------------------------------------------
 
@@ -479,7 +480,7 @@ CREATE TABLE `orders` (
   `content` text DEFAULT NULL,
   `payment_type` int(11) DEFAULT 0,
   `status` int(11) DEFAULT NULL,
-  `is_used` int(11) DEFAULT NULL,
+  `is_used` int(11) DEFAULT 0,
   `datetime` int(11) DEFAULT NULL,
   `modified` int(11) DEFAULT NULL,
   `created` int(11) NOT NULL
@@ -490,10 +491,10 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `showtime_id`, `code`, `image`, `option_ids`, `user_id`, `branch_id`, `fullname`, `phone`, `email`, `cart_sum`, `quantity`, `coupon_code`, `coupon_discount`, `node_id`, `extra`, `content`, `payment_type`, `status`, `is_used`, `datetime`, `modified`, `created`) VALUES
-(1, 2, NULL, NULL, NULL, 1, 1, 'DoraShang 123', '0812345678', 'dorashang882@gmail.com', 300000, 2, NULL, NULL, 10, NULL, NULL, 0, 1, NULL, 1717502400, NULL, 1717504486),
-(3, 4, NULL, NULL, '3,2', 1, 1, 'DoraShang 123', '0812345678', 'dorashang@gmail.com', 806000, 2, NULL, NULL, 10, '[{\"id\":\"3\",\"quantity\":\"2\"},{\"id\":\"2\",\"quantity\":\"2\"}]', 'abcdef', 0, 0, NULL, 1718277660, NULL, 1718189362),
-(4, 5, 'CAM-1718791762', NULL, '', 1, 1, 'DoraShang 123', '0812345678', 'dorashang882@gmail.com', 306000, 2, NULL, NULL, 10, '[]', '', 0, 1, NULL, 1718899200, NULL, 1718791809),
-(5, 5, 'CAM-1718796516', NULL, '3', 3, 1, 'Nobita', '0812345678', 'ply.th1002@gmail.com', 406000, 2, NULL, NULL, 10, '[{\"id\":\"3\",\"quantity\":\"1\"}]', 'ahihi', 0, 1, NULL, 1718899200, NULL, 1718796576);
+(1, 2, NULL, NULL, NULL, 1, 1, 'DoraShang 123', '0812345678', 'dorashang882@gmail.com', 300000, 2, NULL, NULL, 10, NULL, NULL, 0, 1, 0, 1717502400, NULL, 1717504486),
+(3, 4, NULL, NULL, '3,2', 1, 1, 'DoraShang 123', '0812345678', 'dorashang@gmail.com', 806000, 2, NULL, NULL, 10, '[{\"id\":\"3\",\"quantity\":\"2\"},{\"id\":\"2\",\"quantity\":\"2\"}]', 'abcdef', 0, 0, 0, 1718277660, NULL, 1718189362),
+(4, 5, 'CAM-1718791762', NULL, '', 1, 1, 'DoraShang 123', '0812345678', 'dorashang882@gmail.com', 306000, 2, NULL, NULL, 10, '[]', '', 0, 1, 0, 1718899200, NULL, 1718791809),
+(5, 5, 'CAM-1718796516', NULL, '3,2', 6, 1, 'Nobita', '0812345678', 'ply.th1002@gmail.com', 406000, 2, NULL, NULL, 10, '[{\"id\":\"3\",\"quantity\":\"2\"},{\"id\":\"2\",\"quantity\":\"2\"}]', 'ahihi', 0, 1, 0, 1718899200, NULL, 1718796576);
 
 -- --------------------------------------------------------
 
@@ -540,7 +541,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('t1tGOOSygxilllBJcP5ulO6Fp6eF2NlvnsS7GSd9', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiM1ZMWDV0YVFGUWlOdkkzbVhORDVyemxFNkh2VGdhYnlqMDgzVmlVOCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDQ6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9vcmRlci9vcmRlcl9saXN0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MTp7aTowO3M6MzoibXNnIjt9czozOiJuZXciO2E6MDp7fX1zOjQ6InVzZXIiO2E6OTp7czoyOiJpZCI7aTozO3M6ODoiZnVsbG5hbWUiO3M6NjoiTm9iaXRhIjtzOjU6InBob25lIjtzOjEwOiIwODEyMzQ1Njc4IjtzOjU6ImVtYWlsIjtzOjE4OiJwbHkuMTAwMkBnbWFpbC5jb20iO3M6NToiaW1hZ2UiO047czo4OiJ1c2VybmFtZSI7TjtzOjQ6InR5cGUiO047czo3OiJjcmVhdGVkIjtOO3M6ODoibW9kaWZpZWQiO047fXM6NToiYWRtaW4iO2E6MTE6e3M6MjoiaWQiO2k6MTtzOjg6ImZ1bGxuYW1lIjtzOjU6IkFkbWluIjtzOjU6InBob25lIjtzOjEwOiIwODEyMzQ1Njc4IjtzOjU6ImVtYWlsIjtOO3M6NToiaW1hZ2UiO047czo4OiJ1c2VybmFtZSI7czo1OiJhZG1pbiI7czo4OiJwYXNzd29yZCI7czozMjoiMjEyMzJmMjk3YTU3YTVhNzQzODk0YTBlNGE4MDFmYzMiO3M6NDoidHlwZSI7aTowO3M6NToicm9sZXMiO047czo4OiJtb2RpZmllZCI7TjtzOjc6ImNyZWF0ZWQiO047fXM6MzoibXNnIjtzOjA6IiI7fQ==', 1718796782);
+('hkvOdQaT5tzzx0K1YcYa16mdQXilYrgLPWhR9rEq', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiU3NNYjNWek1BV0FObXF6OFdMT3VPZEYxZ2VUcUR1cTlqU29HYjJ1TiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kYXNoYm9hcmQvZGFzaGJvYXJkIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo0OiJ1c2VyIjthOjEwOntzOjI6ImlkIjtpOjY7czo4OiJmdWxsbmFtZSI7czoxMDoiTm9iaXRhIDEyMyI7czo1OiJwaG9uZSI7czoxMDoiMDgxMjM0NTY3OCI7czo1OiJlbWFpbCI7czoxODoicGx5LjEwMDJAZ21haWwuY29tIjtzOjU6ImltYWdlIjtOO3M6ODoidXNlcm5hbWUiO047czo4OiJwYXNzd29yZCI7czozMjoiMjAyY2I5NjJhYzU5MDc1Yjk2NGIwNzE1MmQyMzRiNzAiO3M6NDoidHlwZSI7TjtzOjc6ImNyZWF0ZWQiO2k6MTcxODgyNzMzNztzOjg6Im1vZGlmaWVkIjtOO31zOjU6ImFkbWluIjthOjExOntzOjI6ImlkIjtpOjE7czo4OiJmdWxsbmFtZSI7czo1OiJBZG1pbiI7czo1OiJwaG9uZSI7czoxMDoiMDgxMjM0NTY3OCI7czo1OiJlbWFpbCI7TjtzOjU6ImltYWdlIjtOO3M6ODoidXNlcm5hbWUiO3M6NToiYWRtaW4iO3M6ODoicGFzc3dvcmQiO3M6MzI6IjIxMjMyZjI5N2E1N2E1YTc0Mzg5NGEwZTRhODAxZmMzIjtzOjQ6InR5cGUiO2k6MDtzOjU6InJvbGVzIjtOO3M6ODoibW9kaWZpZWQiO047czo3OiJjcmVhdGVkIjtOO319', 1719398647),
+('zQ76us3TykcVns8DLOvyWv1afuYWjyBarv6yBEKv', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiSElEWFJ4akdHZGxuZENRUW1lbzFtcWdJaXFuOEUyMmtUclIwQ1d3YiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC91c2VyL29yZGVyX2RldGFpbC81Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo0OiJ1c2VyIjthOjEwOntzOjI6ImlkIjtpOjY7czo4OiJmdWxsbmFtZSI7czoxMDoiTm9iaXRhIDEyMyI7czo1OiJwaG9uZSI7czoxMDoiMDgxMjM0NTY3OCI7czo1OiJlbWFpbCI7czoxODoicGx5LjEwMDJAZ21haWwuY29tIjtzOjU6ImltYWdlIjtOO3M6ODoidXNlcm5hbWUiO047czo4OiJwYXNzd29yZCI7czozMjoiMjAyY2I5NjJhYzU5MDc1Yjk2NGIwNzE1MmQyMzRiNzAiO3M6NDoidHlwZSI7TjtzOjc6ImNyZWF0ZWQiO2k6MTcxODgyNzMzNztzOjg6Im1vZGlmaWVkIjtOO319', 1718877526);
 
 -- --------------------------------------------------------
 
@@ -621,7 +623,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `fullname`, `phone`, `email`, `image`, `username`, `password`, `type`, `created`, `modified`) VALUES
 (1, 'DoraShang 123', '0812345678', 'dorashang@gmail.com', 'http://127.0.0.1:8000/fileuploads/1716142362.jpg', 'DoraShang', '202cb962ac59075b964b07152d234b70', NULL, NULL, 1716142363),
 (2, 'DorraDorra', '0812345678', 'dorashang882@gmail.com', NULL, NULL, '$2y$12$U2OmYrzznAHIY2N4BiG3fup83YL83bL6YwrQqU0LRSKUJvNncU7ai', NULL, NULL, NULL),
-(3, 'Nobita', '0812345678', 'ply.th1002@gmail.com', NULL, NULL, 'c4ca4238a0b923820dcc509a6f75849b', NULL, NULL, NULL);
+(6, 'Nobita 123', '0812345678', 'ply.1002@gmail.com', NULL, NULL, '202cb962ac59075b964b07152d234b70', NULL, 1718827337, NULL);
 
 --
 -- Indexes for dumped tables
@@ -783,7 +785,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `banners`
@@ -897,7 +899,7 @@ ALTER TABLE `showtimes`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

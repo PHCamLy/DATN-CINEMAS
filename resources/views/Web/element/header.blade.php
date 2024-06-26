@@ -8,7 +8,7 @@
                 <div class="col-md-16 col-sm-16 additional-nav">
                     <?php	 if(Session::get('user') != null ){ 	 ?>
                     <div class="pull-right padding-left-10">
-                        <a href="<?php echo $DOMAIN ?>user/dashboad">Hi,
+                        <a href="<?php echo $DOMAIN ?>user/dashboard">Hi,
                             <?php echo Session::get('user')['fullname']?>
                         </a>
                     </div>
