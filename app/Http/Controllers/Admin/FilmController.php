@@ -282,8 +282,6 @@ class FilmController extends AdminAppController
 
         return view($this->view_path . $this->folder.'.film_edit',['data' => $d,'ctgl' => $ctgl,'node' => $node]);
 
-
-
     }
 
     public function film_delete($id = null)
@@ -302,6 +300,19 @@ class FilmController extends AdminAppController
     public function upadte_field($id = null,$key= null, $val = null)
     {   
         $d = Film::find($id);
+
+
+        if($key == 'status')
+        {
+            // xu ly code voi key = status || update trang thai node field status
+        }else {
+            if($val != null)
+            {
+                $d[$key] = $val;
+            }
+        }
+        $d->save();
+
         $this->res['res'] = 'done';
         $this->res['msg'] = 'Đã update thành công';
         $this->res['data'] = [];

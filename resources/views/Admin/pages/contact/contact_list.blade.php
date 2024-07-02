@@ -61,7 +61,9 @@
                                         <thead class="table-light">
                                             <tr>
                                                 <th width="50">Stt</th>
+                                                <?php	 /* 	 ?>
                                                 <th width="250">Tiêu đề</th>
+                                                */ ?>
                                                 <th class="text-center" width="200">
                                                     Khách hàng
                                                 </th>
@@ -88,23 +90,25 @@
                                                 <td class="text-center">
                                                     <?php	 echo $stt; 	 ?>
                                                 </td>
+                                                <?php	 /* 	 ?>
                                                 <td class="text-center">
                                                     <?php	 echo $v['title']; 	 ?>
-                                                </td>
+                                                </td> */ ?>
                                                 <td class="text-center">
                                                     <?php	 echo $v['fullname']; 	 ?><br>
                                                     <?php	 echo $v['phone']; 	 ?><br>
                                                     <?php	 echo $v['email']; 	 ?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <?php	 echo $v['contetn']; 	 ?>
+                                                    <?php	 echo $v['content']; 	 ?>
                                                 </td>
                                                 <td class="text-center">
                                                     <?php	 echo date('d-m-Y H:i',$v['created']);;	 ?>
                                                 </td>
                                                 <td class="text-center">
+                                                    <?php	  <?php	 $status = $v['status'] == 1 ? 0: 1; 	 ?> 	 ?>
                                                     <a class="btn  btn-sm" href="javascript:;"
-                                                        onclick="update_field('<?php echo $DOMAIN . $link_update . $v['id']. '/status';?>');">
+                                                        onclick="update_field('<?php echo $DOMAIN . $link_update . $v['id']. '/status/'.$status;?>');">
                                                         <span class="icon-status newest-11">
                                                             <?php	 if($v['status'] == 1) { 	 ?>
                                                             <i class="fas fa-play"></i>

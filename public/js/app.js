@@ -233,6 +233,7 @@ function datve_submit() {
     };
     // data = JSON.stringify(data);
     console.log(data);
+    $('#modal-thanhtoan').modal('hide');
     // return false;
     //@todo: push ajax
     $.ajax({
@@ -330,4 +331,140 @@ function option_change(self = undefined) {
 
     $('.order-box .gia').html($.number(total_price))
 
+}
+
+function show_modal_thanhtoan() {
+    // check neu chua dat ve 
+
+    var quantity = $('.danhsachghe .item.active').length;
+    if (quantity == 0) {
+        Swal.fire('Vui lòng chọn ghế', '', "warning");
+        return false;
+    }
+    $('#modal-thanhtoan').modal('show');
+}
+
+
+function sent_commnet() {
+    var node_id = $('.form-comment').find('.node_id').val();
+    var email = $('.form-comment').find('.email').val();
+    var fullname = $('.form-comment').find('.fullname').val();
+    var content = $('.form-comment').find('.content').val();
+    var phone = $('.form-comment').find('.phone').val();
+    if (fullname == '' || fullname == undefined) {
+        Swal.fire("Vui lòng nhập tên của bạn", '', "warning");
+        return false;
+    }
+    if (email == '' || email == undefined) {
+        Swal.fire("Vui lòng nhập email", '', "warning");
+        return false;
+    }
+    if (phone == '' || phone == undefined) {
+        Swal.fire("Vui lòng nhập số điện thoại", '', "warning");
+        return false;
+    }
+    if (content == '' || content == undefined) {
+        Swal.fire("Vui lòng nhập nội dung", '', "warning");
+        return false;
+    }
+    var data = {
+        email: email,
+        phone: phone,
+        fullname: fullname,
+        content: content,
+        node_id: node_id
+    };
+    // data = JSON.stringify(data);
+    console.log(data);
+    console.log(AJAX + 'ajax_comment');
+    //@todo: push ajax
+    startSending()
+    $.ajax({
+        headers: {
+            'X-CSRF-Token': csrfToken
+        },
+        url: AJAX + 'ajax_comment',
+        data: data,
+        type: 'post',
+        dataType: 'html',
+        success: function (d) {
+            d = JSON.parse(d);
+            console.log(d);
+            if (d.res == 'done') {
+                Swal.fire(d.msg, '', "success").then(function () {
+                    window.location.reload();
+                });
+            } else {
+                Swal.fire(d.msg, '', "warning");
+            }
+            endSending();
+        },
+        error: function (err) {
+            console.log(err);
+            Swal.fire("Đã xảy ra lỗi, vui lòng thử lại", '', "error");
+            endSending();
+        },
+    })
+}
+
+function addFeedback() {
+    var email = $('#form-contact').find('.email').val();
+    var fullname = $('#form-contact').find('.fullname').val();
+    var content = $('#form-contact').find('.content').val();
+    var phone = $('#form-contact').find('.phone').val();
+    if (fullname == '' || fullname == undefined) {
+        Swal.fire("Vui lòng nhập tên của bạn", '', "warning");
+        return false;
+    }
+    if (email == '' || email == undefined) {
+        Swal.fire("Vui lòng nhập email", '', "warning");
+        return false;
+    }
+    if (phone == '' || phone == undefined) {
+        Swal.fire("Vui lòng nhập số điện thoại", '', "warning");
+        return false;
+    }
+    if (content == '' || content == undefined) {
+        Swal.fire("Vui lòng nhập nội dung", '', "warning");
+        return false;
+    }
+
+    var data = {
+        email: email,
+        phone: phone,
+        fullname: fullname,
+        content: content,
+    };
+    
+    // data = JSON.stringify(data);
+    console.log(data);
+    console.log(AJAX + 'ajax_contact');
+    //@todo: push ajax
+    startSending()
+    $.ajax({
+        headers: {
+            'X-CSRF-Token': csrfToken
+        },
+        url: AJAX + 'ajax_contact',
+        data: data,
+        type: 'post',
+        dataType: 'html',
+        success: function (d) {
+            d = JSON.parse(d);
+            console.log(d);
+            if (d.res == 'done') {
+                Swal.fire(d.msg, '', "success").then(function () {
+                    window.location.reload();
+                });
+            } else {
+                Swal.fire(d.msg, '', "warning");
+            }
+            endSending();
+        },
+        error: function (err) {
+            console.log(err);
+            Swal.fire("Đã xảy ra lỗi, vui lòng thử lại", '', "error");
+            endSending();
+        },
+    })
 }

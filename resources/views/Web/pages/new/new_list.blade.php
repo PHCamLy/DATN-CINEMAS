@@ -1,44 +1,51 @@
 @extends('Web.layouts.layout')
 
 @section('title', 'CAM - cinemas')
-
+<?php	 print_r($data); 	 ?>
 @section('content')
 <div class="container">
     <div class="row">
         <h1 class="text-uppercase bold"><a class="link-text" href="/khuyen-mai-moi.htm">Khuyến mãi mới</a></h1>
+        <?php	 if(count($data['new']) > 0) { 	
+            $item1 = $data['new'][0]; ?>
         <div class="col-md-8 margin-bottom-30" style="height: 415px;">
             <div class="mix-inner border-radius-10" style="height: 415px; position: relative; overflow: hidden;">
-                <img src="https://files.betacorp.vn//media/images/2024/05/23/545x415-2-133356-230524-75.png"
-                    class="scale"
+                <img src="<?php echo $item1['image']; ?>" class="scale"
                     style="position: absolute; top: -0.28125px; left: 0px; width: 545px; height: 416px; max-width: none;">
-                <div style="font-size:41px;display: none;">Hết mã voucher</div>
             </div>
             <div class="padding-15"
                 style="position: absolute; bottom: 0px;padding: 15px;background: rgba(254, 121, 0, 0.6) none repeat scroll 0 0;left: 0px;margin: 0px 15px; border-radius: 0px 0px 10px 10px !important;">
-                <h2 class="no-margin"><a style="color: #fff;" href="/khuyen-mai-moi/don-cap-meo-u-uu-dai-da-nu.htm">ĐÓN
-                        CẶP MÈO Ú - ƯU ĐÃI ĐÃ NƯ<span style="font-size:20px;color:#03599d;"></span></a></h2>
+                <h2 class="no-margin">
+                    <a style="color: #fff;" href="<?php echo $DOMAIN . $item1['slug']; ?>">
+                        <?php echo $item1['title']; ?><span style="font-size:20px;color:#03599d;"></span>
+                    </a>
+                </h2>
             </div>
         </div>
-        <div class="col-md-4 margin-bottom-30" style="height: 415px;">
-            <div class="border-radius-10" style="height: 415px;">
-                <a href="/khuyen-mai-moi/combo-hoc-sinh-uu-dai-cuc-dinh.htm">
+        <?php	 } 	 ?>
+
+        <?php	 if(count($data['new']) > 1)  {	 ?>
+        <?php	 foreach($data['new'] as $v) { 	 ?>
+        <div class="col-md-4 margin-bottom-30">
+            <div class="border-radius-10">
+                <a href="<?php echo $DOMAIN . $v['slug']; ?>">
                     <div class="mix-inner"
                         style="height: 207.5px; border-radius: 10px 10px 0px 0px !important; position: relative; overflow: hidden;">
-                        <img src="https://files.betacorp.vn//media/images/2024/05/21/combo-hoc-sinh-sinh-vien-545-x-415-2-142413-210524-60.png"
-                            class="scale"
+                        <img src="<?php echo $v['image']; ?>" class="scale"
                             style="position: absolute; top: -1.42109e-14px; left: -7.61741px; width: 273px; height: 208px; max-width: none;">
-                        <div style="font-size:19px;display: none;">Hết mã voucher</div>
                     </div>
                 </a>
                 <div class="padding-15">
-                    <h4><a style="color: #000;" href="/khuyen-mai-moi/combo-hoc-sinh-uu-dai-cuc-dinh.htm">COMBO HỌC SINH
-                            - ƯU ĐÃI CỰC ĐỈNH<span style="font-size:14px;color:#03599d;"></span></a></h4>
-                    <p class="text-justify">
-                    </p>
+                    <h4><a style="color: #000;" href="<?php echo $DOMAIN . $v['slug']; ?>">
+                            <?php echo $v['title']; ?><span style="font-size:14px;color:#03599d;"></span>
+                        </a>
+                    </h4>
                 </div>
             </div>
         </div>
-
+        <?php	 } 	 ?>
+        <?php	 } 	 ?>
+        <?php	 /* 	 ?>
         <div class="col-md-4 margin-bottom-30" style="height: 415px;">
             <div class="border-radius-10" style="height: 415px;">
                 <a href="/khuyen-mai-moi/luong-kho-mini-minh-cung-nh-m-nhi.htm">
@@ -141,7 +148,8 @@
                     </p>
                 </div>
             </div>
-        </div>
+        </div> */ ?>
+
     </div>
 </div>
 @stop

@@ -104,8 +104,13 @@ class AppController extends Controller
         }
         view()->share('branch_list', $branch_list);
 
-
-
+        // Lấy danh sách phim đang hót
+        $film_featureds = DB::table('films')
+        ->join('nodes', 'films.node_id', '=', 'nodes.id')
+        ->select('films.*','nodes.status','nodes.slug')
+        ->where('featured',1)->get(); 
+        $film_featureds = json_decode(json_encode($film_featureds), true);
+        view()->share('film_featureds', $film_featureds);
         // lấy danh sách bỏng nước
     }
     

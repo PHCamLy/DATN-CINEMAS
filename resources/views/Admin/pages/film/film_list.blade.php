@@ -122,8 +122,9 @@
                                                     ?>
                                                 </td>
                                                 <td class="text-center">
+                                                    <?php	 $featured  =  $v['featured'] == 1 ? 0 : 1;	 ?>
                                                     <a class="btn  btn-sm" href="javascript:;"
-                                                        onclick="update_field('<?php echo $DOMAIN . $link_update . $v['id']. '/featured';?>');">
+                                                        onclick="update_field('<?php echo $DOMAIN . $link_update . $v['id']. '/featured/'. $featured ;?>');">
                                                         <span class="icon-status newest-11">
                                                             <?php	 if($v['featured'] == 1) { 	 ?>
                                                             <i class="fas fa-play"></i>
@@ -134,8 +135,9 @@
                                                     </a>
                                                 </td>
                                                 <td class="text-center">
+                                                    <?php	 $status  =  $v['status'] == 1 ? 0 : 1;	 ?>
                                                     <a class="btn  btn-sm" href="javascript:;"
-                                                        onclick="update_field('<?php echo $DOMAIN . $link_update . $v['id']. '/status';?>');">
+                                                        onclick="update_field('<?php echo $DOMAIN . $link_update . $v['id']. '/status/' . $status ;?>');">
                                                         <span class="icon-status newest-11">
                                                             <?php	 if($v['status'] == 1) { 	 ?>
                                                             <i class="fas fa-play"></i>

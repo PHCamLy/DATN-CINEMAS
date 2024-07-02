@@ -32,6 +32,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'home_index']);
 Route::post('/', [HomeController::class, 'home_index']);
 Route::get('/logout', [HomeController::class, 'logout']);
+Route::get('/contact', [HomeController::class, 'contact']);
 
 Route::get('/login', [UserController::class, 'login'])->middleware(WebCheckLogin::class);
 

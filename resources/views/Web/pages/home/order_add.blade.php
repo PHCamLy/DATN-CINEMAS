@@ -115,6 +115,7 @@
                         <div class="ghichu">
                             <textarea class="order-note" name="" id="" placeholder="Lời nhắn"></textarea>
                         </div>
+                        <?php	 /* 	 ?>
                         <hr>
                         <div class="qr-code">
                             <div class="d-flex">
@@ -132,16 +133,15 @@
                             <p>
                                 Lưu ý, sau khi chuyển khoản, bạn sẽ nhận được mail thông báo!
                             </p>
-
-                        </div>
+                        </div> */ ?>
                         <br>
                         <div class="btn-datve">
                             <a style="display: block;" href="javascript:;"
-                                class="btn btn-2 btn-mua-ve2 fancybox-fast-view" onclick="datve_submit()" ;="">
+                                class="btn btn-2 btn-mua-ve2 fancybox-fast-view" onclick="show_modal_thanhtoan()">
                                 <span>
                                     <i class="fa fa-ticket mr3"></i>
                                 </span>
-                                MUA VÉ
+                                Thanh toán
                             </a>
                         </div>
                         <div>
@@ -178,9 +178,9 @@
                                 <?php	 echo  number_format($v['price']); 	 ?> vnđ
                             </div>
                             <div class="add-option">
-                                <a data-id="<?php echo $v['id'];?>" data-price="<?php echo $v['price'];?>"
-                                    style="display: inline-block;" href="javascript:;"
-                                    class="btn btn-2 fancybox-fast-view" onclick="add_option(this)" ;="">
+                                <a style="display: inline-block;" href="javascript:;"
+                                    class="btn btn-2 fancybox-fast-view" data-toggle="modal" data-target="#myModal"
+                                    onclick="add_option(this)" ;="">
                                     Thêm
                                 </a>
                             </div>
@@ -200,6 +200,44 @@
 <input type="hidden" id="price" value="<?php echo $showtime['price'] ?>">
 <input type="hidden" id="showtime_id" value="<?php echo $showtime['id'] ?>">
 <input type="hidden" id="order_code" value="<?php echo $code; ?>">
+<!-- Modal -->
+<div class="modal fade" id="modal-thanhtoan" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Vui lòng chuyển khoản với mã QR bên dưới</h4>
+            </div>
+            <div class="modal-body">
+                <div class="qr-code">
+                    <div class="d-flex">
+                        <p>
+                            nội dung chuyển khoản:
+                        </p>
+                        <h3 class="">
+                            <?php echo $code; ?>
+                        </h3>
+                    </div>
+                    <div class="img" style="padding: 15px;">
+                        <img style="max-height: 300px; object-fit: contain;"
+                            src="https://th.bing.com/th/id/OIP.7xGQKpUtezOy0cDWXQExxQHaHa?rs=1&pid=ImgDetMain" alt="">
+                    </div>
+                    <p>
+                        Lưu ý, sau khi chuyển khoản, bạn sẽ nhận được mail thông báo!
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-2 fancybox-fast-view " data-id="<?php echo $v['id'];?>"
+                    data-price="<?php echo $v['price'];?>" onclick="datve_submit()">Mua vé</button>
+                <button type="button" class="btn " data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 
 @stop
 

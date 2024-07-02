@@ -36,11 +36,14 @@ class CommentController extends AdminAppController
         session()->flash('msg', '');
         $d = DB::table('comments')
         ->join('nodes', 'comments.node_id', '=', 'nodes.id')
-        ->join('users', 'comments.user_id', '=', 'users.id')
-        ->select('comments.*','nodes.id','nodes.slug','users.fullname','users.email','users.phone')
+        // ->join('users', 'comments.user_id', '=', 'users.id')
+        ->select('comments.*','nodes.id as nid','nodes.slug','nodes.title as ntitle')
         ->paginate(15);
-        
-        return view($this->view_path . $this->folder.'.comment_list',['data' => $d]);
+
+        $data = json_decode(json_encode($d),true)['data'];
+       
+        return view($this->view_path . $this->folder.'.comment_list',['data' => $data]);
+
     }
 
     public function comment_add(Request $req)

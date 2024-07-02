@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Web\AppController;
 use App\Http\Controllers\Web\UserController;
 use App\Models\Category;
+use App\Models\Comment;
+use App\Models\Contact;
 use App\Models\Node;
 use App\Models\Option;
 use App\Models\Order;
@@ -23,6 +25,7 @@ class HomeController extends AppController
         'data' => []
     ];
 
+    // trang chủ
     function home_index(Request $request)
     {
         $method = $request->method();
@@ -49,7 +52,53 @@ class HomeController extends AppController
         
         return view($this->view_path . 'home.home_index');
     }
+    
+    // trang liên hệ
+    function contact(Request $request)
+    {
 
+        return view($this->view_path . 'home.contact');
+
+    }   
+    
+    // trang đăt vé
+    public function order_add($id)
+    {
+        $this->get_option();
+        
+        if(is_numeric($id))
+        {
+            $showtime = Showtime::find($id);
+            if($showtime != null)
+            {
+                $showtime['map'] = json_decode(str_replace('&quot;','"',$showtime['map']));
+
+                $film = $d = DB::table('films')
+                // ->join('category_linkeds', $alias_tbl.'.node_id', '=', $alias_tbl.'.node_id')
+                ->join('nodes', 'films.node_id', '=', 'nodes.id')
+                ->where([['nodes.status',1],['nodes.id', $showtime['node_id']]])
+                ->select('films.*','nodes.status','nodes.id as node_id','nodes.slug')
+                ->first();
+
+                view()->share('film', json_decode(json_encode($film),true));
+                
+                $branch = '';
+                
+                $room = Room::find($showtime['room_id']);
+
+                view()->share('room', $room);
+
+                view()->share('showtime', $showtime); 
+            }
+        }
+        else {
+
+        }
+        return view($this->view_path . 'home.order_add');
+
+    }
+
+    //  ajax dang ky tai khoan
     public function ajax_register($data = null)
     {
         if($data != null)
@@ -86,7 +135,7 @@ class HomeController extends AppController
         session()->flash('msg', json_encode($this->res));
         return redirect('/login');
     }
-
+    // ajax login
     private function ajax_login($data = null)
     {
         if($data != null){
@@ -124,11 +173,8 @@ class HomeController extends AppController
         // echo json_encode($this->res);
         // die();
     }
-    
-    private function ajax_logout($data)
-    {   
-        
-    }
+
+    // xu logout dang xuat
     public function logout(){
         
         session(['user' => null]);
@@ -136,6 +182,7 @@ class HomeController extends AppController
         return redirect('/');
     }
     
+    // don slug xu ly khi click vao trang con
     public function handle_slug(Request $request,$slug = null)
     {
         if($slug != null)
@@ -149,6 +196,7 @@ class HomeController extends AppController
         }
     }
 
+    // lay noi dung cua slug khi truy cap
     private function get_data_page($node)
     {
         $data = [];
@@ -207,12 +255,25 @@ class HomeController extends AppController
         $data[$alias] = $d;
         
         view()->share('data', $data);
+
+        // get comment page
+
+        $comment = [];
+        $com = Comment::where(['node_id',$node['id']],['status',1])->get();
+        if($com != null)    
+        {
+            $comment = $com;
+        }
+
+        view()->share('comment', $comment);
+
+
         
         return view($this->view_path . $alias. '.'.$alias.'_detail');
 
     }
 
-
+    // ham don dau xu ly url ajax
     public function ajax(Request $request,$action = null){
         if($action != null)
         {
@@ -220,6 +281,7 @@ class HomeController extends AppController
         }
     }   
 
+    // ajax lay ra lich chieu cua bo film
     public function ajax_get_showtime(Request $request)
     {
         $res = [
@@ -269,7 +331,7 @@ class HomeController extends AppController
         echo json_encode($res);
         die();
     }
-
+    // ajax dat ve
     public function ajax_order_add(Request $request)
     {
         // node_id
@@ -366,43 +428,108 @@ class HomeController extends AppController
         
     }
 
-    // order
-    public function order_add($id)
-    {
-        $this->get_option();
+    // ajax comment
+    private function ajax_comment(Request $request)
+    {   
+
+        $res = [
+            'res' => 'err',
+            'msg' => '',
+            'data' => [],
+        ];
+        $user  = $request->session()->get('user'); 
         
-        if(is_numeric($id))
+        $data = $request->all();
+        $node_id = isset($data['node_id']) && is_numeric($data['node_id']) ? $data['node_id'] : 0;
+        $fullname = isset($data['fullname']) ? $this->removeXss($data['fullname']) : '' ;
+        $phone = isset($data['phone']) ? $this->removeXss($data['phone']) : '' ;
+        $email = isset($data['email']) ? $this->removeXss($data['email']) : '' ;
+        $content = isset($data['content']) ? $this->removeXss($data['content']) : '' ;
+
+        // check node id
+        if($node_id == 0)
         {
-            $showtime = Showtime::find($id);
-            if($showtime != null)
-            {
-                $showtime['map'] = json_decode(str_replace('&quot;','"',$showtime['map']));
-
-                $film = $d = DB::table('films')
-                // ->join('category_linkeds', $alias_tbl.'.node_id', '=', $alias_tbl.'.node_id')
-                ->join('nodes', 'films.node_id', '=', 'nodes.id')
-                ->where([['nodes.status',1],['nodes.id', $showtime['node_id']]])
-                ->select('films.*','nodes.status','nodes.id as node_id','nodes.slug')
-                ->first();
-
-                view()->share('film', json_decode(json_encode($film),true));
-                
-                $branch = '';
-                
-                $room = Room::find($showtime['room_id']);
-
-                view()->share('room', $room);
-
-                view()->share('showtime', $showtime); 
-            }
+            $res['msg'] = 'Thông tin bình luận không hợp lệ!';
+            echo json_encode($res);
+            die();
         }
-        else {
-
+        
+        $user_id = 0;
+        
+        if($user != null)
+        {
+            $fullname = $user['fullname'];
+            $phone = $user['phone'];
+            $email = $user['email'];
+            $user_id = $user['id'];
         }
-        return view($this->view_path . 'home.order_add');
+        
+        // khoi tao enty commment
+        $c = new Comment();
+        $c->node_id = $node_id;
+        $c->fullname = $fullname;
+        $c->phone = $phone;
+        $c->email = $email;
+        $c->user_id = $user_id;
+        $c->content = $content;
+        $c->created = time();
+        $c->modified = time();
+        $c->status = 1;
 
+        $c->save();
+        
+        $res['res'] = 'done';
+        $res['msg'] = 'Bạn đã gửi bình luận thành công';
+        echo json_encode($res);
+        die();
+        
+    }
+    // ajax contact
+    private function ajax_contact(Request $request)
+    {   
+
+        $res = [
+            'res' => 'err',
+            'msg' => '',
+            'data' => [],
+        ];
+        $user  = $request->session()->get('user'); 
+        
+        $data = $request->all();
+        $fullname = isset($data['fullname']) ? $this->removeXss($data['fullname']) : '' ;
+        $phone = isset($data['phone']) ? $this->removeXss($data['phone']) : '' ;
+        $email = isset($data['email']) ? $this->removeXss($data['email']) : '' ;
+        $content = isset($data['content']) ? $this->removeXss($data['content']) : '' ;
+
+        
+        $user_id = 0;
+        
+        if($user == null)
+        {
+            $fullname = $user['fullname'];
+            $phone = $user['phone'];
+            $email = $user['email'];
+            $user_id = $user['id'];
+        }
+
+        // khoi tao enty commment
+        $c = new Contact();
+        $c->fullname = $fullname;
+        $c->phone = $phone;
+        $c->email = $email;
+        $c->content = $content;
+        $c->created = time();
+        $c->modified = time();
+
+        $c->save();
+        $res['res'] = 'done';
+        $res['msg'] = 'Bạn đã gửi liên hệ thành công!';
+        echo json_encode($res);
+        die();
+        
     }
 
+    
     // user 
     public function user_dashboard(Request $reques) {
         if($this->user == null)

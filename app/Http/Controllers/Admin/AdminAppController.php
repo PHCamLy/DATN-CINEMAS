@@ -64,7 +64,7 @@ class AdminAppController extends Controller
                     ),
                 ),
             ),
-            'Đánh giá' => array(
+            'Bình luận' => array(
                 'icon' => 'bx bxl-product-hunt',
                 'link' => 'comment/comment_list',
                 'child' => array(

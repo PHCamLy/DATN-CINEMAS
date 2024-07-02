@@ -315,6 +315,7 @@ function update_field(link = undefined) {
             },
             error: function (err) {
                 Swal.fire("Đã xảy ra lỗi!", '', "error");
+                console.log(err);
             },
         })
     }

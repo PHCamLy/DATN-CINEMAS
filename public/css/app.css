@@ -531,6 +531,44 @@ table.type-3 th.account {
     padding: 0;
 }
 
+/* comment */
+
+.c-item {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.c-item .avata {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: green;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+    font-size: 22px;
+    margin-right: 20px;
+}
+
+.c-content .c-name {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.c-content .c-name span {
+    font-size: 14px;
+    font-style: italic;
+}
+
+
+.c-content .c-txt {
+    font-size: 16px;
+    line-height: 24px;
+}
+
+
+
+
 @media only screen and (max-width: 768px) {
     .space-list {
         padding: 30px 0px;

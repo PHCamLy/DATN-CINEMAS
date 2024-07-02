@@ -4,7 +4,6 @@
 
 {{-- impoort thư viện css --}}
 @section('style-libraries')
-
 @stop
 @section('content')
 <div class="main-content">
@@ -62,24 +61,23 @@
                                             <tr>
                                                 <th width="50">Stt</th>
                                                 <th class="text-center" width="200">
-                                                    Hình ảnh
+                                                    Khách hàng
                                                 </th>
                                                 <th class="text-center">
-                                                    Tên
-                                                    <?php echo $label; ?>
+                                                    Tên film
                                                 </th>
                                                 <th class="text-center" width="100">
-                                                    Số ghế
+                                                    Nội dung bình luận
                                                 </th>
                                                 <!-- <th class="text-center" width="100">
                                                     Vị trí
                                                 </th> -->
-                                                <!-- <th class="text-center">
+                                                <th class="text-center">
                                                     Trạng thái
-                                                </th> -->
-                                                <th class="text-center" width="100">
-                                                    Sửa
                                                 </th>
+                                                <!-- <th class="text-center" width="100">
+                                                    Sửa
+                                                </th> -->
                                                 <th class="text-center" width="100">
                                                     Xóa
                                                 </th>
@@ -95,27 +93,42 @@
                                                     <?php	 echo $stt; 	 ?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <img src="<?php	 echo $v['image']; 	 ?>" alt="" width="80">
-
+                                                    <?php	 
+                                                        echo 'Tên: '. $v['fullname'] . '<br>'.
+                                                        'Phone: ' . $v['phone'] . '<br>'.
+                                                        'Email: ' . $v['email'] . '<br>';
+                                                    ?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <?php	 echo $v['title']; 	 ?>
+                                                    <?php	 echo $v['ntitle']; 	 ?>
                                                 </td>
-                                               
                                                 <td class="text-center">
-                                                    <?php	 echo $v['total_chair'];	 ?>
+                                                    <?php	 echo $v['content'];	 ?>
                                                 </td>
                                                 <?php	 /* 	 ?>
                                                 <td class="text-center">
                                                     <?php	 echo $v['pos']; 	 ?>
                                                 </td> */ ?>
                                                 <td class="text-center">
+                                                    <?php $status = $v['status'] == 1 ? 0: 1; 	 ?>
+                                                    <a class="btn btn-sm" href="javascript:;"
+                                                        onclick="update_field('<?php echo $DOMAIN . $link_update . $v['id']. '/status/' . $status;?>');">
+                                                        <span class="icon-status newest-11">
+                                                            <?php	 if($v['status'] == 1) { 	 ?>
+                                                            <i class="fas fa-play"></i>
+                                                            <?php	 }else {	 ?>
+                                                            <i class="fas fa-pause"></i>
+                                                            <?php	 } 	 ?>
+                                                        </span>
+                                                    </a>
+                                                </td>
+                                                <!-- <td class="text-center">
                                                     <a class="btn btn-outline-secondary btn-sm"
                                                         href="<?php echo $DOMAIN . $link_edit . ($v['id']); ?>">
                                                         <i class="fas fa-pencil-alt">
                                                         </i>
                                                     </a>
-                                                </td>
+                                                </td> -->
                                                 <td class="text-center">
                                                     <a class="btn  btn-sm" href="javascript:;"
                                                         onclick="remove_item('<?php echo $DOMAIN . $link_delete . $v['id'];?>');">
