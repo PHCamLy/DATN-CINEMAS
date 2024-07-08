@@ -151,11 +151,18 @@
                         </div>
                     </div>
                     <div class="chuthich">
+                        <div class="item lock" style="background-color: green !important;">
+                            tên ghế
+                        </div>
+                        <span>Tên bạn chọn</span>
+                    </div>
+                    <div class="chuthich">
                         <div class="item lock">
                             tên ghế
                         </div>
                         <span>Tên ghế đã được chọn</span>
                     </div>
+
                 </div>
             </div>
             <div class="col-sm-6">
@@ -179,7 +186,7 @@
                             </div>
                             <div class="add-option">
                                 <a style="display: inline-block;" href="javascript:;"
-                                    class="btn btn-2 fancybox-fast-view" data-toggle="modal" data-target="#myModal"
+                                    class="btn btn-2 " data-id="<?php echo $v['id']; ?>" data-price="<?php echo $v['price']; ?>"
                                     onclick="add_option(this)" ;="">
                                     Thêm
                                 </a>

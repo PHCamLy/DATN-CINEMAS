@@ -57,6 +57,7 @@
                                     </svg>
                                     <a href="<?php echo $DOMAIN ?>user/change_pass">Đổi mật khẩu</a>
                                 </li>
+                                
                                 <li>
                                     <!-- <img src="" alt="#"> -->
                                     <svg width="16" height="16">
@@ -75,7 +76,7 @@
                                     Thông tin tài khoản
                                 </h2>
                             </div>
-                            <form id="user-info-form" action="<?php echo $DOMAIN . 'user/dashboad'?>" method="POST">
+                            <form id="user-info-form" action="<?php echo $DOMAIN . 'user/dashboard'?>" method="POST">
                                 @csrf
                                 <div style="margin-bottom: 20px">
                                     <label>Họ tên <span style="color: #ff6108">*</span></label>

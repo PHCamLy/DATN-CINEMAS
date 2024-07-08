@@ -1,11 +1,10 @@
 @extends('Web.layouts.layout')
 
 @section('title', 'CAM - cinemas')
-<?php	 print_r($data); 	 ?>
 @section('content')
 <div class="container">
     <div class="row">
-        <h1 class="text-uppercase bold"><a class="link-text" href="/khuyen-mai-moi.htm">Khuyến mãi mới</a></h1>
+        <h1 class="text-uppercase bold"><a class="link-text" href="/khuyen-mai-moi.htm"><?php echo $data['node']['title']; ?></a></h1>
         <?php	 if(count($data['new']) > 0) { 	
             $item1 = $data['new'][0]; ?>
         <div class="col-md-8 margin-bottom-30" style="height: 415px;">

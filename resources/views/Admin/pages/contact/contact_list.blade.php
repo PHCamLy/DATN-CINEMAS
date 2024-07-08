@@ -103,10 +103,10 @@
                                                     <?php	 echo $v['content']; 	 ?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <?php	 echo date('d-m-Y H:i',$v['created']);;	 ?>
+                                                    <?php	 echo date('d-m-Y H:i',$v['created']);	 ?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <?php	  <?php	 $status = $v['status'] == 1 ? 0: 1; 	 ?> 	 ?>
+                                                    <?php		 $status = $v['status'] == 1 ? 0: 1; 	 ?>
                                                     <a class="btn  btn-sm" href="javascript:;"
                                                         onclick="update_field('<?php echo $DOMAIN . $link_update . $v['id']. '/status/'.$status;?>');">
                                                         <span class="icon-status newest-11">

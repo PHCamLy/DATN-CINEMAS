@@ -30,16 +30,8 @@
         <!-- END SLIDER -->
     </div>
     <div id="BodyContent_ctl00_mainPanel" class="ecm-panel" style="position: relative;">
-        <form method="post" action="https://www.betacinemas.vn/home.htm?url=home.htm" id="ctl00">
-            <div class="aspNetHidden">
-                <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE"
-                    value="QTBtzPW5zbPPL7etEfR07DZKept1wKEvcN37vKxGMHSt3dNXb1d05DiuOcQ/7NWhmci0FBx3vIZYTbEJ7FA/ce3h5T6txpbHkrUnNTVvNjs=">
-            </div>
-
-            <div class="aspNetHidden">
-
-                <input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="3989C74E">
-            </div>
+        <form method="post" action="" id="ctl00">
+           
             <div class="container">
                 <div class="margin-bottom-35">
                     <div class="text-center">

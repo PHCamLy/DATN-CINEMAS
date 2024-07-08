@@ -259,7 +259,7 @@ class HomeController extends AppController
         // get comment page
 
         $comment = [];
-        $com = Comment::where(['node_id',$node['id']],['status',1])->get();
+        $com = Comment::where([['node_id',$node['id']],['status',1]])->get();
         if($com != null)    
         {
             $comment = $com;

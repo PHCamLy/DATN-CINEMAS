@@ -36,7 +36,7 @@
                                             Rạp: </span>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-10">
-                                        <?php echo $branch_list[$showtime['branch_id']]; ?>
+                                        <?php echo isset($branch_list[$showtime['branch_id']]) ? ($branch_list[$showtime['branch_id']]) : ''; ?>
                                     </div>
                                 </div>
                                 <div class="row font-lg font-family-san font-xs-14">
@@ -88,7 +88,8 @@
                                 <div class="row font-lg font-family-san font-xs-14">
                                     <?php	
                             $option_sl = json_decode(($order['extra']), true);
-                            if(isset($option)) {  
+                           
+                            if(isset($option) && count($option) > 0) {  
                                 foreach($option as $v) {	 ?>
                                     <div class="col-lg-12">
                                         <div class="order-option-item">
@@ -105,13 +106,13 @@
                                                 <div class="price">
                                                     <?php	 echo 'Số lượng: '; 	 ?>
                                                     <?php 
-                                            foreach($option_sl as $sl)
-                                            {
-                                                if($v['id'] == $sl['id'])
-                                                {
-                                                echo $sl['quantity'];
-                                                }
-                                            } ?>
+                                                        foreach($option_sl as $sl)
+                                                        {
+                                                            if($v['id'] == $sl['id'])
+                                                            {
+                                                            echo $sl['quantity'];
+                                                            }
+                                                        } ?>
                                                 </div>
                                             </div>
                                             <div class="clearfix"></div>

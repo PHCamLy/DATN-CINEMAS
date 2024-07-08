@@ -91,16 +91,9 @@ class AdminController extends AdminAppController
         if($data_all != null)
         {
             // dd($data_all);
-            try {
+            // try {
                 $data = $data_all[$this->alias];
                 // check email or phone
-                $data['created'] =  $time;
-                $data['created'] =  $time;
-
-
-
-
-
                 if(isset($data_all['images']))
                 {
                     $data['image'] = end($data_all['images']);
@@ -116,7 +109,7 @@ class AdminController extends AdminAppController
                 
                 $data['created'] =  $time;
                 $data['modified'] =  $time;
-                if(is_array($data['roles']) && count($data['roles']) > 0)
+                if(isset($data['roles']) && is_array($data['roles']) && count($data['roles']) > 0)
                 {
 
                     $data['roles'] =  implode(',', $data['roles']);
@@ -145,11 +138,11 @@ class AdminController extends AdminAppController
                 $this->res['res'] = 'done';
                 // session()->flash('msg', json_encode($this->res));
                 
-            } catch (Exception $e) {
+            // } catch (Exception $e) {
 
-                $this->res['msg'] = 'Đã có lỗi xảy ra, vui lòng thử lại';
+            //     $this->res['msg'] = 'Đã có lỗi xảy ra, vui lòng thử lại';
 
-            }
+            // }
             session()->flash('msg', json_encode($this->res));
             // return view($this->view_path . $this->folder.'.banner_edit'.'/'.$id);
         }

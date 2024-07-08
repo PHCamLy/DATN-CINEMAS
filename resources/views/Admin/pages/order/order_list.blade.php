@@ -97,7 +97,7 @@
                                                 <td>
                                                     <p>Rạp chiếu :
                                                         <b>
-                                                            <?php echo $branch_list[$v['branch_id']]?>
+                                                            <?php echo isset($branch_list[$v['branch_id']]) ? $branch_list[$v['branch_id']] : ''?>
                                                         </b>
                                                     </p>
                                                     <p>Phòng chiếu :
@@ -117,15 +117,14 @@
                                                 </td>
                                                 <td>
                                                     <?php	
-                                                        if($v['extra'] != '') {
-                                                            
-                                                            $extra = json_decode($v['extra'],true);
-                                                           
-                                                            foreach($extra  as $e) {
-                                                                echo $v['options'][$e['id']] .' <b> X '. $e['quantity'] .'</b><br>';
-                                                            }
-
-                                                        } 
+                                                        if(isset($v['options']) && count($v['options'])) {
+                                                            if($v['extra'] != '') {
+                                                                $extra = json_decode($v['extra'],true);
+                                                                foreach($extra  as $e) {
+                                                                    echo $v['options'][$e['id']] .' <b> X '. $e['quantity'] .'</b><br>';
+                                                                }
+                                                            } 
+                                                        }
                                                     ?>
                                                 </td>
                                                 <td>
