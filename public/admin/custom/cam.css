@@ -3,3 +3,7 @@
     object-fit: cover;
     height: 100%;
 }
+
+.nav nav>div:nth-child(2) {
+    display: none !important;
+}

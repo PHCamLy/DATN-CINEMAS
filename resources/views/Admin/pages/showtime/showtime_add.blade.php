@@ -76,10 +76,34 @@
                                     </div>
                                 </div> */ ?>
                                 <div class="row mb-4">
-                                    <label class="col-form-label col-lg-2">Ngày chiếu & giờ chiếu</label>
+                                    <label class="col-form-label col-lg-2">Khung giờ chiếu</label>
                                     <div class="col-lg-10">
+                                        <select class="form-select select2" name="data[<?php echo $alias; ?>][timeslot_id]">
+                                            <option value="">--- Chọn khung giờ ---</option>
+                                            <?php	 foreach($timeslot as $k => $v) { 	 ?>
+                                            <option value="<?php echo $k; ?>">
+                                                <?php echo $v; ?>
+                                            </option>
+                                            <?php	 } 	 ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label class="col-form-label col-lg-2">Ngày chiếu</label>
+                                    <div class="col-lg-10">
+                                        <select class="form-select select2" multiple name="data[<?php echo $alias; ?>][time][]">
+                                            <?php	
+                                            $time_ = date('d-m-Y',time());    
+                                            for($i = 1; $i <=30 ; $i++) {
+                                                $t =  strtotime ( '+' . $i . ' day' ,time());
+                                                $time_ = date('d-m-Y', $t);    
+                                            ?>
+                                            <option value="<?php echo $time_; ?>"><?php echo $time_; ?></option>
+                                            <?php	 } 	 ?>
+                                        </select>
+                                        <?php	 /* 	 ?>
                                         <input name="data[<?php echo $alias; ?>][time]" class="form-control datedtime"
-                                            value="" required>
+                                            value="" required> */ ?>
                                     </div>
                                 </div>
                             </div>

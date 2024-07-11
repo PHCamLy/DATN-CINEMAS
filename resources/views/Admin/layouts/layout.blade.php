@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/libs/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/libs/dropzone/min/dropzone.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/libs/admin-resources/rwd-table/rwd-table.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/libs/admin-resources/rwd-table/rwd-table.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/libs/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/custom/jquery.datetimepicker.css') }}">
     <link rel="stylesheet"
         href="{{ asset('admin/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}">
@@ -96,6 +98,7 @@
     <script src="{{ asset('admin/assets/libs/node-waves/waves.min.js') }}"></script>
     <script src="{{ asset('admin/assets/libs/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('admin/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('admin/assets/libs/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
     <script src="{{ asset('admin/assets/libs/admin-resources/rwd-table/rwd-table.min.js') }}"></script>
     <script src="{{ asset('admin/custom/jquery.datetimepicker.min.js') }}"></script>
     <script src="{{ asset('admin/custom/jquery.number.js') }}"></script>

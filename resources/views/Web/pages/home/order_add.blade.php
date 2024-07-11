@@ -99,6 +99,15 @@
                                 <span class="sl">0</span>
                             </div>
                         </div>
+                        <div class="row font-lg font-family-san font-xs-14 coupon-wrap hide">
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                <span class="bold font-transform-uppercase">
+                                    Giảm giá: </span>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-10">
+                                <span class="coupon-discout">0</span>
+                            </div>
+                        </div>
                         <div class="row font-lg font-family-san font-xs-14">
                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                 <span class="bold font-transform-uppercase">
@@ -112,6 +121,18 @@
                         <div class="option-list">
 
                         </div>
+                        <?php	 if(count($coupon) > 0) { 	 ?>
+                        <br>
+                        <div class="coupon">
+                            <div class="coupon-name">
+                            </div>
+                            <div>
+                                <button class="show-modal-coupon">Chọn mã giảm giá</button>
+                                <button class="coupon-remove hide">Xóa</button>
+                            </div>
+                        </div>
+                        <br>
+                        <?php	 } 	 ?>
                         <div class="ghichu">
                             <textarea class="order-note" name="" id="" placeholder="Lời nhắn"></textarea>
                         </div>
@@ -162,7 +183,6 @@
                         </div>
                         <span>Tên ghế đã được chọn</span>
                     </div>
-
                 </div>
             </div>
             <div class="col-sm-6">
@@ -185,8 +205,8 @@
                                 <?php	 echo  number_format($v['price']); 	 ?> vnđ
                             </div>
                             <div class="add-option">
-                                <a style="display: inline-block;" href="javascript:;"
-                                    class="btn btn-2 " data-id="<?php echo $v['id']; ?>" data-price="<?php echo $v['price']; ?>"
+                                <a style="display: inline-block;" href="javascript:;" class="btn btn-2 "
+                                    data-id="<?php echo $v['id']; ?>" data-price="<?php echo $v['price']; ?>"
                                     onclick="add_option(this)" ;="">
                                     Thêm
                                 </a>
@@ -204,9 +224,11 @@
 
 <input type="hidden" id="total_price" value="0">
 <input type="hidden" id="total_option" value="0">
+<input type="hidden" id="total_coupon" value="<?php echo 0; ?>">
 <input type="hidden" id="price" value="<?php echo $showtime['price'] ?>">
 <input type="hidden" id="showtime_id" value="<?php echo $showtime['id'] ?>">
 <input type="hidden" id="order_code" value="<?php echo $code; ?>">
+<input type="hidden" id="coupon_id" value="<?php echo 0; ?>">
 <!-- Modal -->
 <div class="modal fade" id="modal-thanhtoan" role="dialog">
     <div class="modal-dialog">
@@ -242,6 +264,59 @@
             </div>
         </div>
 
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modal-coupon" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Danh sách mã giảm giá</h4>
+            </div>
+            <div class="modal-body">
+                <div class="coupon-list">
+                    <?php	 if(count($coupon) > 0) { 	 ?>
+                    <?php	 foreach($coupon as $v) { 	 ?>
+                    <div class="coupon-item">
+                        <div class="img">
+                            <img src="<?php echo $v['image']?>" alt="">
+                        </div>
+                        <div class="content">
+                            <h4>
+                                <?php	 echo $v['title']; 	 ?>
+                            </h4>
+                            <div class="des">
+                                <?php	 echo $v['content']; 	 ?>
+                            </div>
+                            <div class="price">
+                                <?php	 echo  $v['price'] != 0 ?  number_format($v['price']) . ' vnđ' : $v['percent'] . ' %'; 	 ?>
+                            </div>
+                            <div class="add-option">
+                                <a style="display: inline-block;" href="javascript:;"
+                                    data-title="<?php echo $v['title']; ?>" class="btn btn-2 "
+                                    data-id="<?php echo $v['id']; ?>" data-price="<?php echo $v['price']; ?>"
+                                    data-percent="<?php echo $v['percent']; ?>" onclick="add_coupon(this)" ;="">
+                                    Thêm
+                                </a>
+                            </div>
+                        </div>
+                        <div class="hsd">
+                            <small class="text-danger"> HSD:
+                                <?php echo date('d-m-Y H:i',$v['time']); ?>
+                            </small>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <?php	 } 	 ?>
+                    <?php	 } 	 ?>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn " data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Notify;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -38,6 +39,10 @@ class AdminController extends AdminAppController
 
 
         // lấy danh sách rạp
+    }
+    public function logout(){
+        session(['admin' => null]);
+        return redirect('/admin/login');
     }
 
     public function login(Request $request)
@@ -167,6 +172,17 @@ class AdminController extends AdminAppController
                 else {
                     $data['image'] = '';
                 }
+                
+                if(isset($data['roles']) && is_array($data['roles']) && count($data['roles']) > 0)
+                {
+
+                    $data['roles'] =  implode(',', $data['roles']);
+
+                }else {
+
+                    $data['roles'] = '';
+                    
+                }
                 $time = time();
                 // $data['created'] =  $time;
                 $data['modified'] =  $time;
@@ -223,8 +239,35 @@ class AdminController extends AdminAppController
     }
 
 
+    function ajax_notify(Request $req)
+    {   
+        $res = [
+            'res' => 'err',
+            'msg' => '',
+            'data' => [],
+        ];
 
-    
+        if($this->admin)
+        {
+            $admin_id = $this->admin['id'];
+            $notify = Notify::where([
+                ['admin_id',$this->admin['id']],
+                ['status',0]
+                ]
+                )->first();
+            if($notify != null)
+            {
+                $notify->status = 1;
+                $notify->save();
+                $notify->created = date('d-m-Y H:i',$notify->created);
 
+                $res['data'] = $notify;
+                $res['res'] = 'done';
+            }
+        }
 
+        echo json_encode($res);
+        die();
+
+    }
 }

@@ -12,6 +12,13 @@
                                                                         src="<?php echo $DOMAIN ?>img/logo.png">
                                                         </a>
                                                 </li>
+
+                                                <li class="col-lg-16 col-md-8 col-sm-8 col-xs-8">
+                                                        <i class="fa fa-angle-right"></i>
+                                                        <a href="<?php	 echo $DOMAIN . 'contact'; 	 ?>">
+                                                                Liên hệ hỗ trợ
+                                                        </a>
+                                                </li>
                                                 <?php	 if(isset($categories['footer_1'])){ 
                                                 foreach($categories['footer_1'] as $v) {
                                                 ?>
@@ -102,7 +109,7 @@
 <script src="{{ asset('js/qrcode.min.js') }}"></script>
 
 <script>
-        const is_login = <?php echo Session::get('user') != null ? 'true' : 'false'; ?>;
+        const is_login = <? php echo Session:: get('user') != null ? 'true' : 'false'; ?>;
 </script>
 @section('scripts')
 @stop

@@ -11,11 +11,14 @@ use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FilmController;
 use App\Http\Controllers\Admin\NewController;
+use App\Http\Controllers\Admin\NotifyController;
 use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ShowtimeController;
+use App\Http\Controllers\Admin\TimeslotController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\Web\AppController;
@@ -33,6 +36,10 @@ Route::get('/', [HomeController::class, 'home_index']);
 Route::post('/', [HomeController::class, 'home_index']);
 Route::get('/logout', [HomeController::class, 'logout']);
 Route::get('/contact', [HomeController::class, 'contact']);
+Route::get('/404', [HomeController::class, 'page_404'])->name('404');
+Route::missing(function () {
+    return redirect()->route('404');
+});
 
 Route::get('/login', [UserController::class, 'login'])->middleware(WebCheckLogin::class);
 
@@ -55,7 +62,7 @@ Route::get('/ajax/{action}', [HomeController::class, 'ajax']);
 Route::post('/ajax/{action}', [HomeController::class, 'ajax']);
 
 // order
-Route::get('/order/add/{id}', [HomeController::class, 'order_add']);
+Route::get('/order/add/{id}', [HomeController::class, 'order_add'])->middleware(WebCheckUser::class);
 
 Route::get('/{slug}', [HomeController::class, 'handle_slug']);
 
@@ -64,8 +71,15 @@ Route::prefix('admin')->group(function () {
     Route::get('/',[AdminController::class, 'login'])->middleware(ValidLoginAdmin::class);
     Route::get('/login',[AdminController::class, 'login'])->middleware(ValidLoginAdmin::class);
     Route::post('/login',[AdminController::class, 'login']);
+    Route::get('/logout',[AdminController::class, 'logout']);
 
+    
     Route::middleware([CheckLoginAdmin::class])->group(function () {
+
+        Route::post('/ajax_notify',[AdminController::class, 'ajax_notify']);
+        Route::get('profile',[ProfileController::class, 'profile']);
+        Route::post('profile',[ProfileController::class, 'profile']);
+        
         Route::get('dashboard/dashboard',[DashboardController::class, 'dashboard']);
 
         // media    
@@ -219,6 +233,26 @@ Route::prefix('admin')->group(function () {
             Route::post('/admin_delete/{id}',[AdminController::class, 'admin_delete']);
             Route::post('/admin_update/{id}/{key}/{val}',[AdminController::class, 'upadte_field']);
         });
-    });
 
+        // timeslot    
+        Route::prefix('timeslot')->group(function () {
+            Route::get('/timeslot_list',[TimeslotController::class, 'timeslot_list']);
+            Route::get('/timeslot_add',[TimeslotController::class, 'timeslot_add']);
+            Route::post('/timeslot_add',[TimeslotController::class, 'timeslot_add']);
+            Route::get('/timeslot_edit/{id}',[TimeslotController::class, 'timeslot_edit']);
+            Route::post('/timeslot_edit/{id}',[TimeslotController::class, 'timeslot_edit']);
+            Route::post('/timeslot_delete/{id}',[TimeslotController::class, 'timeslot_delete']);
+            Route::post('/timeslot_update/{id}/{key}/{val}',[TimeslotController::class, 'upadte_field']);
+        });
+        // notify    
+        Route::prefix('notify')->group(function () {
+            Route::get('/notify_list',[NotifyController::class, 'notify_list']);
+            Route::get('/notify_add',[NotifyController::class, 'notify_add']);
+            Route::post('/notify_add',[NotifyController::class, 'notify_add']);
+            Route::get('/notify_edit/{id}',[NotifyController::class, 'notify_edit']);
+            Route::post('/notify_edit/{id}',[NotifyController::class, 'notify_edit']);
+            Route::post('/notify_delete/{id}',[NotifyController::class, 'notify_delete']);
+            Route::post('/notify_update/{id}/{key}/{val}',[NotifyController::class, 'upadte_field']);
+        });
+    });
 });

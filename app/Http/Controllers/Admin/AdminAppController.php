@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notify;
 use Illuminate\Http\Request;
 
 class AdminAppController extends Controller
@@ -200,6 +201,18 @@ class AdminAppController extends Controller
                 'icon' => 'bx bxl-product-hunt',
                 'link' => 'setting/setting_edit',
             ),
+            'Khung giờ' => array(
+                'icon' => 'bx bxl-product-hunt',
+                'link' => 'timeslot/timeslot_list',
+                'child' => array(
+                    'Danh sách' => array(
+                        'link' => 'timeslot/timeslot_list'
+                    ),
+                    'Thêm mới' => array(
+                        'link' => 'timeslot/timeslot_add'
+                    ),
+                ),
+            ),
         ),
     );
 
@@ -221,6 +234,10 @@ class AdminAppController extends Controller
         view()->share('sidebar', $this->sidebar);
 
         view()->share('admin', $this->admin);
+        if($this->admin)
+        {
+            $this->get_notify();
+        }
     }
 
     public function removeXss($string)
@@ -245,6 +262,18 @@ class AdminAppController extends Controller
         echo '<pre>';
         print_r($d);
         echo '</pre>';
+    }
+
+    // get notify 
+
+    function get_notify()
+    {
+        $notify = Notify::where([
+            ['admin_id',$this->admin['id']],
+            ['status',0]
+            ]
+            )->get();
+        view()->share('notify', $notify);
     }
 
 }

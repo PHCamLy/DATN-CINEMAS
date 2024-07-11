@@ -6,60 +6,7 @@
 @section('style-libraries')
 
 @stop
-<?php	 
-    
-$lst = array();
 
-foreach ($sidebar as $tabName => $tabData) {
-	$is_allowed = 0;
-
-	foreach ($tabData as $moduleName => $moduleData) {
-		if (isset($moduleData['child'])) {
-			$link = $moduleData['link'];
-
-			$t = explode('/', $link);
-			$pluginName_parent = $t[0];
-			$pluginName_parent = str_replace('-','',$pluginName_parent);
-			$action_first_parent = explode('_',$t[1]);
-			
-			$lst[$tabName][$moduleName]['has_child'] = 1;
-			$lst[$tabName][$moduleName]['plugin'] = $pluginName_parent;
-			$lst[$tabName][$moduleName]['action'] = end($action_first_parent);
-			foreach ($moduleData['child'] as $child_menu_name => $child_menu_data) {
-				
-				$link = $child_menu_data['link'];
-
-				$t = explode('/', $link);
-				$pluginName = $t[0];
-				$pluginName = str_replace('-','',$pluginName);
-				$action_first = explode('_',$t[1]);
-
-				$lst[$tabName][$moduleName][$child_menu_name] = array(
-					'plugin' => $pluginName,
-					'action' => end($action_first),
-				);
-				// }
-			}
-		} else {
-			$link = $moduleData['link'];
-
-			$t = explode('/', $link);
-			$pluginName = $t[0];
-			$pluginName = str_replace('-','',$pluginName);
-			$action_first = explode('_',$t[1]);
-
-			// if ($this->App->is_allowed($pluginName, $modules, $admin)) {
-			$lst[$tabName][$moduleName] = array(
-				'plugin' => $pluginName,
-				'action' => end($action_first),
-			);
-			// }
-		}
-	}
-}
-$roles = $data['roles'] != '' ? explode(',',$data['roles']) : [];
-
-?>
 @section('content')
 <div class="main-content">
     <form class="form-data" method="post">
@@ -73,12 +20,6 @@ $roles = $data['roles'] != '' ? explode(',',$data['roles']) : [];
                                 <a class="nav-link active" data-bs-toggle="tab" href="#home1" role="tab">
                                     <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
                                     <span class="d-none d-sm-block">Thông tin cơ bản</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#profile1" role="tab">
-                                    <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
-                                    <span class="d-none d-sm-block">Phân quyền</span>
                                 </a>
                             </li>
                         </ul>
@@ -125,6 +66,7 @@ $roles = $data['roles'] != '' ? explode(',',$data['roles']) : [];
                                                         required placeholder="">
                                                 </div>
                                             </div>
+
                                             <?php	 /* 	 ?>
                                             <div class="row mb-4">
                                                 <label class="col-form-label col-lg-2">Tên đăng nhập</label>
@@ -133,16 +75,14 @@ $roles = $data['roles'] != '' ? explode(',',$data['roles']) : [];
                                                         class="form-control " value="<?php echo $data['username'] ?>"
                                                         required placeholder="">
                                                 </div>
-                                            </div>
+                                            </div> */ ?>
                                             <div class="row mb-4">
                                                 <label class="col-form-label col-lg-2">Mật khẩu</label>
                                                 <div class="col-lg-10">
                                                     <input type="password" name="data[<?php echo $alias; ?>][password]"
-                                                        min="0" class="form-control "
-                                                        value="<?php echo $data['password']; ?>" required
-                                                        placeholder="">
+                                                        min="0" class="form-control ">
                                                 </div>
-                                            </div> */ ?>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -204,79 +144,6 @@ $roles = $data['roles'] != '' ? explode(',',$data['roles']) : [];
                                     </div>
                                 </div>
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="profile1" role="tabpanel">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="table-rep-plugin">
-                                    <div class="table-responsive mb-0" data-pattern="priority-columns">
-                                        <table id="table-data" class="table table-data table-striped table-hover">
-                                            <thead>
-                                                <tr class="">
-                                                    <th width='70'>STT</th>
-                                                    <th>Tên module</th>
-                                                    <th class="text-center" width='150'>Được xem</th>
-                                                    <th class="text-center" width='150'>Thêm mới</th>
-                                                    <th class="text-center" width='150'>Sửa</th>
-                                                    <th class="text-center" width='150'>Xóa</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php	 foreach($lst as $k => $modul) {    
-                                                    $i = 0;	 ?>
-                                                <tr>
-                                                    <td colspan="6"><b>
-                                                            <?php echo $k?>
-                                                        </b></td>
-                                                </tr>
-                                                <?php	 foreach($modul as $name => $v) {
-                                                
-                                                    $i++; 	 ?>
-                                                <tr>
-                                                    <td>
-                                                        <?php	 echo $i; 	 ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php	 echo $name; 	 ?>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <input type="checkbox"
-                                                            name="data[<?php echo $alias; ?>][roles][]"
-                                                            value="<?php echo $v['plugin'] . '_' . $v['action']; ?>"
-                                                            <?php echo in_array($v['plugin'] . '_' . $v['action'],$roles) ? 'checked' :'' ?>
-                                                        class="isread roles">
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <input type="checkbox"
-                                                            name="data[<?php echo $alias; ?>][roles][]"
-                                                            value="<?php echo $v['plugin'] . '_add'; ?>"
-                                                            <?php echo in_array($v['plugin'] . '_add' ,$roles) ? 'checked' :'' ?>
-                                                            class="isread roles">
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <input type="checkbox"
-                                                            name="data[<?php echo $alias; ?>][roles][]"
-                                                            value="<?php echo $v['plugin'] . '_edit'; ?>"
-                                                            <?php echo in_array($v['plugin'] . '_edit' ,$roles) ? 'checked' :'' ?>
-
-                                                            class="isread roles">
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <input type="checkbox"
-                                                            name="data[<?php echo $alias; ?>][roles][]"
-                                                            value="<?php echo $v['plugin'] . '_delete'; ?>"
-                                                            <?php echo in_array($v['plugin'] . '_delete' ,$roles) ? 'checked' :'' ?>
-                                                            class="isread roles">
-                                                    </td>
-                                                </tr>
-                                                <?php 	 } 	 ?>
-                                                <?php	 } 	 ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

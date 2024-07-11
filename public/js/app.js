@@ -181,7 +181,11 @@ function select_ghe(self) {
 
     var total_option = $('#total_option').val();
     total_option = Number(total_option);
-    total_price += total_option;
+
+    var total_coupon = $('#total_coupon').val();
+    total_coupon = Number(total_coupon);
+
+    total_price += (total_option - total_coupon);
 
     $('.order-box .sl').html(sl)
     $('.order-box .gia').html($.number(total_price))
@@ -192,9 +196,12 @@ function datve_submit() {
     startSending()
     var showtime_id = $('#showtime_id').val();
     var total_price = $('#total_price').val();
+
     var content = $('.order-note').val();
     var total_option = $('#total_option').val();
+    var total_coupon = $('#total_coupon').val();
     var order_code = $('#order_code').val();
+    var coupon_id = $('#coupon_id').val();
 
     var quantity = $('.danhsachghe .item.active').length;
     var options = [];
@@ -221,7 +228,7 @@ function datve_submit() {
     if (quantity == 0) {
         Swal.fire('Vui lòng chọn ghế', '', "warning");
     }
-    total_price = Number(total_price) + Number(total_option);
+    total_price = Number(total_price) + Number(total_option) - Number(total_coupon);
     var data = {
         key_ghe: key_ghe,
         total_price: total_price,
@@ -229,7 +236,9 @@ function datve_submit() {
         quantity: quantity,
         showtime_id: showtime_id,
         options: options,
+        coupon_discount: total_coupon,
         code: order_code,
+        coupon_id: coupon_id,
     };
     // data = JSON.stringify(data);
     console.log(data);
@@ -312,7 +321,6 @@ function delete_option(self) {
 }
 function option_change(self = undefined) {
 
-
     var total_option = 0;
     $('.option-list .item').each(function (e) {
         var self = $(this).find('.quantity');
@@ -326,8 +334,9 @@ function option_change(self = undefined) {
 
     $('#total_option').val(total_option);
     var total_price = $('#total_price').val();
+    var total_coupon = $('#total_coupon').val();
 
-    total_price = Number(total_price) + total_option;
+    total_price = Number(total_price) + total_option - Number(total_coupon);
 
     $('.order-box .gia').html($.number(total_price))
 
@@ -435,7 +444,7 @@ function addFeedback() {
         fullname: fullname,
         content: content,
     };
-    
+
     // data = JSON.stringify(data);
     console.log(data);
     console.log(AJAX + 'ajax_contact');
@@ -468,3 +477,50 @@ function addFeedback() {
         },
     })
 }
+
+
+$('.show-modal-coupon').click(function () {
+    var quantity = $('.danhsachghe .item.active').length;
+    if (quantity == 0) {
+        Swal.fire('Vui lòng chọn ghế', '', "warning");
+        return false;
+    }
+    $('#modal-coupon').modal('show');
+
+})
+
+function add_coupon(self) {
+
+    $('.coupon-wrap').removeClass('hide');
+    var total_price = $('#total_price').val();
+    var total_option = $('#total_option').val();
+
+    total_price = Number(total_price);
+    total_option = Number(total_option);
+
+    var price_discout = $(self).attr('data-price');
+
+    if (Number(price_discout) == 0) {
+        price_discout = $(self).attr('data-percent');
+        price_discout = (price_discout / 100) * (total_price + total_option);
+    }
+    $('#total_coupon').val(price_discout);
+    $('.coupon-discout').html($.number(price_discout));
+    $('.order-box .gia').html($.number((total_price + total_option) - Number(price_discout)));
+
+    var title = $(self).attr('data-title');
+    var id = $(self).attr('data-id');
+    $('.coupon-remove').removeClass('hide');
+    $('.coupon-name').html(title);
+    $('#coupon_id').val(id);
+    $('#modal-coupon').modal('hide');
+}
+$('.coupon-remove').click(function () {
+    $('.coupon-name').addClass('hide');
+    $('.coupon-name').html('');
+    $('#total_coupon').val(0);
+    $('#coupon_id').val(0);
+    total_price = Number(total_price);
+    total_option = Number(total_option);
+    $('.order-box .gia').html($.number((total_price + total_option)));
+})

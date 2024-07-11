@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Branch;
 use App\Models\Contact;
 use App\Models\Film;
 use App\Models\Order;
@@ -15,6 +16,19 @@ class DashboardController extends AdminAppController
     //
     public function dashboard()
     {
+        // tra ve danh sach branch
+        $branch_id = isset($_GET['branch']) && is_numeric($_GET['branch']) ? $_GET['branch'] : 0;
+
+        $b = Branch::get();
+
+        $branch = [];
+        foreach($b as $v)
+        {
+            $branch[$v['id']] = $v['title'];
+        }
+
+        view()->share('branch', $branch);
+
         $data = [
             'film' => 0,
             'news' => 0,
@@ -23,6 +37,7 @@ class DashboardController extends AdminAppController
             'user' => 0,
             'order' => [],
         ];
+
         // Thống kê films
         $film = DB::table('films')
         ->join('nodes', 'films.node_id', '=', 'nodes.id')
@@ -53,6 +68,13 @@ class DashboardController extends AdminAppController
         // Thống kê doanh thu
         // Lấy thông tin của năm hiện tại
         $data_chart_order = [];
+        $conn = [];
+
+        if($branch_id != 0 && is_numeric($branch_id))
+        {
+            $conn = ['branch_id',$branch_id];
+        }
+
 
         // hom nay
         $time = time();
@@ -62,7 +84,12 @@ class DashboardController extends AdminAppController
         $order_homnay = 0;
         $start = strtotime(date('Y-m-d 00:00:00', $time));
         $end = strtotime(date('Y-m-d 23:59:59', $time));
-        $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        if(count($conn) > 0)
+        {
+            $o = Order::where([['created','>=',$start],['created','<=',$end],$conn])->get();
+        }else{
+            $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        }
         foreach($o as $v)
         {
             $order_homnay+= $v['cart_sum'];
@@ -73,7 +100,12 @@ class DashboardController extends AdminAppController
         $order_7d = 0;
         $start = strtotime(date('Y-m-d 00:00:00', strtotime("-7 days")));
         $end = strtotime(date('Y-m-d 23:59:59', $time));
-        $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        if(count($conn) > 0)
+        {
+            $o = Order::where([['created','>=',$start],['created','<=',$end],$conn])->get();
+        }else{
+            $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        }
         foreach($o as $v)
         {
             $order_7d+= $v['cart_sum'];
@@ -84,7 +116,12 @@ class DashboardController extends AdminAppController
         $order_thangnay = 0;
         $start = strtotime(date('Y-m-01 00:00:00', $time));
         $end = strtotime(date('Y-m-31 23:59:59', $time));
-        $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        if(count($conn) > 0)
+        {
+            $o = Order::where([['created','>=',$start],['created','<=',$end],$conn])->get();
+        }else{
+            $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        }
         foreach($o as $v)
         {
             $order_thangnay+= $v['cart_sum'];
@@ -96,7 +133,12 @@ class DashboardController extends AdminAppController
         $start = strtotime('1-1-'. $y . ' 00:00:00');
         $end = strtotime(date('t-1-'. $y . ' 23:59:59',$start));
 
-        $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        if(count($conn) > 0)
+        {
+            $o = Order::where([['created','>=',$start],['created','<=',$end],$conn])->get();
+        }else{
+            $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        }
         foreach($o as $v)
         {
             $t1 += $v['cart_sum'];
@@ -107,7 +149,12 @@ class DashboardController extends AdminAppController
         $start = strtotime('1-2-'. $y . ' 00:00:00');
         $end = strtotime(date('t-2-'. $y . ' 23:59:59',$start));
         
-        $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        if(count($conn) > 0)
+        {
+            $o = Order::where([['created','>=',$start],['created','<=',$end],$conn])->get();
+        }else{
+            $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        }
         foreach($o as $v)
         {
             $t2 += $v['cart_sum'];
@@ -118,7 +165,12 @@ class DashboardController extends AdminAppController
         $t3 = 0;
         $start = strtotime('1-3-'. $y . ' 00:00:00');
         $end = strtotime(date('t-3-'. $y . ' 23:59:59',$start));
-        $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        if(count($conn) > 0)
+        {
+            $o = Order::where([['created','>=',$start],['created','<=',$end],$conn])->get();
+        }else{
+            $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        }
         foreach($o as $v)
         {
             $t3 += $v['cart_sum'];
@@ -129,7 +181,12 @@ class DashboardController extends AdminAppController
         $t4 = 0;
         $start = strtotime('1-4-'. $y . ' 00:00:00');
         $end = strtotime(date('t-4-'. $y . ' 23:59:59',$start));
-        $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        if(count($conn) > 0)
+        {
+            $o = Order::where([['created','>=',$start],['created','<=',$end],$conn])->get();
+        }else{
+            $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        }
         foreach($o as $v)
         {
             $t4 += $v['cart_sum'];
@@ -139,7 +196,12 @@ class DashboardController extends AdminAppController
         $t5 = 0;
         $start = strtotime('1-5-'. $y . ' 00:00:00');
         $end = strtotime(date('t-5-'. $y . ' 23:59:59',$start));
-        $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        if(count($conn) > 0)
+        {
+            $o = Order::where([['created','>=',$start],['created','<=',$end],$conn])->get();
+        }else{
+            $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        }
         foreach($o as $v)
         {
             $t5 += $v['cart_sum'];
@@ -150,7 +212,12 @@ class DashboardController extends AdminAppController
         $t6 = 0;
         $start = strtotime('1-6-'. $y . ' 00:00:00');
         $end = strtotime(date('t-6-'. $y . ' 23:59:59',$start));
-        $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        if(count($conn) > 0)
+        {
+            $o = Order::where([['created','>=',$start],['created','<=',$end],$conn])->get();
+        }else{
+            $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        }
         foreach($o as $v)
         {
             $t6 += $v['cart_sum'];
@@ -161,7 +228,12 @@ class DashboardController extends AdminAppController
         $t7 = 0;
         $start = strtotime('1-7-'. $y . ' 00:00:00');
         $end = strtotime(date('t-7-'. $y . ' 23:59:59',$start));
-        $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        if(count($conn) > 0)
+        {
+            $o = Order::where([['created','>=',$start],['created','<=',$end],$conn])->get();
+        }else{
+            $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        }
         foreach($o as $v)
         {
             $t7 += $v['cart_sum'];
@@ -172,7 +244,12 @@ class DashboardController extends AdminAppController
         $t8 = 0;
         $start = strtotime('1-8-'. $y . ' 00:00:00');
         $end = strtotime(date('t-8-'. $y . ' 23:59:59',$start));
-        $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        if(count($conn) > 0)
+        {
+            $o = Order::where([['created','>=',$start],['created','<=',$end],$conn])->get();
+        }else{
+            $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        }
         foreach($o as $v)
         {
             $t8 += $v['cart_sum'];
@@ -183,7 +260,12 @@ class DashboardController extends AdminAppController
         $t9 = 0;
         $start = strtotime('1-9-'. $y . ' 00:00:00');
         $end = strtotime(date('t-9-'. $y . ' 23:59:59',$start));
-        $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        if(count($conn) > 0)
+        {
+            $o = Order::where([['created','>=',$start],['created','<=',$end],$conn])->get();
+        }else{
+            $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        }
         foreach($o as $v)
         {
             $t9 += $v['cart_sum'];
@@ -194,7 +276,12 @@ class DashboardController extends AdminAppController
         $t10 = 0;
         $start = strtotime('1-10-'. $y . ' 00:00:00');
         $end = strtotime(date('t-10-'. $y . ' 23:59:59',$start));
-        $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        if(count($conn) > 0)
+        {
+            $o = Order::where([['created','>=',$start],['created','<=',$end],$conn])->get();
+        }else{
+            $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        }
         foreach($o as $v)
         {
             $t10 += $v['cart_sum'];
@@ -205,7 +292,12 @@ class DashboardController extends AdminAppController
         $t11 = 0;
         $start = strtotime('1-11-'. $y . ' 00:00:00');
         $end = strtotime(date('t-11-'. $y . ' 23:59:59',$start));
-        $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        if(count($conn) > 0)
+        {
+            $o = Order::where([['created','>=',$start],['created','<=',$end],$conn])->get();
+        }else{
+            $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        }
         foreach($o as $v)
         {
             $t11 += $v['cart_sum'];
@@ -216,7 +308,12 @@ class DashboardController extends AdminAppController
         $t12 = 0;
         $start = strtotime('1-12-'. $y . ' 00:00:00');
         $end = strtotime(date('t-12-'. $y . ' 23:59:59',$start));
-        $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        if(count($conn) > 0)
+        {
+            $o = Order::where([['created','>=',$start],['created','<=',$end],$conn])->get();
+        }else{
+            $o = Order::where([['created','>=',$start],['created','<=',$end]])->get();
+        }
         foreach($o as $v)
         {
             $t12 += $v['cart_sum'];
@@ -224,7 +321,13 @@ class DashboardController extends AdminAppController
         $data_chart_order[] = $t12;
         
         // Toàn thời gian
-        $o_full = Order::get();
+        if(count($conn) > 0)
+        {
+            $o_full = Order::where([$conn])->get();
+        }else {
+            $o_full = Order::get();
+        }
+
         $order_full_total = 0;
         $order_full_price = 0;
         foreach($o_full as $v)
@@ -248,7 +351,12 @@ class DashboardController extends AdminAppController
             $data['user'] = count($user);
         }
         // Thống kê order
-        $order = Order::orderBy('id','desc')->skip(0)->take(10)->get();
+        if(count($conn) > 0)
+        {
+            $order = Order::where([$conn])->orderBy('id','desc')->skip(0)->take(10)->get();
+        }else {
+            $order = Order::orderBy('id','desc')->skip(0)->take(10)->get();
+        }
         if($order != null) {
             $data['order'] = $order;
         }

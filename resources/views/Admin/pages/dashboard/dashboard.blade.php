@@ -7,11 +7,6 @@
 
 @stop
 
-{{-- <!-- 
-@section('breadcrumb')
-@include('Web.element.breadcrumb')
-@stop --> --}}
-
 @section('content')
 <div class="main-content">
 
@@ -22,6 +17,16 @@
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0 font-size-18">dashboard</h4>
+                        <div>
+                            <form action="" method="get" id="form-search">
+                                <select name="branch" id="" class="form-select" onchange="$('#form-search').submit()">
+                                    <option value="0">Tất cả chi nhánh</option>
+                                    <?php	 foreach($branch as $k => $v) { 	 ?>
+                                        <option value="<?php echo $k; ?>"  <?php echo isset($_GET['branch']) && $_GET['branch'] == $k ? 'selected' : '';	 ?>><?php	 echo $v; 	 ?></option>
+                                    <?php	 } 	 ?>
+                                </select>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

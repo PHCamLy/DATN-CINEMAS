@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Branch;
 use App\Models\Category;
+use App\Models\Coupon;
 use App\Models\Option;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -121,6 +122,15 @@ class AppController extends Controller
         if($o != null)
         {
           view()->share('options', $o);
+        }
+    }
+
+    public function get_coupon()
+    {
+        $o = Coupon::where([['status',1],['time','>=',time()]])->get();
+        if($o != null)
+        {
+          view()->share('coupon', $o);
         }
     }
 

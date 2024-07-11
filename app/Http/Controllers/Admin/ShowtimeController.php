@@ -9,6 +9,7 @@ use App\Models\Node;
 use App\Models\Room;
 use App\Models\Setting;
 use App\Models\Showtime;
+use App\Models\Timeslot;
 use Exception;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -55,7 +56,16 @@ class ShowtimeController extends AdminAppController
             $film_list[$v['id']] = $v['title'];
         }
         view()->share('film_list', $film_list);
-        
+
+
+        $t = Timeslot::get();
+        $timeslot = [];
+        foreach($t as $v)
+        {
+            $timeslot[$v['id']] = $v['time_start'] . ' - ' . $v['time_end'];
+        }
+        view()->share('timeslot', $timeslot);
+        // lấy danh sách 
     }
 
     public function showtime_list()
@@ -66,13 +76,8 @@ class ShowtimeController extends AdminAppController
         ->join('rooms', 'showtimes.room_id', '=', 'rooms.id')
         ->select('showtimes.*','nodes.slug','nodes.title as film_tile','rooms.title as room_title',)
         ->paginate(15);
-        $data = [];
-        foreach($d as $v)
-        {   
-            $v = json_decode(json_encode($v), true);
-            $data[] = $v;
-        }
-        return view($this->view_path . $this->folder.'.showtime_list',['data' => $data]);
+       
+        return view($this->view_path . $this->folder.'.showtime_list',compact('d'));
     }
 
     public function showtime_add(Request $req)
@@ -86,72 +91,12 @@ class ShowtimeController extends AdminAppController
         {
             // try {
                 $data = $data_all[$this->alias];
-                // xử lý time
-                if($data['time'] != '')
-                {
-                    $t = explode(' ',$data['time']) ;
-                    $data['day'] = strtotime($t['0']);
-                    $data['hour'] = strtotime($data['time']);
-
-                    // giờ bắt đầu buổi tối
-                    $end_day = strtotime($t['0'] . ' 18:00');
-                    
-                    // check time thuoc ngay nao de tinh gia hop le
-                    $date = getdate($data['day']);
-                    // $setting[$date['wday']]
-                    
-                    // giá trị tăng giá theo ngày
-                    $percent = $setting[$date['wday']]['ngay'];
-                    if($data['hour'] >= $end_day )
-                    {
-                        $percent = $setting[$date['wday']]['dem'];
-                    }
-                    $percent = (int) $percent;
-                    $f = Film::where(['node_id' => $data['node_id']])->first();
-              
-                    if($f != null)
-                    {
-                        // tính giờ kết thúc bộ film
-                        $phut = preg_replace('/[^0-9]/', '', $f['time']);
-
-                        $end_time = strtotime ( '+'. $phut .' minute' ,  $data['hour']) ;
-                        $data['end_hour'] =  $end_time;
-
-                        // tính giá
-                        $price  =  $f['price'];
-                        if($percent > 0)
-                        {
-                            $price = $price + (($percent/100) * $price);
-                            $price = (int)$price;
-                        }
-                        $data['price'] = $price;
-                    }
-                }
-                // check trong khung giờ đấy, phòng đấy xem có xuất chiếu nào chưa
-                $check = Showtime::where(
-                    [
-                        ['branch_id',$data['branch_id']],
-                        ['room_id', $data['room_id']],
-                    ]
-                )->where(function (Builder $query )use ($data) {
-                    $query->orWhere([
-                        ['hour','<=', $data['end_hour']],
-                        ['end_hour', '>=' , $data['end_hour']],
-                    ])->orWhere([
-                        ['hour','<=', $data['hour']],
-                        ['end_hour', '>=' , $data['hour']],
-                    ]);
-                })->first();
-                if($check != null)
-                {
-                    $this->res['msg'] = 'Thời gian bị trung với lịch đã có trước đó';
-                    $this->res['res'] = 'err';
-                    session()->flash('msg', json_encode($this->res));
-                    return Redirect::back();
-                }
-
-                unset($data['time']);
-
+                // dd($data);
+                $time = time();
+  
+                $data['created'] =  $time;
+                $data['modified'] =  $time;
+                // ROOM
                 $room_id = $data['room_id'];
                 $r = Room::find($room_id);
                 if($r != null)
@@ -172,31 +117,118 @@ class ShowtimeController extends AdminAppController
                     $data['image'] = end($data_all['images']);
                 }
 
-                $data['price'] = preg_replace('/[^0-9]/', '', $data['price']);
 
-                $time = time();
-                
-                $data['created'] =  $time;
-                $data['modified'] =  $time;
-
-                $s = new Showtime();
-                
-                foreach($data as $k => $val)
+                // check time slot 
+                $timeslot_id = isset($data['timeslot_id']) && is_numeric($data['timeslot_id']) ? $data['timeslot_id'] : 0;
+                if($timeslot_id == 0)
                 {
-                    if($val != null)
+                    $this->res['msg'] = 'Vui lòng chọn khung giờ';
+                    $this->res['res'] = 'err';
+                    session()->flash('msg', json_encode($this->res));
+                    return Redirect::back();
+                }
+
+                $timeslot = Timeslot::find($timeslot_id);
+
+                if($timeslot == null)
+                {
+                    $this->res['msg'] = 'Khung giờ này đã bị xóa!';
+                    $this->res['res'] = 'err';
+                    session()->flash('msg', json_encode($this->res));
+                    return Redirect::back();
+                }
+                $hour = $timeslot->time_start;
+
+                $times = $data['time'];
+                
+                unset($data['time']);
+                // xử lý time
+                if(is_array($times) && count($times) > 0)
+                {
+                    foreach($times as $v)
                     {
-                        $s[$k] = $this->removeXss($val);
+                        $data['day'] = strtotime($v);
+                        $data['hour'] = strtotime($v . ' '. $hour); 
+                        // giờ bắt đầu buổi tối
+                        $end_day = strtotime($v . ' 18:00');
+                        
+                        // check time thuoc ngay nao de tinh gia hop le
+                        $date = getdate($data['day']);
+                        // $setting[$date['wday']]
+                        
+                        // giá trị tăng giá theo ngày
+                        $percent = $setting[$date['wday']]['ngay'];
+                        if($data['hour'] >= $end_day )
+                        {
+                            $percent = $setting[$date['wday']]['dem'];
+                        }
+                        $percent = (int) $percent;
+                        $f = Film::where(['node_id' => $data['node_id']])->first();
+                
+                        if($f != null)
+                        {
+                            // tính giờ kết thúc bộ film
+                            $phut = preg_replace('/[^0-9]/', '', $f['time']);
+
+                            $end_time = strtotime( '+'. $phut .' minute' ,  $data['hour']) ;
+                            $data['end_hour'] =  $end_time;
+
+                            // tính giá
+                            $price  =  $f['price'];
+                            if($percent > 0)
+                            {
+                                $price = $price + (($percent/100) * $price);
+                                $price = (int)$price;
+                            }
+                            $data['price'] = $price;
+                        }
+
+                        // check trong khung giờ đấy, phòng đấy xem có xuất chiếu nào chưa
+                        $check = Showtime::where(
+                            [
+                                ['branch_id',$data['branch_id']],
+                                ['room_id', $data['room_id']],
+                            ]
+                        )->where(function (Builder $query )use ($data) {
+                            $query->orWhere([
+                                ['hour','<=', $data['end_hour']],
+                                ['end_hour', '>=' , $data['end_hour']],
+                            ])->orWhere([
+                                ['hour','<=', $data['hour']],
+                                ['end_hour', '>=' , $data['hour']],
+                            ]);
+                        })->first();
+                        if($check != null)
+                        {
+                            $this->res['msg'] = $data['day'] . ' thời gian bị trung với lịch đã có trước đó';
+                            $this->res['res'] = 'err';
+                            session()->flash('msg', json_encode($this->res));
+                            return Redirect::back();
+                        }
+
+                        $data['price'] = preg_replace('/[^0-9]/', '', $data['price']);
+
+                        $s = new Showtime();
+                        
+                        foreach($data as $k => $val)
+                        {
+                            if($val != null)
+                            {
+                                $s[$k] = $this->removeXss($val);
+                            }
+                        }
+                        $s->save();
                     }
                 }
-                $s->save();
+                
                 $this->res['msg'] = 'Đã thêm thành công';
                 $this->res['res'] = 'done';
                 // session()->flash('msg', json_encode($this->res));
-            // } catch (Exception $e) {
-            //     $this->res['msg'] = 'Đã có lỗi xảy ra, vui lòng thử lại';
-            // }
-            session()->flash('msg', json_encode($this->res));
-            return redirect('/'.$this->link_add);
+                // } catch (Exception $e) {
+                //     $this->res['msg'] = 'Đã có lỗi xảy ra, vui lòng thử lại';
+                // }
+                session()->flash('msg', json_encode($this->res));
+                return redirect('/'.$this->link_add);
         }
 
         return view($this->view_path . $this->folder.'.showtime_add',['data' => $d]);

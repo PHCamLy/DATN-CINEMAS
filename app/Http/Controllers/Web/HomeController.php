@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Web\AppController;
 use App\Http\Controllers\Web\UserController;
+use App\Models\Admin;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Contact;
 use App\Models\Node;
+use App\Models\Notify;
 use App\Models\Option;
 use App\Models\Order;
 use App\Models\Room;
@@ -15,6 +17,7 @@ use App\Models\Showtime;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Nette\Utils\Finder;
 
 class HomeController extends AppController
 {
@@ -65,7 +68,8 @@ class HomeController extends AppController
     public function order_add($id)
     {
         $this->get_option();
-        
+        $this->get_coupon();
+
         if(is_numeric($id))
         {
             $showtime = Showtime::find($id);
@@ -350,6 +354,8 @@ class HomeController extends AppController
         $data = $request->all();
         $showtime_id = isset($data['showtime_id']) && is_numeric($data['showtime_id']) ? $data['showtime_id'] : 0;
         $total_price = isset($data['total_price']) && is_numeric($data['total_price']) ? $data['total_price'] : 0;
+        $coupon_discount = isset($data['coupon_discount']) && is_numeric($data['coupon_discount']) ? $data['coupon_discount'] : 0;
+        $coupon_id = isset($data['coupon_id']) && is_numeric($data['coupon_id']) ? $data['coupon_id'] : 0;
         $quantity = isset($data['quantity']) && is_numeric($data['quantity']) ? $data['quantity'] : 0;
         $key_ghe = isset($data['key_ghe']) && is_array($data['key_ghe']) ? $data['key_ghe'] : [];
         $options = isset($data['options']) && is_array($data['options']) ? $data['options'] : [];
@@ -414,6 +420,8 @@ class HomeController extends AppController
         $o['phone'] = $user['phone'];
         $o['email'] = $user['email'];
         $o['cart_sum'] = $total_price;
+        $o['coupon_discount'] = $coupon_discount;
+        $o['coupon_id'] = $coupon_id;
         $o['quantity'] = $quantity;
         $o['datetime'] = $st['hour'];
         $o['content'] = $content;
@@ -423,6 +431,16 @@ class HomeController extends AppController
         $o->save();
 
         $res['res'] = 'done';
+
+        // push notify
+        $data_notify = [
+            'type' => 'order',
+            'msg' => 'Có một đơn đặt vé mới từ khách hàng số điện thoại '. $user['phone'],
+            'link' => 'admin/order/order_list?phone=' . $user['phone'],
+            
+        ];
+        $this->push_notify($data_notify);
+
         echo json_encode($res);
         die();
         
@@ -504,7 +522,7 @@ class HomeController extends AppController
         
         $user_id = 0;
         
-        if($user == null)
+        if($user != null)
         {
             $fullname = $user['fullname'];
             $phone = $user['phone'];
@@ -524,11 +542,19 @@ class HomeController extends AppController
         $c->save();
         $res['res'] = 'done';
         $res['msg'] = 'Bạn đã gửi liên hệ thành công!';
+
+        // push notify
+        $data_notify = [
+            'type' => 'order',
+            'msg' => 'Có một liên hệ hỗ trợ mới từ khách hàng có sdt '. $phone,
+            'link' => 'admin/contact/contact_list?phone=' . $phone,
+        ];
+        $this->push_notify($data_notify);
+        
         echo json_encode($res);
         die();
         
     }
-
     
     // user 
     public function user_dashboard(Request $reques) {
@@ -682,6 +708,48 @@ class HomeController extends AppController
         view()->share('data', $data);
         return view($this->view_path . 'home.user_history');
 
+    }
+
+
+    // private
+    private function push_notify($data)
+    {
+        $type = $data['type'];
+        $admin_id = [1];
+        if($type == 'order')
+        {
+            // find admin has role order_list
+            $ad = Admin::where('roles', 'like', '%' . 'order_list' . '%')->get();
+            foreach($ad as $v){
+                $admin_id[] = $v['id'];
+            }
+        }
+        if($type == 'contact')
+        {
+            // find admin has role contact_list
+            $ad = Admin::where('roles', 'like', '%' . 'contact_list' . '%')->get();
+            foreach($ad as $v){
+                $admin_id[] = $v['id'];
+            }
+        }
+        foreach($admin_id as $v)
+        {
+            $notify = new Notify();
+            $notify->admin_id = $v;
+            $notify->msg = $data['msg'];
+            $notify->link = $data['link'];
+            $notify->status = 0;
+            $notify->created = time();
+            $notify->save();
+        }
+        return true;
+    }
+
+
+    // ppage_404
+    public function page_404()
+    {
+        return view($this->view_path . 'home.page_404');
     }
 
 }

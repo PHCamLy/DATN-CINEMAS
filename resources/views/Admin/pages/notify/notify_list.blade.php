@@ -4,14 +4,7 @@
 
 {{-- impoort thư viện css --}}
 @section('style-libraries')
-<?php	 
-$data = [];
-foreach($d as $v)
-{   
-    $v = json_decode(json_encode($v), true);
-    $data[] = $v;
-}
-?>
+
 @stop
 @section('content')
 <div class="main-content">
@@ -68,27 +61,9 @@ foreach($d as $v)
                                         <thead class="table-light">
                                             <tr>
                                                 <th width="50">Stt</th>
-                                                <th class="text-center" width="200">
-                                                    Rạp chiếu
-                                                </th>
-                                                <th class="text-center" width="200">
-                                                    Phòng chiếu
-                                                </th>
                                                 <th class="text-center">
-                                                    Bộ Film
-                                                </th>
-                                                <th class="text-center" width="150">
-                                                    Thời gian chiếu
-                                                </th>
-                                                <th class="text-center" width="100">
-                                                    Giá tiền
-                                                </th>
-                                                <th class="text-center" width="150">
-                                                    Ghế
-                                                </th>
-                                                <th class="text-center" width="150">Trạng thái</th>
-                                                <th class="text-center" width="100">
-                                                    Sửa
+                                                    Nội dung
+                                                    <?php echo $label; ?>
                                                 </th>
                                                 <th class="text-center" width="100">
                                                     Xóa
@@ -105,34 +80,7 @@ foreach($d as $v)
                                                     <?php	 echo $stt; 	 ?>
                                                 </td>
                                                 <td class="text-center">
-                                                    <?php	 echo isset($branch_list[$v['branch_id']]) ? $branch_list[$v['branch_id']]: ''; 	 ?>
-                                                </td>
-                                                <td class="text-center">
-                                                    <?php	 echo $v['room_title']; 	 ?>
-                                                </td>
-                                                <td class="text-center">
-                                                    <?php	 echo $v['film_tile']; 	 ?>
-                                                </td>
-                                                <td class="text-center">
-                                                    <?php	 echo date('d-m-Y H:i',$v['hour']); 	 ?>
-                                                </td>
-                                                <td class="text-center">
-                                                    <?php	 echo number_format($v['price']); 	 ?>
-                                                </td>
-                                                <td class="text-center">
-                                                    <?php	 echo ($v['empty']); 	 ?> ghế trống
-                                                </td>
-                                                <td class="text-center">
-                                                    <?php	 echo ($v['status']) == 1 ? 'Kích hoạt' : 'Chưa kích hoạt' ;	 ?>
-                                                </td>
-                                                <td class="text-center">
-                                                    <?php	 if($v['status'] == 0) {	 ?>
-                                                    <a class="btn btn-outline-secondary btn-sm"
-                                                        href="<?php echo $DOMAIN . $link_edit . ($v['id']); ?>">
-                                                        <i class="fas fa-pencil-alt">
-                                                        </i>
-                                                    </a>
-                                                    <?php	 } 	 ?>
+                                                    <?php	 echo $v['msg']; 	 ?>
                                                 </td>
                                                 <td class="text-center">
                                                     <a class="btn  btn-sm" href="javascript:;"
@@ -148,9 +96,6 @@ foreach($d as $v)
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
-                            <div class="nav">
-                                {{ $d->links() }}
                             </div>
                         </div>
                     </div>
